@@ -25,7 +25,6 @@ entities = {
 
 autoReply = {
   greeting: '¡Hola! ¿Qué tal estás?'
-  // 'know-date-time': 'Todavía es muy temprano... no te preocupes.'
 };
 
 intelligence = [];
@@ -116,8 +115,6 @@ roughSizeOfObject = function( object ) {
 
 buildIntelligence = function() {
 
-  console.log('Building intelligence...');
-
   lodash.forOwn(intentions, function(phrases, intention) {
 
     lodash.map(phrases, function(phrase) {
@@ -153,10 +150,6 @@ buildIntelligence = function() {
     });
 
   } );
-
-  console.log('intelligence', intelligence);
-
-  console.log('Done!', roughSizeOfObject(intelligence), 'KB');
 }
 
 buildIntelligence();

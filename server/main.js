@@ -1,7 +1,6 @@
 Meteor.startup(() => {
 
   buildIntelligence();
-  textRequest('Quién es El Cid', true);
 
   insertMessage = function(direction, text) {
     var docId = chat.insert({
