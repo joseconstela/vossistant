@@ -1,0 +1,78 @@
+<head>
+  <title>simple</title>
+</head>
+
+<body>
+  {{> navBar}}
+
+  {{#if currentUser }}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"> {{> sidebar}} </div>
+      <div class="col-md-8"> {{> conversation}} </div>
+    </div>
+  </div>
+  {{else}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">Login first</div>
+    </div>
+  </div>
+  {{/if}}
+
+  {{> sAlert}}
+</body>
+
+<template name="navBar">
+
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Vossistant</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {{> loginButtons}} <!-- here -->
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+</template>
+
+
+<template name="sidebar">
+
+</template>
+
+<template name="conversation">
+  <div class="row">
+    <div class="col-md-12">
+      <textarea id="inbound" class="form-control" rows="3"></textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="responses">
+        <ul class="list-group">
+          {{#each chat}}
+          {{> chatItem}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="chatItem">
+  <li class="list-group-item">{{text}}</li>
+</template>
