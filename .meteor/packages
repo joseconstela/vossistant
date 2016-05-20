@@ -17,7 +17,6 @@ standard-minifier-js    # JS minifier run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
-insecure                # Allow all DB writes from clients (for prototyping)
 twbs:bootstrap
 accounts-base
 accounts-password
@@ -27,3 +26,7 @@ juliancwirko:s-alert
 iron:router
 practicalmeteor:chai
 avital:mocha
+aldeed:collection2
+aldeed:simple-schema
+momentjs:moment
+rzymek:moment-locale-es

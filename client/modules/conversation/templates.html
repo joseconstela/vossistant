@@ -1,0 +1,19 @@
+<template name="conversation">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="responses">
+        <div class="list-group">
+          {{#each chat}}
+          {{> chatItem}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="chatItem">
+  <div class="list-group-item">
+    {{text}}
+  </div>
+</template>

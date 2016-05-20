@@ -1,6 +1,6 @@
 Meteor.startup(() => {
 
-  buildIntelligence();
+  moment.locale('es');
 
   insertMessage = function(direction, text) {
     var docId = chat.insert({
@@ -19,26 +19,26 @@ Meteor.startup(() => {
         throw new Meteor.Error('not-authorized');
       }
 
-      console.log('save...', text);
       insertMessage('inbound', text);
 
       var analysis = textRequest(text);
+
       if (!!analysis) {
+
         if (!!analysis.autoReply) {
           insertMessage('outbound', analysis.autoReply);
-          return {say: analysis.autoReply};
         } else if (!!actions[analysis.intention]) {
           var response = actions[analysis.intention](analysis);
-          console.log('response', response);
-          // Save to DB
-          if (!!response.say) {
+          if (!!response.text) {
+            insertMessage('outbound', response.text);
+          } else if (!!response.say) {
             insertMessage('outbound', response.say);
-            return {say: response.say};
           }
+          return response;
         }
       }
 
-      return {};
+      return analysis;
 
     }
   });
