@@ -2,13 +2,22 @@ Meteor.startup(() => {
 
   moment.locale('es');
 
-  insertMessage = function(direction, text) {
-    var docId = chat.insert({
-      userId: Meteor.userId(),
-      createdAt: new Date(),
-      direction: direction,
-      text: text
-    });
+  insertMessage = function(direction, text, responseTo) {
+
+    if (responseTo) {
+      return chat.update({_id: responseTo}, {
+        $set: { response: text }
+      });
+    } else {
+      return chat.insert({
+        userId: Meteor.userId(),
+        createdAt: new Date(),
+        direction: direction,
+        text: text
+      });
+    }
+
+
   }
 
   Meteor.methods({
@@ -19,9 +28,11 @@ Meteor.startup(() => {
         throw new Meteor.Error('not-authorized');
       }
 
-      insertMessage('inbound', text);
+      var textId = insertMessage('inbound', text);
 
       var analysis = textRequest(text);
+
+      console.log('textRequest', analysis);
 
       if (!!analysis) {
 
@@ -29,21 +40,29 @@ Meteor.startup(() => {
 
           var action = actions[analysis.intention](analysis);
 
+          console.log('action?', action);
+
           if (!action) return false;
 
           if (!!action.command) {
-            if (action.command === 'profile') {
+
+            if (action.command.application === 'mongo') {
               Meteor.users.update({
                 _id: Meteor.userId()
-              }, {$set: action.parameters});
+              }, {$set: action.command.parameters});
+              delete action.command;
+            } else {
+              if (commands.execute(action, false)) {
+                console.log('remove');
+                delete action.command;
+              }
             }
           }
 
           if (!!action.text) {
-            insertMessage('outbound', action.text);
-          } else if (!!action.say) {
-            insertMessage('outbound', action.say);
+            insertMessage('outbound', action.text, textId);
           }
+
           return action;
         }
       }

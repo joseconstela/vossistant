@@ -1,15 +1,27 @@
 intentions = {
   'vo-name': [
-    'Llámame _',
-    'Mi nombre es _',
-    'Me llamo _',
-    'A partir de ahora llámame _',
-    'Desde ahora llámame _'
+    'Llámame (.+)',
+    'Mi nombre es (.+)',
+    'Me llamo (.+)',
+    'A partir de ahora llámame (.+)',
+    'A partir de ahora me llames (.+)',
+    'Desde ahora llámame (.+)'
+  ],
+  'vo-logout': [
+    'Cerrar sesión'
   ],
   'wiki': [
-    'Quién es _',
-    'Quién era _',
-    'Qué es _'
+    'Quién es un (.+)',
+    'Quién es una (.+)',
+    'Quién era la (.+)',
+    'Quién era el (.+)',
+    'Quién era (.+)',
+    'Qué es un (.+)',
+    'Qué es una (.+)',
+    'Qué son los (.+)',
+    'Qué son las (.+)',
+    'Qué era (.+)',
+    'Qué es (.+)'
   ],
   'greeting': [
     'Hola %greetings%',
@@ -21,7 +33,8 @@ intentions = {
     'Me pregunto a que %datetime-period% estamos'
   ],
   'multi-media': [
-    'Quiero ver %mmedia-video%'
+    'Quiero ver %mmedia-video-type%',
+    'Quiero ver (.+)'
   ]
 };
 
@@ -29,21 +42,21 @@ entities = {
   'greetings': {
     'morning': [ 'buenos días' ]
   },
-  'mmedia-video': {
-    'film': [ 'una peli', 'una película' ],
+  'mmedia-video-type': {
     'show': [ 'una serie' ],
     'action': [ 'una película de acción' ],
     'rewarded': [ 'película premiada' ],
     'all-family': [ 'una película para la familia', 'una película en familia', 'una película para toda la familia' ],
     'commedy': [ 'una comedia', 'una película de humor' ],
     'docummentary': [ 'un documental' ],
-    'drama': [ 'una película de drama' ],
-    'terror': [ 'una película de terror' ],
+    'drama': [ 'una película de drama', 'un drama', 'un dramón' ],
+    'terror': [ 'una película de terror', 'una película de miedo', 'una peli de terror', 'una peli de miedo' ],
     'independent': [ 'una película independiente' ],
     'romantic': [ 'una película romántica' ],
     'scify': [ 'una película de ciencia ficción' ],
     'humorist': [ 'un humorista', 'un monólogo' ],
-    'thriller': [ 'un thriller' ]
+    'thriller': [ 'un thriller' ],
+    'film': [ 'una peli', 'una película' ]
   },
   'datetime-period': {
     'time': [ 'hora' ],
@@ -98,9 +111,7 @@ textRequest = function(phrase, test) {
 regrexMatch = function (phrase, search, words) {
 
   var ww = null;
-  if (words === '_') {
-    return phrase.replace(new RegExp('_'), '(.+)');
-  } else if (typeof words === 'string') {
+  if (typeof words === 'string') {
     ww = words;
   } else if (typeof words === 'object') {
     ww = '('+words.join('|')+')';
@@ -151,16 +162,9 @@ buildIntelligence = function() {
 
     lodash.map(phrases, function(phrase) {
 
-      var wildCard = phrase.match(/\_/g);
-      var _entities = phrase.match(/%(\w+(-\w+)*)%/g);
+      console.log('phrase', phrase);
 
-      if (!!wildCard) {
-        if (!!_entities) {
-          _entities.push('_');
-        } else {
-          _entities = ['_'];
-        }
-      }
+      var _entities = phrase.match(/%(\w+(-\w+)*)%/g);
 
       var _uniqueEntities = lodash.uniq(_entities);
       var _listEntities = [];
@@ -174,25 +178,16 @@ buildIntelligence = function() {
         lodash.forEach(_uniqueEntities, function(_ue) {
           var _uec = _ue.replace(/\%/gi,'');
 
-          if (_uec === '_') {
-
+          lodash.forOwn(entities[_uec], function(values, keys) {
+            var data = {};
+            data[_uec] = keys;
+            values = lodash.map(values, function(v) { return normalize(v); });
             intelligence.push({
               intention: intention,
-              phrase: regrexMatch(normalize(phrase), _ue, _uec)
+              phrase: regrexMatch(normalize(phrase), _ue, values),
+              data: data
             });
-
-          } else {
-            lodash.forOwn(entities[_uec], function(values, keys) {
-              var data = {};
-              data[_uec] = keys;
-              values = lodash.map(values, function(v) { return normalize(v); });
-              intelligence.push({
-                intention: intention,
-                phrase: regrexMatch(normalize(phrase), _ue, values),
-                data: data
-              });
-            });
-          }
+          });
 
         });
       }
@@ -203,3 +198,7 @@ buildIntelligence = function() {
 
 }
 buildIntelligence();
+// console.log(intelligence);
+//textRequest('Que hora es', true);
+textRequest('Que es Peru', true);
+textRequest('Qué es Perú', true);

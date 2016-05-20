@@ -25,6 +25,10 @@ chat.attachSchema(new SimpleSchema({
   },
   'text': {
     type: String
+  },
+  'response': {
+    type: String,
+    optional: true
   }
 
 }));

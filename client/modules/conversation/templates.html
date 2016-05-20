@@ -1,19 +1,18 @@
 <template name="conversation">
-  <div class="row">
-    <div class="col-md-12">
-      <div id="responses">
-        <div class="list-group">
-          {{#each chat}}
-          {{> chatItem}}
-          {{/each}}
-        </div>
-      </div>
-    </div>
+  <div id="responses" class="list-group">
+    {{#each chat}}
+    {{> chatItem}}
+    {{/each}}
   </div>
 </template>
 
 <template name="chatItem">
   <div class="list-group-item">
-    {{text}}
+    {{#if response}}
+      <h4 class="list-group-item-heading">{{{chatText text}}}</h4>
+      <p class="list-group-item-text response">{{{chatText response}}}</p>
+    {{else}}
+      <p class="list-group-item-text">{{{chatText text}}}</p>
+    {{/if}}
   </div>
 </template>
