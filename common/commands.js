@@ -1,8 +1,8 @@
 commands = {
 
   /**
-   * MMain method of command execution
-   * @param  {string}  action   commands method to be executed.
+   * Main method of command execution
+   * @param  {Object}  action   commands method to be executed.
    * @param  {Boolean} isClient Allows you to filter where your command is meant to run.
    * @return {Boolean} executed If isClient is false and executed is TRUE, command is not sent to the browser, so it won't be triggered twice.
    */

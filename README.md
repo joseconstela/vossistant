@@ -14,10 +14,10 @@ Any help is welcome.
 
 ## Flow
 
-1. The server builds a huuuge list of regex-ready commands based on [intentions@server/ai.js](https://github.com/joseconstela/vossistant/blob/master/server/ai.js#L1) and [entities@server/ai.js](https://github.com/joseconstela/vossistant/blob/master/server/ai.js#54), called ```intelligence```.
+1. The server builds a huuuge list of regex-ready commands based on [intentions](https://github.com/joseconstela/vossistant/blob/master/server/ai.js#L1) and [entities](https://github.com/joseconstela/vossistant/blob/master/server/ai.js#54), called ```intelligence```.
 2. User gives a command (it creates a mongo doc)
-3. If the user input matches an intelligence phrase, it calls [actions@server/actions.js](https://github.com/joseconstela/vossistant/blob/master/server/actions.js) (if any) to create actions. See below.
-4. If ```action``` returns ```text```, then ```text``` is saved within the user's original message.
+3. If the user input matches an intelligence phrase, it calls [actions](https://github.com/joseconstela/vossistant/blob/master/server/actions.js) (if any) to create actions. See below.
+4. If the ```action``` returns ```text```, then ```text``` is saved within the user's original message mongo doc. (see the [chat collection schema](https://github.com/joseconstela/vossistant/blob/master/common/collections.js))
 5. ```actions``` can also contain ```commands``` as in the following example, that can be executed server-side and client-side. See [common/commands.js](https://github.com/joseconstela/vossistant/blob/master/common/commands.js)
 
 Example of an action response:
