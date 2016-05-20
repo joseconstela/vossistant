@@ -18,6 +18,7 @@ Any help is welcome.
 2. User gives a command (it creates a mongo doc)
 3. If the user input matches an intelligence phrase, it calls [actions@server/actions.js](https://github.com/joseconstela/vossistant/blob/master/server/actions.js) (if any) to create actions. See below.
 4. If ```action``` returns ```text```, then ```text``` is saved within the user's original message.
+5. ```actions``` can also contain ```commands``` as in the following example, that can be executed server-side and client-side. See [common/commands.js](https://github.com/joseconstela/vossistant/blob/master/common/commands.js)
 
 Example of an action response:
 

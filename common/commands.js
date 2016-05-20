@@ -1,5 +1,11 @@
 commands = {
 
+  /**
+   * MMain method of command execution
+   * @param  {string}  action   commands method to be executed.
+   * @param  {Boolean} isClient Allows you to filter where your command is meant to run.
+   * @return {Boolean} executed If isClient is false and executed is TRUE, command is not sent to the browser, so it won't be triggered twice.
+   */
   execute: function(action, isClient) {
     if (!!commands[action.command.application]) {
       return commands[action.command.application](action.command.parameters, isClient);
@@ -19,7 +25,7 @@ commands = {
       }
 
     } else {
-      if (method === 'logout') {
+      if (method === 'logout') { // TODO fix update filter
         Meteor.users.update({}, {$set: { "services.resume.loginTokens" : [] }});
         return true;
       }
@@ -34,10 +40,14 @@ commands = {
     if (isClient) {
       window.open(data.join(''), '_blank').focus();
       return true;
-    } else {
+    }
+
+    /* FOR STANDALONE APP USAGE (osx)
+    if (!isClient) {
       var spawn = require('child_process').spawn;
       var bat = spawn('open', [data.join('')]);
       return true;
     }
+    */
   }
 };
