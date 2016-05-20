@@ -1,12 +1,19 @@
 body { padding-top: 70px; }
+
 #inbound {
-  font-size: 3em;
+  font-size: 2.8em;
   height: initial;
   margin-bottom: 30px;
 }
 
 #responses > div {
   margin-bottom: 20px;
+}
+
+#responses .list-group-item-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #responses .response {

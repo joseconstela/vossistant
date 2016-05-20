@@ -52,7 +52,7 @@ actions['wiki'] = function(analysis) {
     if (phrase.join('.') === '') { return fallback(termUrl); }
 
     return {
-      text: analysis.match + ': ' + phrase.join('.'),
+      text: phrase.join('.') + '.',
       say: phrase.join('.')
     };
   } catch (ex) {
@@ -63,7 +63,8 @@ actions['wiki'] = function(analysis) {
 
 actions['greeting'] = function(analysis) {
   return {
-    say: lodash.sample(['Hola', 'Hola, ¿Qué tal?'])
+    say: lodash.sample(['Hola', 'Hola, ¿Qué tal?']),
+    text: 'Hola, ¿qué tal?'
   };
 };
 
@@ -75,64 +76,104 @@ actions['know-date-time'] = function(analysis) {
 
   if (period === 'time') {
     response.push(date.getHours() === 1 ? 'Es la' : 'Son las');
-    response.push(date.getHours() + ':' +  date.getMinutes());
+    response.push( moment().format('HH:mm') );
     return {
-      say: response.join(' ')
+      say: response.join(' '),
+      text: response.join(' ')
     };
   } else if (period === 'day-of-month') {
     response.push('Estamos a día');
     response.push( moment().format('D') );
     return {
-      say: response.join(' ')
+      say: response.join(' '),
+      text: response.join(' ')
+    };
+  } else if (period === 'day-of-week') {
+    response.push('Estamos a');
+    response.push( moment().format('dddd') );
+    return {
+      say: response.join(' '),
+      text: response.join(' ')
     };
   } else if (period === 'day') {
     response.push('Hoy es');
     response.push( moment().format('dddd, D \\d\\e MMMM \\d\\e\\l YYYY') );
 
     return {
-      say: response.join(' ')
+      say: response.join(' '),
+      text: response.join(' ')
     };
   }
 
 };
 
-actions['multi-media'] = function(analysis) {
+actions['internet-search'] = function(analysis) {
+
+  var source = analysis.data['internet-search-sources'];
+
+  var sSources = {
+    'youtube': 'https://www.youtube.com/results?search_query=',
+    'google': 'https://www.google.es/#q=',
+    'bing': 'https://www.bing.com/search?q=',
+    'google maps': 'https://www.google.com/maps/search/',
+    'twitter': 'https://twitter.com/search?q='
+  };
+
+  var match = encodeURI(analysis.match);
+  return openBrowser([sSources[source], match], source);
+
+};
+
+actions['mmedia-search'] = function(analysis) {
+
+  var source = analysis.data['mmedia-sources'];
+
+  if (source === 'youtube') {
+    var searchUrl = 'https://www.youtube.com/results?search_query=';
+    var match = encodeURI(analysis.match);
+    return openBrowser([searchUrl, match], 'Youtube');
+  }
+
+};
+
+actions['mmedia-netflix'] = function(analysis) {
 
   if (!!analysis.data && !!analysis.data['mmedia-video-type']) {
 
     var type = analysis.data['mmedia-video-type'];
     var genderUrl = 'https://www.netflix.com/browse/genre/';
 
-    if (type === 'film') { return openBrowser(genderUrl, '83'); }
-    if (type === 'show') { return openBrowser(genderUrl, '83'); }
-    if (type === 'action') { return openBrowser(genderUrl, '1365'); }
-    if (type === 'rewarded') { return openBrowser(genderUrl, '89844'); }
-    if (type === 'all-family') { return openBrowser(genderUrl, '783'); }
-    if (type === 'commedy') { return openBrowser(genderUrl, '6548'); }
-    if (type === 'docummentary') { return openBrowser(genderUrl, '6839'); }
-    if (type === 'drama') { return openBrowser(genderUrl, '5763'); }
-    if (type === 'terror') { return openBrowser(genderUrl, '8711'); }
-    if (type === 'independent') { return openBrowser(genderUrl, '7077'); }
-    if (type === 'romantic') { return openBrowser(genderUrl, '8883'); }
-    if (type === 'scify') { return openBrowser(genderUrl, '1492'); }
-    if (type === 'humorist') { return openBrowser(genderUrl, '1516534'); }
-    if (type === 'thriller') { return openBrowser(genderUrl, '8933'); }
+    if (type === 'film') { return openBrowser(['https://www.netflix.com/browse'], 'Netflix'); }
+    if (type === 'show') { return openBrowser([genderUrl, '83'], 'Netflix'); }
+    if (type === 'action') { return openBrowser([genderUrl, '1365'], 'Netflix'); }
+    if (type === 'rewarded') { return openBrowser([genderUrl, '89844'], 'Netflix'); }
+    if (type === 'all-family') { return openBrowser([genderUrl, '783'], 'Netflix'); }
+    if (type === 'commedy') { return openBrowser([genderUrl, '6548'], 'Netflix'); }
+    if (type === 'docummentary') { return openBrowser([genderUrl, '6839'], 'Netflix'); }
+    if (type === 'drama') { return openBrowser([genderUrl, '5763'], 'Netflix'); }
+    if (type === 'terror') { return openBrowser([genderUrl, '8711'], 'Netflix'); }
+    if (type === 'independent') { return openBrowser([genderUrl, '7077'], 'Netflix'); }
+    if (type === 'romantic') { return openBrowser([genderUrl, '8883'], 'Netflix'); }
+    if (type === 'scify') { return openBrowser([genderUrl, '1492'], 'Netflix'); }
+    if (type === 'humorist') { return openBrowser([genderUrl, '1516534'], 'Netflix'); }
+    if (type === 'thriller') { return openBrowser([genderUrl, '8933'], 'Netflix'); }
 
   } else if (!!analysis.match) {
-    var searchUrl = 'https://www.netflix.com/search/';
-    var match = encodeURI(analysis.match);
-    return openBrowser(searchUrl, match);
+    return openBrowser([
+      'https://www.netflix.com/search/',
+      encodeURI(analysis.match)
+    ], 'Netflix');
   }
 
 }
 
-openBrowser = function() {
+openBrowser = function(url, provider) {
   return {
     command: {
       application: 'browser',
-      parameters: lodash.values(arguments)
+      parameters: url
     },
-    say: 'Ok, abriendo Netflix',
-    text: 'Abriendo ' + lodash.values(arguments).join('')
+    say: 'Ok, abriendo ' + provider,
+    text: 'Abriendo ' + url.join('')
   }
 }

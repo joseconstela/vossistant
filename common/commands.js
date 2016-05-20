@@ -28,6 +28,9 @@ commands = {
   },
 
   browser: function(data, isClient) {
+
+    if (!data.length) { return false; }
+
     if (isClient) {
       window.open(data.join(''), '_blank').focus();
       return true;

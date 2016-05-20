@@ -3,14 +3,17 @@ intentions = {
     'Llámame (.+)',
     'Mi nombre es (.+)',
     'Me llamo (.+)',
+    'De ahora en adelante me llamo (.+)',
+    'De ahora en adelante me llamaré (.+)',
     'A partir de ahora llámame (.+)',
-    'A partir de ahora me llames (.+)',
+    'A partir de ahora quiero que me llames (.+)',
     'Desde ahora llámame (.+)'
   ],
   'vo-logout': [
     'Cerrar sesión'
   ],
   'wiki': [
+    'Cuál es (.+)',
     'Quién es un (.+)',
     'Quién es una (.+)',
     'Quién era la (.+)',
@@ -28,17 +31,37 @@ intentions = {
     'Hola'
   ],
   'know-date-time': [
+    'Qué %datetime-period%',
     'Qué %datetime-period% es',
-    'Me pregunto que %datetime-period% es',
-    'Me pregunto a que %datetime-period% estamos'
+    'Me pregunto qué %datetime-period% es',
+    'Me pregunto a qué %datetime-period% estamos'
   ],
-  'multi-media': [
+  'mmedia-search': [
+    'Quiero ver (.+) en %mmedia-sources%',
+    'Ver (.+) en %mmedia-sources%'
+  ],
+  'mmedia-netflix': [
     'Quiero ver %mmedia-video-type%',
     'Quiero ver (.+)'
+  ],
+  'internet-search': [
+    'Quiero buscar (.+) en %internet-search-sources%',
+    'Buscar (.+) en %internet-search-sources%',
+    '(.+) en %internet-search-sources%'
   ]
 };
 
 entities = {
+  'internet-search-sources': {
+    'youtube': ['Youtube'],
+    'google maps': ['Google Maps', 'Mapas de google'],
+    'google': ['Google'],
+    'bing': ['Bing'],
+    'twitter': ['Twitter']
+  },
+  'mmedia-sources': {
+    'youtube': ['Youtube', 'internet']
+  },
   'greetings': {
     'morning': [ 'buenos días' ]
   },
@@ -59,10 +82,10 @@ entities = {
     'film': [ 'una peli', 'una película' ]
   },
   'datetime-period': {
-    'time': [ 'hora' ],
-    'day': [ 'día' ],
     'day-of-month': [ 'día del mes', 'día de mes' ],
-    'day-of-week': [ 'día de la semana', 'día de semana' ]
+    'day-of-week': [ 'día de la semana', 'día de semana' ],
+    'time': [ 'hora' ],
+    'day': [ 'día' ]
   }
 };
 
@@ -90,7 +113,7 @@ normalize = (function() {
 
 })();
 
-textRequest = function(phrase, test) {
+textRequest = function(phrase, debug) {
   phrase = normalize(phrase).trim();
   var r = null;
   lodash.forOwn(intelligence, function(values, keys) {
@@ -102,7 +125,7 @@ textRequest = function(phrase, test) {
     }
   });
 
-  if (!!test) {
+  if (!!debug) {
     console.log('test', '"' + phrase + '"', r);
   }
   return r;
@@ -156,13 +179,11 @@ roughSizeOfObject = function( object ) {
   return bytes/1024;
 }
 
-buildIntelligence = function() {
+buildIntelligence = function(debug) {
 
   lodash.forOwn(intentions, function(phrases, intention) {
 
     lodash.map(phrases, function(phrase) {
-
-      console.log('phrase', phrase);
 
       var _entities = phrase.match(/%(\w+(-\w+)*)%/g);
 
@@ -196,9 +217,18 @@ buildIntelligence = function() {
 
   } );
 
+  if(debug) {
+    console.log('intelligence size', roughSizeOfObject(intelligence));
+  }
+
 }
-buildIntelligence();
-// console.log(intelligence);
-//textRequest('Que hora es', true);
-textRequest('Que es Peru', true);
-textRequest('Qué es Perú', true);
+
+buildIntelligence(false);
+/* [
+  'Quiero buscar aa en Twitter',
+  'Buscar Celanova en Google Maps'
+].forEach(function(r) {
+  if (!textRequest(r, true)) {
+    console.log('FAIL', r);
+  }
+}); */

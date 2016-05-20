@@ -2,7 +2,6 @@ Template.inboundBox.onCreated(function conversationOnCreated() {
 
   $(function() {
     $("#inbound").focus(function(){
-      console.log('focus');
       $("#cuboid form").addClass("ready");
     })
     //remove '.ready' when user blus away but only if there is no content
@@ -31,6 +30,9 @@ Template.inboundBox.events({
     recognitionToggle(false);
 
     var txt = $('#inbound').val() ? $('#inbound').val() : final_transcript;
+
+    if (txt === '') return false;
+
     $('#inbound').val('');
     inbound('...');
 
@@ -50,8 +52,6 @@ Template.inboundBox.events({
       if (!result) {
         return false;
       }
-
-      console.log('Result', result);
 
       if (!!result.command) {
         commands.execute(result, true);

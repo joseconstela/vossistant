@@ -53,7 +53,6 @@ recognition.onresult = function(event) {
   for (var i = event.resultIndex; i < event.results.length; ++i) {
     if (event.results[i].isFinal) {
       final_transcript += event.results[i][0].transcript;
-      console.log('final_transcript', final_transcript);
     } else {
       interim_transcript += event.results[i][0].transcript;
     }

@@ -17,7 +17,6 @@ Meteor.startup(() => {
       });
     }
 
-
   }
 
   Meteor.methods({
@@ -32,15 +31,11 @@ Meteor.startup(() => {
 
       var analysis = textRequest(text);
 
-      console.log('textRequest', analysis);
-
       if (!!analysis) {
 
         if (!!actions[analysis.intention]) {
 
           var action = actions[analysis.intention](analysis);
-
-          console.log('action?', action);
 
           if (!action) return false;
 
@@ -53,7 +48,6 @@ Meteor.startup(() => {
               delete action.command;
             } else {
               if (commands.execute(action, false)) {
-                console.log('remove');
                 delete action.command;
               }
             }
