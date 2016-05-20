@@ -14,8 +14,10 @@ Any help is welcome.
 
 ## Flow
 
-1. The server builds a huuuge list of regex-ready commands based on [intentions@server/ai.js](https://github.com/joseconstela/vossistant/blob/master/server/ai.js#L1) and [entities@server/ai.js](https://github.com/joseconstela/vossistant/blob/master/server/ai.js#54)
-2. Matched requests, call [actions@server/actions.js](https://github.com/joseconstela/vossistant/blob/master/server/actions.js) (if any) to create actions.
+1. The server builds a huuuge list of regex-ready commands based on [intentions@server/ai.js](https://github.com/joseconstela/vossistant/blob/master/server/ai.js#L1) and [entities@server/ai.js](https://github.com/joseconstela/vossistant/blob/master/server/ai.js#54), called ```intelligence```.
+2. User gives a command (it creates a mongo doc)
+3. If the user input matches an intelligence phrase, it calls [actions@server/actions.js](https://github.com/joseconstela/vossistant/blob/master/server/actions.js) (if any) to create actions. See below.
+4. If ```action``` returns ```text```, then ```text``` is saved within the user's original message.
 
 Example of an action response:
 
@@ -32,4 +34,12 @@ Example of an action response:
 
 Not documented. See [server/ai.js](https://github.com/joseconstela/vossistant/blob/master/server/ai.js)
 
-## This is an <h2> tag
+## License
+
+Copyright (c) 2016 Jose Constela (joseconstela.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
