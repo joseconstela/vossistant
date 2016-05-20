@@ -6,6 +6,11 @@ intentions = {
     'A partir de ahora llámame _',
     'Desde ahora llámame _'
   ],
+  'wiki': [
+    'Quién es _',
+    'Quién era _',
+    'Qué es _'
+  ],
   'greeting': [
     'Hola %greetings%',
     'Hola'
@@ -97,7 +102,7 @@ regrexMatch = function (phrase, search, words) {
     return phrase.replace(new RegExp('_'), '(.+)');
   } else if (typeof words === 'string') {
     ww = words;
-  } else if (typeof words === 'Object') {
+  } else if (typeof words === 'object') {
     ww = '('+words.join('|')+')';
   } else {
     return false;
@@ -196,11 +201,5 @@ buildIntelligence = function() {
 
   } );
 
-  console.log('intelligence', intelligence);
-  console.log('int', roughSizeOfObject(intelligence));
-
 }
 buildIntelligence();
-textRequest('Hola', true);
-textRequest('Quiero ver una peli', true);
-textRequest('Llamame Jose', true);

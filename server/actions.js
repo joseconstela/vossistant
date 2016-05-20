@@ -1,7 +1,33 @@
 actions = {};
 
 actions['vo-name'] = function(analysis) {
-  console.log(analysis);
+  return {
+    command: 'profile',
+    parameters: {'profile.name':analysis.match},
+    say: 'De acuerdo. A partir de ahora te llamaré ' + analysis.match
+  };
+}
+
+actions['wiki'] = function(analysis) {
+
+  var url = ['https://es.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='];
+  url.push(encodeURI(analysis.match));
+
+  var res = request.sync(url.join(''));
+  if (res.response.statusCode == 200) {
+    var r = JSON.parse(res.body);
+
+    try {
+      var phrase = lodash.values(r.query.pages)[0].extract.split('.');
+      return {
+        say: phrase.slice(0,1).join('.')
+      };
+    } catch (ex) {
+
+    }
+
+  }
+
 }
 
 actions['greeting'] = function(analysis) {

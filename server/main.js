@@ -25,16 +25,26 @@ Meteor.startup(() => {
 
       if (!!analysis) {
 
-        if (!!analysis.autoReply) {
-          insertMessage('outbound', analysis.autoReply);
-        } else if (!!actions[analysis.intention]) {
-          var response = actions[analysis.intention](analysis);
-          if (!!response.text) {
-            insertMessage('outbound', response.text);
-          } else if (!!response.say) {
-            insertMessage('outbound', response.say);
+        if (!!actions[analysis.intention]) {
+
+          var action = actions[analysis.intention](analysis);
+
+          if (!action) return false;
+
+          if (!!action.command) {
+            if (action.command === 'profile') {
+              Meteor.users.update({
+                _id: Meteor.userId()
+              }, {$set: action.parameters});
+            }
           }
-          return response;
+
+          if (!!action.text) {
+            insertMessage('outbound', action.text);
+          } else if (!!action.say) {
+            insertMessage('outbound', action.say);
+          }
+          return action;
         }
       }
 

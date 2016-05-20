@@ -66,7 +66,6 @@ recognition.onresult = function(event) {
     final_transcript = interim_transcript = '';
     if(error){
       sAlert.error(error.reason);
-
       var msg = new SpeechSynthesisUtterance('¡Oh! Algo ha ido mal...');
       recognitionToggle(false);
       window.speechSynthesis.speak(msg);
@@ -74,7 +73,6 @@ recognition.onresult = function(event) {
         recognitionToggle(true);
       };
       return false;
-
     }
 
     if (!result) {
