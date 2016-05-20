@@ -34,7 +34,7 @@ Example of an action response:
 
 Not documented. See [server/ai.js](https://github.com/joseconstela/vossistant/blob/master/server/ai.js)
 
-## License
+## MIT License
 
 Copyright (c) 2016 Jose Constela (joseconstela.com)
 
