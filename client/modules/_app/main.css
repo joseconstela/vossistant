@@ -21,6 +21,16 @@ body { padding-top: 70px; }
   padding-left: 10px;
 }
 
+.big-text {
+  font-size: 3em;
+  text-align: center;
+  opacity: 0.2;
+}
+.big-text .fa {
+  color: #D27028;
+  font-size: 5em;
+}
+
 /*!
 * bootswatch v3.3.6
 * Homepage: http://bootswatch.com
