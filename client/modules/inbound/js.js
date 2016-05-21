@@ -50,14 +50,13 @@ Template.inboundBox.events({
       }
 
       if (!result) {
+        recognitionToggle(true);
         return false;
       }
 
       if (!!result.command) {
         commands.execute(result, true);
         recognitionToggle(true);
-      } else {
-        recognitionToggle(false);
       }
 
       if(!!result.say) {
