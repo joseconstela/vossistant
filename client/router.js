@@ -6,30 +6,27 @@ Router.onBeforeAction(function () {
   if (!Meteor.userId()) {
     this.redirect('/login');
   }
-  this.next();
 }, {
   except: [ 'login' ]
 });
 
-Router.route('/login', function () {
-  if(Meteor.user()) {
-    return this.redirect('/');
+Router.route('login', {
+  path: '/login',
+  action: function () {
+    if(Meteor.user()) {
+      return this.redirect('/');
+    }
   }
-  this.render('login');
-}, {
-  name: 'login'
 });
 
-Router.route('/', function () {
-  this.render('home');
-}, {
-  subscriptions: function() {
+Router.route('home', {
+  path: '/',
+  waitOn: function () {
     return Meteor.subscribe('chat', Meteor.userId());
   },
   data: function() {
     if (this.ready) {
       return { chat: chat.find({}, {sort: {createdAt: -1}}) };
     }
-  },
-  name: 'home'
+  }
 });

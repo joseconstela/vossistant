@@ -23,7 +23,7 @@ accounts-password
 ian:accounts-ui-bootstrap-3
 alethes:lodash
 juliancwirko:s-alert
-iron:router
+iron:router@0.9.4
 practicalmeteor:chai
 avital:mocha
 aldeed:collection2
@@ -32,3 +32,4 @@ momentjs:moment
 rzymek:moment-locale-es
 froatsnook:request
 fortawesome:fontawesome
+meson:electron
