@@ -20,14 +20,12 @@ Meteor.startup(() => {
   }
 
   Meteor.methods({
-    'inbound': function(text) {
+    'inbound': function(text, textId) {
 
       // Make sure the user is logged in before inserting a task
       if (!this.userId) {
         throw new Meteor.Error('not-authorized');
       }
-
-      var textId = insertMessage('inbound', text);
 
       var analysis = textRequest(text);
 

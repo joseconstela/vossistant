@@ -9,7 +9,12 @@ chat.allow({
 chat.attachSchema(new SimpleSchema({
 
   'userId': {
-    type: String
+    type: String,
+    autoValue: function () {
+      if (this.isInsert) {
+        return Meteor.userId();
+      }
+    }
   },
   'createdAt': {
     type: Date,

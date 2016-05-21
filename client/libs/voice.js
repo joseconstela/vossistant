@@ -16,7 +16,6 @@ recognition.onstart = function() {
 recognition.onerror = function(event) {
   if (event.error == 'no-speech') {
     inbound('No escucho nada');
-    ignore_onend = true;
   }
   if (event.error == 'audio-capture') {
     inbound('No escucho nada, ¿tienes un micrófono?');

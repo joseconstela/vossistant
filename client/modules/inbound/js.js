@@ -33,10 +33,15 @@ Template.inboundBox.events({
 
     if (txt === '') return false;
 
+    var textId = chat.insert({
+      direction: 'inbound',
+      text: txt
+    });
+
     $('#inbound').val('');
     inbound('...');
 
-    Meteor.call('inbound', txt, function(error, result){
+    Meteor.call('inbound', txt, textId, function(error, result){
       final_transcript = interim_transcript = '';
       if(error){
         inbound(error.reason);
