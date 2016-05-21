@@ -55,6 +55,7 @@ Template.inboundBox.events({
 
       if (!!result.command) {
         commands.execute(result, true);
+        recognitionToggle(true);
       } else {
         recognitionToggle(false);
       }
