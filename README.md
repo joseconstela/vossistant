@@ -2,6 +2,8 @@
 
 Natural Language Understanding application built in MeteorJS, using [Web Speech API / webkitSpeechRecognition](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for voice recognition and [SpeechSynthesisUtterance](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance) for Natural Language replies.
 
+[Try it on modulus](https://vossistant-63519.onmodulus.net/)
+
 ![screenshoot](private/screenshot.png)
 
 Based on Intentions-Entities principle, using regular expressions.
