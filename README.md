@@ -4,7 +4,7 @@ Natural Language Understanding application built in MeteorJS, using [Web Speech 
 
 [Try it on modulus](https://vossistant-63519.onmodulus.net/) (database gets cleaned periodically).
 
-![screenshoot](private/screenshot.png)
+![screenshoot](SCREENSHOT.png)
 
 Based on Intentions-Entities principle, using regular expressions.
 
