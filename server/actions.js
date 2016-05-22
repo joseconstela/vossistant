@@ -10,7 +10,7 @@ actions['meteor-update-profile-name'] = function(analysis) {
     say: phrase,
     text: phrase
   };
-}
+};
 
 actions['meteor-logout'] = function(analysis) {
   return {
@@ -24,8 +24,8 @@ actions['meteor-logout'] = function(analysis) {
 
 actions['wiki'] = function(analysis) {
 
-  var termUrl = encodeURI(analysis.match);
   var url = ['https://es.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='];
+  var termUrl = encodeURI(analysis.match);
   url.push(termUrl);
 
   var fallback = function(termUrl) {
@@ -59,7 +59,7 @@ actions['wiki'] = function(analysis) {
     return fallback(termUrl);
   }
 
-}
+};
 
 actions['greeting'] = function(analysis) {
   return {
@@ -120,7 +120,7 @@ actions['internet-search'] = function(analysis) {
   };
 
   var match = encodeURI(analysis.match);
-  return openBrowser([sSources[source], match], source);
+  return _browser([sSources[source], match], [source]);
 
 };
 
@@ -131,7 +131,7 @@ actions['mmedia-search'] = function(analysis) {
   if (source === 'youtube') {
     var searchUrl = 'https://www.youtube.com/results?search_query=';
     var match = encodeURI(analysis.match);
-    return openBrowser([searchUrl, match], 'Youtube');
+    return _browser([searchUrl, match], ['Youtube']);
   }
 
 };
@@ -143,23 +143,23 @@ actions['mmedia-netflix'] = function(analysis) {
     var type = analysis.data['mmedia-video-type'];
     var genderUrl = 'https://www.netflix.com/browse/genre/';
 
-    if (type === 'film') { return openBrowser(['https://www.netflix.com/browse'], 'Netflix'); }
-    if (type === 'show') { return openBrowser([genderUrl, '83'], 'Netflix'); }
-    if (type === 'action') { return openBrowser([genderUrl, '1365'], 'Netflix'); }
-    if (type === 'rewarded') { return openBrowser([genderUrl, '89844'], 'Netflix'); }
-    if (type === 'all-family') { return openBrowser([genderUrl, '783'], 'Netflix'); }
-    if (type === 'commedy') { return openBrowser([genderUrl, '6548'], 'Netflix'); }
-    if (type === 'docummentary') { return openBrowser([genderUrl, '6839'], 'Netflix'); }
-    if (type === 'drama') { return openBrowser([genderUrl, '5763'], 'Netflix'); }
-    if (type === 'terror') { return openBrowser([genderUrl, '8711'], 'Netflix'); }
-    if (type === 'independent') { return openBrowser([genderUrl, '7077'], 'Netflix'); }
-    if (type === 'romantic') { return openBrowser([genderUrl, '8883'], 'Netflix'); }
-    if (type === 'scify') { return openBrowser([genderUrl, '1492'], 'Netflix'); }
-    if (type === 'humorist') { return openBrowser([genderUrl, '1516534'], 'Netflix'); }
-    if (type === 'thriller') { return openBrowser([genderUrl, '8933'], 'Netflix'); }
+    if (type === 'film') { return _browser(['https://www.netflix.com/browse'], ['Netflix']); }
+    if (type === 'show') { return _browser([genderUrl, '83'], ['Netflix']); }
+    if (type === 'action') { return _browser([genderUrl, '1365'], ['Netflix']); }
+    if (type === 'rewarded') { return _browser([genderUrl, '89844'], ['Netflix']); }
+    if (type === 'all-family') { return _browser([genderUrl, '783'], ['Netflix']); }
+    if (type === 'commedy') { return _browser([genderUrl, '6548'], ['Netflix']); }
+    if (type === 'docummentary') { return _browser([genderUrl, '6839'], ['Netflix']); }
+    if (type === 'drama') { return _browser([genderUrl, '5763'], ['Netflix']); }
+    if (type === 'terror') { return _browser([genderUrl, '8711'], ['Netflix']); }
+    if (type === 'independent') { return _browser([genderUrl, '7077'], ['Netflix']); }
+    if (type === 'romantic') { return _browser([genderUrl, '8883'], ['Netflix']); }
+    if (type === 'scify') { return _browser([genderUrl, '1492'], ['Netflix']); }
+    if (type === 'humorist') { return _browser([genderUrl, '1516534'], ['Netflix']); }
+    if (type === 'thriller') { return _browser([genderUrl, '8933'], ['Netflix']); }
 
   } else if (!!analysis.match) {
-    return openBrowser([
+    return _browser([
       'https://www.netflix.com/search/',
       encodeURI(analysis.match)
     ], 'Netflix');
@@ -167,13 +167,21 @@ actions['mmedia-netflix'] = function(analysis) {
 
 }
 
-openBrowser = function(url, provider) {
+/**
+ * [function description]
+ * @param  {[type]} url      [description]
+ * @param  {object} provider [description]
+ * @return {[type]}          [description]
+ */
+_browser = function(url, provider) {
+
   return {
     command: {
       application: 'browser',
       parameters: url
     },
-    say: 'Ok, abriendo ' + provider,
+    say: 'Ok, abriendo ' + provider.join('/'),
     text: 'Abriendo ' + url.join('')
   }
+
 }
