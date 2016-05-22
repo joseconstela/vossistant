@@ -1,6 +1,6 @@
 actions = {};
 
-actions['vo-name'] = function(analysis) {
+actions['meteor-update-profile-name'] = function(analysis) {
   var phrase = 'De acuerdo. A partir de ahora te llamaré ' + analysis.match;
   return {
     command: {
@@ -12,7 +12,7 @@ actions['vo-name'] = function(analysis) {
   };
 }
 
-actions['vo-logout'] = function(analysis) {
+actions['meteor-logout'] = function(analysis) {
   return {
     command: {
       application: 'meteor',
