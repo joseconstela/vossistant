@@ -1,5 +1,7 @@
 # vossistant
 
+[![Join the chat at https://gitter.im/joseconstela/vossistant](https://badges.gitter.im/joseconstela/vossistant.svg)](https://gitter.im/joseconstela/vossistant?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Natural Language Understanding application built in MeteorJS, using [Web Speech API / webkitSpeechRecognition](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for voice recognition and [SpeechSynthesisUtterance](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance) for Natural Language replies.
 
 [Try it on modulus](https://vossistant-63519.onmodulus.net/) (database gets cleaned periodically).
