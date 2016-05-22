@@ -3,6 +3,9 @@ node_js:
   - "0.10"
 before_install:
   - "curl https://install.meteor.com | /bin/sh"
+  - "git clone https://github.com/meteor/meteor.git ~/meteor"
+  - "export PATH=~/meteor/:$PATH"
+
 services:
   - mongodb
 script: meteor test --once --driver-package dispatch:mocha-phantomjs
