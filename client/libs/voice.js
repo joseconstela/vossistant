@@ -1,10 +1,11 @@
 voice_enabled = true;
 
+recognition = {};
+
 if (!('webkitSpeechRecognition' in window)) {
   voice_enabled = false;
 } else {
   recognition = new webkitSpeechRecognition();
-
   recognition.continuous = true;
   recognition.interimResults = true
   recognition.lang = 'es-ES';
@@ -82,7 +83,7 @@ recognition.onresult = function(event) {
   var interim_transcript = '';
   if (typeof(event.results) == 'undefined') {
     recognition.onend = null;
-    recognition.stop();
+    recognitionToggle(false);
     return;
   }
   for (var i = event.resultIndex; i < event.results.length; ++i) {
@@ -105,10 +106,13 @@ recognitionToggle = function(toggle) {
   if (toggle) {
     try {
       inbound();
-      recognition.start();
+
+      if (voice_enabled)
+        recognition.start();
     } catch (ex) {
     }
   } else {
-    recognition.stop();
+    if (voice_enabled)
+      recognition.stop();
   }
 }
