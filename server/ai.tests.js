@@ -18,7 +18,7 @@ describe( 'ai tests', () => {
     assert.typeOf( textResult.data, 'object' );
   });
   it( 'Buscar fotos de coches en Google', () => {
-    var textResult = textRequest('Buscar fotos de coches en Google', true);
+    var textResult = textRequest('Buscar fotos de coches en Google');
     assert.typeOf( textResult, 'object' );
     assert.equal( textResult.intention, 'internet-search' );
     assert.typeOf( textResult.data, 'object' );
