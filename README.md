@@ -2,6 +2,7 @@
 
 [![Gitter](https://badges.gitter.im/joseconstela/vossistant.png)](https://gitter.im/joseconstela/vossistant)
 [![Travis](https://img.shields.io/travis/joseconstela/vossistant.svg)](https://travis-ci.org/joseconstela/vossistant)
+[![Stories in Ready](https://badge.waffle.io/joseconstela/vossistant.png?label=ready&title=Ready)](http://waffle.io/joseconstela/vossistant)
 
 Natural Language Understanding application built in MeteorJS, using [Web Speech API / webkitSpeechRecognition](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for voice recognition and [SpeechSynthesisUtterance](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance) for Natural Language replies.
 
