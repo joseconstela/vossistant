@@ -1,7 +1,4 @@
 Template.inboundBox.onCreated(function conversationOnCreated() {
-  recognition.continuous = true;
-  recognition.interimResults = true
-  recognition.lang = 'es-ES';
   recognitionToggle(true);
 });
 
@@ -20,7 +17,7 @@ Template.inboundBox.events({
     });
 
     $('#inbound').val('');
-    inbound('...');
+    inbound(null, '...');
 
     Meteor.call('inbound', txt, textId, function(error, result){
       final_transcript = interim_transcript = '';

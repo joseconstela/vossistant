@@ -1,30 +1,55 @@
-recognition = new webkitSpeechRecognition();
+voice_enabled = true;
+
+if (!('webkitSpeechRecognition' in window)) {
+  voice_enabled = false;
+} else {
+  recognition = new webkitSpeechRecognition();
+
+  recognition.continuous = true;
+  recognition.interimResults = true
+  recognition.lang = 'es-ES';
+}
+
 final_transcript = '';
 recognizing = false;
 ignore_onend = null;
 start_timestamp = null;
 
-inbound = function(text) {
-  $('#inbound').attr('placeholder', text).focus();
-}
+inbound = function(error, text) {
+  if (error || voice_enabled === false) {
+    if (error) { sAlert.error(error); }
+    $('.navbar-brand .fa').attr('class', 'fa fa-microphone-slash');
+    $('#inbound').attr('placeholder', 'Escribe, te leo.').focus();
+  } else {
+    $('.navbar-brand .fa').attr('class', 'fa fa-microphone');
+    $('#inbound').attr('placeholder', text).focus();
+  }
+  $('#inbound').focus();
+};
 
 recognition.onstart = function() {
   recognizing = true;
-  inbound('Habla, te escucho.');
+  inbound(null, 'Habla, te escucho.');
 };
 
 recognition.onerror = function(event) {
+
   if (event.error == 'no-speech') {
-    inbound('No escucho nada');
-  }
+    inbound(null, 'No escucho nada.');
+  };
+
   if (event.error == 'audio-capture') {
-    inbound('No escucho nada, ¿tienes un micrófono?');
+    inbound('No escucho nada, ¿tienes un micrófono?', null);
+    voice_enabled = false;
     ignore_onend = true;
-  }
+  };
+
   if (event.error == 'not-allowed') {
-    inbound('No escucho nada, no tengo permisos :(');
+    inbound('No escucho nada, no tengo permisos :(', null);
+    voice_enabled = false;
     ignore_onend = true;
   }
+
 };
 
 recognition.onend = function() {
@@ -58,7 +83,6 @@ recognition.onresult = function(event) {
   }
   final_transcript = capitalize(final_transcript);
   $('#inbound').val(linebreak(interim_transcript));
-  $('#interim_span').val(linebreak(interim_transcript));
 
   // execute here
   if (!final_transcript) { return false; }
