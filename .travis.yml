@@ -1,10 +1,7 @@
 language: node_js
 node_js:
   - "0.10"
+sudo: required
 before_install:
-  - "git clone https://github.com/meteor/meteor.git ~/meteor"
-  - "export PATH=~/meteor/:$PATH"
-
-services:
-  - mongodb
+  - "curl https://install.meteor.com | /bin/sh"
 script: meteor test --once --driver-package dispatch:mocha-phantomjs
