@@ -7,6 +7,14 @@ body { padding-top: 70px; }
   margin-bottom: 30px;
 }
 
+#inbound {
+  border: none;
+  background: none;
+  color: white;
+  padding: 0;
+  box-shadow: none;
+}
+
 #responses > div {
   margin-bottom: 20px;
 }

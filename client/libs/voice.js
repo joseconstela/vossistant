@@ -15,12 +15,23 @@ recognizing = false;
 ignore_onend = null;
 start_timestamp = null;
 
+/**
+ * Sends the focus back to #inbound
+ * @return {[type]} [description]
+ */
+inboundFocus = function() {
+  if ($('textarea, input:not(#inbound):visible').length) { return false; }
+  $('#inbound').focus(); return true;
+};
+
 inbound = function(error, text) {
   if (error || voice_enabled === false) {
     if (error) { sAlert.error(error); }
     $('.navbar-brand .fa').attr('class', 'fa fa-microphone-slash');
     $('#inbound').attr('placeholder', 'Escribe, te leo.').focus();
   } else {
+
+    if(!text) text = 'Habla, te escucho.';
     $('.navbar-brand .fa').attr('class', 'fa fa-microphone');
     $('#inbound').attr('placeholder', text).focus();
   }
@@ -29,7 +40,7 @@ inbound = function(error, text) {
 
 recognition.onstart = function() {
   recognizing = true;
-  inbound(null, 'Habla, te escucho.');
+  inbound();
 };
 
 recognition.onerror = function(event) {

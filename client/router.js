@@ -28,7 +28,7 @@ Router.route('/', function () {
   },
   data: function() {
     if (this.ready) {
-      return { chat: chat.find({}, {}) };
+      return { chat: chat.find({}, {sort: {createdAt: -1}}) };
     }
   },
   name: 'home'

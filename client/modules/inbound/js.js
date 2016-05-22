@@ -34,6 +34,7 @@ Template.inboundBox.events({
 
       if (!result) {
         recognitionToggle(true);
+        inbound();
         return false;
       }
 
