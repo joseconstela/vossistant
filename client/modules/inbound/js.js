@@ -1,5 +1,11 @@
-Template.inboundBox.onCreated(function conversationOnCreated() {
-  recognitionToggle(true);
+Template.inboundBox.onRendered(function inboundBoxRendered() {
+
+  $( document ).ready(function() {
+    recognitionToggle(true);
+    inboundFocus();
+  });
+
+
 });
 
 Template.inboundBox.events({
