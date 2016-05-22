@@ -104,8 +104,10 @@ recognition.onresult = function(event) {
 recognitionToggle = function(toggle) {
   if (toggle) {
     try {
+      inbound();
       recognition.start();
-    } catch (ex) {}
+    } catch (ex) {
+    }
   } else {
     recognition.stop();
   }
