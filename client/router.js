@@ -24,11 +24,11 @@ Router.route('/', function () {
   this.render('home');
 }, {
   subscriptions: function() {
-    return Meteor.subscribe('chat', Meteor.userId());
+    return Meteor.subscribe('chat', Meteor.userId(), 0);
   },
   data: function() {
     if (this.ready) {
-      return { chat: chat.find({}, {sort: {createdAt: -1}}) };
+      return { chat: chat.find({}, {}) };
     }
   },
   name: 'home'
