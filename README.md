@@ -33,6 +33,11 @@ Example of an action response:
           application: 'browser',            // Currently: 'browser' or 'meteor'
           parameters: [url]                  // ie ['example.com/?q=', 'mysearch']
         },
+        display: {                           // To display something on the user's screen
+          title: '',
+          link: '',
+          html: ''                           // Inline html to be shown
+        },
         say: 'Ok, abriendo ' + provider,     // What the FE will "say"
         text: 'Abriendo ' + url.join('')     // What will attached as the user's message reply
     }

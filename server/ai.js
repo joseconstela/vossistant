@@ -44,6 +44,9 @@ intentions = {
     'Quiero ver %mmedia-video-type%',
     'Quiero ver (.+)'
   ],
+  'dilbert': [
+    'Dilbert'
+  ],
   'internet-search': [
     'Quiero buscar (.+) en %internet-search-sources%',
     'Buscar (.+) en %internet-search-sources%',
@@ -126,7 +129,7 @@ textRequest = function(phrase, debug) {
   });
 
   if (!!debug) {
-    console.log('test', '"' + phrase + '"', r);
+    console.log('TEST', '"' + phrase + '"', r);
   }
   return r;
 }
@@ -224,11 +227,3 @@ buildIntelligence = function(debug) {
 }
 
 buildIntelligence(false);
-/* [
-  'Quiero buscar aa en Twitter',
-  'Buscar Celanova en Google Maps'
-].forEach(function(r) {
-  if (!textRequest(r, true)) {
-    console.log('FAIL', r);
-  }
-}); */

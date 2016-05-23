@@ -31,9 +31,49 @@ chat.attachSchema(new SimpleSchema({
   'text': {
     type: String
   },
-  'response': {
+  data: {
+    type: Object,
+    optional: true
+  },
+  'data.say': {
     type: String,
     optional: true
+  },
+  'data.text': {
+    type: String,
+    optional: true
+  },
+  'data.intention': {
+    type: String,
+    optional: true
+  },
+  'data.phrase': {
+    type: String,
+    optional: true
+  },
+  'data.match': {
+    type: String,
+    optional: true
+  },
+  'data.display': {
+    type: Object,
+    optional: true
+  },
+  'data.display.title': {
+    type: String
+  },
+  'data.display.link': {
+    type: String,
+    optional: true
+  },
+  'data.display.html': {
+    type: String,
+    optional: true
+  },
+  'data.data': {
+    type: Object,
+    optional: true,
+    blackbox: true
   }
 
 }));
