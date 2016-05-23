@@ -120,7 +120,7 @@ actions['know-date-time'] = function(analysis) {
   if (period === 'time') {
 
     var translationParams = {
-      count: moment().format('HH'),
+      count: date.getHours(),
       hour: moment().format('HH'),
       minute: moment().format('mm'),
     };
