@@ -12,6 +12,24 @@ actions['meteor-update-profile-name'] = function(analysis) {
   };
 };
 
+actions['dilbert'] = function(analysis) {
+
+  try {
+    var feed = _getRss('http://rss.latunyi.com/dilbert.rss');
+    var entry = feed.responseData.feed.entries[0];
+    return {
+      display: {
+        title: entry.title,
+        link: entry.link,
+        html: entry.content
+      }
+    };
+  } catch (exception) {
+    return false;
+  }
+
+}
+
 actions['meteor-logout'] = function(analysis) {
   return {
     command: {
@@ -167,12 +185,22 @@ actions['mmedia-netflix'] = function(analysis) {
 
 }
 
+_getRss = function(url) {
+  var url = [
+    'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&q=',
+    url
+  ];
+
+  var res = request.sync(url.join(''));
+  return JSON.parse(res.body);
+}
+
 /**
- * [function description]
- * @param  {[type]} url      [description]
- * @param  {object} provider [description]
- * @return {[type]}          [description]
- */
+* [function description]
+* @param  {[type]} url      [description]
+* @param  {object} provider [description]
+* @return {[type]}          [description]
+*/
 _browser = function(url, provider) {
 
   return {
