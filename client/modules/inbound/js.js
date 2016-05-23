@@ -5,7 +5,6 @@ Template.inboundBox.onRendered(function inboundBoxRendered() {
     inboundFocus();
   });
 
-
 });
 
 Template.inboundBox.events({
@@ -29,7 +28,7 @@ Template.inboundBox.events({
       final_transcript = interim_transcript = '';
       if(error){
         inbound(error.reason);
-        var msg = new SpeechSynthesisUtterance('¡Oh! Algo ha ido mal...');
+        var msg = new SpeechSynthesisUtterance(TAPi18n.__('speech.errorGeneral'));
         recognitionToggle(false);
         window.speechSynthesis.speak(msg);
         msg.onend = function(e) {

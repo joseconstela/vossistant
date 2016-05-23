@@ -1,0 +1,40 @@
+{
+  "app": {
+    "loginFirst": "Inicia sesión",
+    "inboundWriteOk": "Escribe, te leo.",
+    "inboundTalkOk": "Habla, te escucho.",
+    "inboundNotHear": "No escucho nada.",
+    "inboundNotEarGotMic": "No escucho nada, ¿tienes un micrófono?",
+    "inboundNotEarNoPermissions": "No escucho nada, no tengo permisos :("
+  },
+  "speech": {
+    "errorGeneral": "¡Oh! Algo ha ido mal..."
+  },
+  "actions": {
+    "vo-meteor-name": {
+      "phrase_1": "De acuerdo. A partir de ahora te llamaré __name__",
+      "phrase_2": "De acuerdo, __name__"
+    },
+    "vo-logout": {
+      "phrase_1": "Hasta pronto."
+    },
+    "wiki": {
+      "notSure_1": "No lo tengo muy claro... pero puedes buscar aquí.",
+      "tryAt_1": "Prueba en: __googleUrl__"
+    },
+    "greeting": {
+      "phrase_1": "Hola",
+      "phrase_2": "Hola, ¿Qué tal?"
+    },
+    "know-date-time": {
+      "time_1": "Hora: __hour__:__minute__",
+      "day-of-month_1": "Estamos a día __day__",
+      "day-of-week_1": "Estamos a __day__",
+      "day_1": "Hoy es __dayOfWeek__, __dayOfMonth__ de __month__ del __year__"
+    },
+    "_browser": {
+      "say": "Ok, abriendo __provider__",
+      "text": "Abriendo __url__"
+    }
+  }
+}

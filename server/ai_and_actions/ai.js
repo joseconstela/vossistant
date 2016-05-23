@@ -1,5 +1,5 @@
 intentions = {
-  'meteor-update-profile-name': [
+  'vo-meteor-name': [
     'Llámame (.+)',
     'Mi nombre es (.+)',
     'Me llamo (.+)',
@@ -9,7 +9,7 @@ intentions = {
     'A partir de ahora quiero que me llames (.+)',
     'Desde ahora llámame (.+)'
   ],
-  'meteor-logout': [
+  'vo-logout': [
     'Cerrar sesión'
   ],
   'wiki': [

@@ -29,10 +29,10 @@ inbound = function(error, text) {
   if (error || voice_enabled === false) {
     if (error) { sAlert.error(error); }
     $('.navbar-brand .fa').attr('class', 'fa fa-microphone-slash');
-    $('#inbound').attr('placeholder', 'Escribe, te leo.').focus();
+    $('#inbound').attr('placeholder', TAPi18n.__('app.inboundWriteOk')).focus();
   } else {
 
-    if(!text) text = 'Habla, te escucho.';
+    if(!text) text = TAPi18n.__('app.inboundTalkOk');
     $('.navbar-brand .fa').attr('class', 'fa fa-microphone');
     $('#inbound').attr('placeholder', text).focus();
   }
@@ -47,17 +47,17 @@ recognition.onstart = function() {
 recognition.onerror = function(event) {
 
   if (event.error == 'no-speech') {
-    inbound(null, 'No escucho nada.');
+    inbound(null, TAPi18n.__('app.inboundNotHear'));
   };
 
   if (event.error == 'audio-capture') {
-    inbound('No escucho nada, ¿tienes un micrófono?', null);
+    inbound( TAPi18n.__('app.inboundNotEarGotMic'), null);
     voice_enabled = false;
     ignore_onend = true;
   };
 
   if (event.error == 'not-allowed') {
-    inbound('No escucho nada, no tengo permisos :(', null);
+    inbound( TAPi18n.__('app.inboundNotEarNoPermissions'), null);
     voice_enabled = false;
     ignore_onend = true;
   }

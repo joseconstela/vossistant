@@ -33,3 +33,4 @@ froatsnook:request
 fortawesome:fontawesome
 dispatch:mocha-phantomjs
 meteortoys:allthings
+tap:i18n
