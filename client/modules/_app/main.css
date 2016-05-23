@@ -5,9 +5,6 @@ body { padding-top: 70px; }
   font-size: 2.8em;
   height: initial;
   margin-bottom: 30px;
-}
-
-#inbound {
   border: none;
   background: none;
   color: white;
@@ -23,6 +20,16 @@ body { padding-top: 70px; }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+#responses .list-group-item-display {
+  margin-top: 10px;
+  border-left: 2px solid white;
+  padding-left: 10px;
+}
+
+#responses .list-group-item-display img {
+  width: 100%;
 }
 
 #responses .response {
