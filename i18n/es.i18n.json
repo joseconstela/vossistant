@@ -27,7 +27,8 @@
       "phrase_2": "Hola, ¿Qué tal?"
     },
     "know-date-time": {
-      "time_1": "Hora: __hour__:__minute__",
+      "time_1": "Es la __hour__:__minute__",
+      "time_1_plural": "Son las __hour__:__minute__",
       "day-of-month_1": "Estamos a día __day__",
       "day-of-week_1": "Estamos a __day__",
       "day_1": "Hoy es __dayOfWeek__, __dayOfMonth__ de __month__ del __year__"
