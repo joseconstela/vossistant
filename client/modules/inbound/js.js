@@ -50,6 +50,13 @@ menuModule = function(module) {
 
 }
 
+Template.inboundBox.onRendered(function inboundBoxRendered() {
+  $( document ).ready(function() {
+    recognitionToggle(true);
+    inboundFocus();
+  });  
+});
+
 Template.inboundBox.events({
   "submit #inbound-form": function(event, template){
     event.preventDefault();
