@@ -1,6 +1,9 @@
 {
+  "languageCode": "es-ES",
   "app": {
-    "loginFirst": "Inicia sesión",
+    "languageSetup": "Selecciona tu idioma:",
+    "languageChanged": "¡Hola!",
+    "loginFirst": "Para continuar, inicia sesión",
     "inboundWriteOk": "Escribe, te leo.",
     "inboundTalkOk": "Habla, te escucho.",
     "inboundNotHear": "No escucho nada.",

@@ -34,3 +34,4 @@ fortawesome:fontawesome
 dispatch:mocha-phantomjs
 meteortoys:allthings
 tap:i18n
+u2622:persistent-session

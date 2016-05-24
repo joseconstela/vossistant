@@ -1,0 +1,44 @@
+{
+  "languageCode": "en-GB",
+  "app": {
+    "languageSetup": "Select your language:",
+    "languageChanged": "Hello!",
+    "loginFirst": "To start, you must login.",
+    "inboundWriteOk": "Write, I'm reading.",
+    "inboundTalkOk": "Talk, I'm listening.",
+    "inboundNotHear": "I can't hear anything.",
+    "inboundNotEarGotMic": "I can't hear anything. Do you have a microphone?",
+    "inboundNotEarNoPermissions": "I can't hear anything. I don't have permissions."
+  },
+  "speech": {
+    "errorGeneral": "Oh! Something went wrong..."
+  },
+  "actions": {
+    "vo-meteor-name": {
+      "phrase_1": "Copy. I will call you __name__",
+      "phrase_2": "Ok, __name__"
+    },
+    "vo-logout": {
+      "phrase_1": "See you soon."
+    },
+    "wiki": {
+      "notSure_1": "I'm not sure... but you can look here.",
+      "tryAt_1": "Try at: __googleUrl__"
+    },
+    "greeting": {
+      "phrase_1": "Hello",
+      "phrase_2": "Hi. How are you?"
+    },
+    "know-date-time": {
+      "time_1": "I'ts __hour__:__minute__",
+      "time_1_plural": "It's __hour__:__minute__",
+      "day-of-month_1": "Today is __day__",
+      "day-of-week_1": "Today is __day__",
+      "day_1": "Today is __dayOfWeek__, __dayOfMonth__ __month__, __year__"
+    },
+    "_browser": {
+      "say": "Ok, openning __provider__",
+      "text": "Openning __url__"
+    }
+  }
+}

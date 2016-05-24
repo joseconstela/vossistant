@@ -7,6 +7,7 @@ aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
 alethes:lodash@0.7.1
 allow-deny@1.0.4
+amplify@1.0.0
 anti:i18n@0.4.3
 autoupdate@1.2.9
 babel-compiler@6.6.4
@@ -123,6 +124,7 @@ templating@1.1.9
 templating-tools@1.0.4
 tracker@1.0.13
 twbs:bootstrap@3.3.6
+u2622:persistent-session@0.4.4
 ui@1.0.11
 underscore@1.0.8
 url@1.0.9
