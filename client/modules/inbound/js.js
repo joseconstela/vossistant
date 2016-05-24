@@ -19,7 +19,6 @@ inbound = function(error, text) {
     $('.navbar-brand .fa').attr('class', 'fa fa-microphone-slash');
     $('#inbound').attr('placeholder', TAPi18n.__('app.inboundWriteOk')).focus();
   } else {
-
     if(!text) text = TAPi18n.__('app.inboundTalkOk');
     $('.navbar-brand .fa').attr('class', 'fa fa-microphone');
     $('#inbound').attr('placeholder', text).focus();
@@ -30,8 +29,7 @@ inbound = function(error, text) {
 menuModule = function(module) {
 
   if (module === 'languageSelector') {
-    var langs = TAPi18n.getLanguages();
-    menuOpts = lodash.map(langs, function(v, k) {
+    menuOpts = lodash.map(TAPi18n.getLanguages(), function(v, k) {
       return { title: v.name, value:k };
     });
     var menu = menuOptions.insert({
@@ -54,7 +52,7 @@ Template.inboundBox.onRendered(function inboundBoxRendered() {
   $( document ).ready(function() {
     recognitionToggle(true);
     inboundFocus();
-  });  
+  });
 });
 
 Template.inboundBox.events({
@@ -74,7 +72,7 @@ Template.inboundBox.events({
     $('#inbound').val('');
     inbound(null, '...');
 
-    Meteor.call('inbound', txt, textId, function(error, result){
+    Meteor.call('inbound', txt, Session.get('language'), textId, function(error, result){
       final_transcript = interim_transcript = '';
       if(error){
         inbound(error.reason);

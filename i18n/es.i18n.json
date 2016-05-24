@@ -40,5 +40,97 @@
       "say": "Ok, abriendo __provider__",
       "text": "Abriendo __url__"
     }
+  },
+  "intentions": {
+    "vo-meteor-name": [
+      "Llámame (.+)",
+      "Mi nombre es (.+)",
+      "Me llamo (.+)",
+      "De ahora en adelante me llamo (.+)",
+      "De ahora en adelante me llamaré (.+)",
+      "A partir de ahora llámame (.+)",
+      "A partir de ahora quiero que me llames (.+)",
+      "Desde ahora llámame (.+)"
+    ],
+    "vo-logout": [
+      "Cerrar sesión"
+    ],
+    "wiki": [
+      "Cuál es (.+)",
+      "Quién es un (.+)",
+      "Quién es una (.+)",
+      "Quién era la (.+)",
+      "Quién era el (.+)",
+      "Quién era (.+)",
+      "Qué es un (.+)",
+      "Qué es una (.+)",
+      "Qué son los (.+)",
+      "Qué son las (.+)",
+      "Qué era (.+)",
+      "Qué es (.+)"
+    ],
+    "greeting": [
+      "Hola %greetings%",
+      "Hola"
+    ],
+    "know-date-time": [
+      "Qué %datetime-period%",
+      "Qué %datetime-period% es",
+      "Me pregunto qué %datetime-period% es",
+      "Me pregunto a qué %datetime-period% estamos"
+    ],
+    "mmedia-search": [
+      "Quiero ver (.+) en %mmedia-sources%",
+      "Ver (.+) en %mmedia-sources%"
+    ],
+    "mmedia-netflix": [
+      "Quiero ver %mmedia-video-type%",
+      "Quiero ver (.+)"
+    ],
+    "dilbert": [
+      "Dilbert"
+    ],
+    "internet-search": [
+      "Quiero buscar (.+) en %internet-search-sources%",
+      "Buscar (.+) en %internet-search-sources%",
+      "(.+) en %internet-search-sources%"
+    ]
+  },
+  "entities": {
+    "internet-search-sources": {
+      "youtube": ["Youtube"],
+      "google maps": ["Google Maps", "Mapas de google"],
+      "google": ["Google"],
+      "bing": ["Bing"],
+      "twitter": ["Twitter"]
+    },
+    "mmedia-sources": {
+      "youtube": ["Youtube", "internet"]
+    },
+    "greetings": {
+      "morning": [ "buenos días" ]
+    },
+    "mmedia-video-type": {
+      "show": [ "una serie" ],
+      "action": [ "una película de acción" ],
+      "rewarded": [ "película premiada" ],
+      "all-family": [ "una película para la familia", "una película en familia", "una película para toda la familia" ],
+      "commedy": [ "una comedia", "una película de humor" ],
+      "docummentary": [ "un documental" ],
+      "drama": [ "una película de drama", "un drama", "un dramón" ],
+      "terror": [ "una película de terror", "una película de miedo", "una peli de terror", "una peli de miedo" ],
+      "independent": [ "una película independiente" ],
+      "romantic": [ "una película romántica" ],
+      "scify": [ "una película de ciencia ficción" ],
+      "humorist": [ "un humorista", "un monólogo" ],
+      "thriller": [ "un thriller" ],
+      "film": [ "una peli", "una película" ]
+    },
+    "datetime-period": {
+      "day-of-month": [ "día del mes", "día de mes" ],
+      "day-of-week": [ "día de la semana", "día de semana" ],
+      "time": [ "hora" ],
+      "day": [ "día" ]
+    }
   }
 }

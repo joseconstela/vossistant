@@ -1,16 +1,17 @@
 Meteor.startup(() => {
 
+  buildIntelligence(false);
   moment.locale('es');
 
   Meteor.methods({
-    'inbound': function(text, textId) {
+    'inbound': function(text, language, textId) {
 
       // Make sure the user is logged in before inserting a task
       if (!this.userId) {
         throw new Meteor.Error('not-authorized');
       }
 
-      var analysis = textRequest(text, true);
+      var analysis = textRequest(text, language, true);
 
       if (!!analysis) {
 
@@ -36,8 +37,6 @@ Meteor.startup(() => {
 
           var data = {};
           Object.assign(data, action, analysis);
-
-          console.log('data',data);
 
           chat.update({_id: textId}, {
             $set: {data:data}

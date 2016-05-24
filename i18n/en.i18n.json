@@ -40,5 +40,97 @@
       "say": "Ok, openning __provider__",
       "text": "Openning __url__"
     }
+  },
+  "intentions": {
+    "vo-meteor-name": [
+      "Call me (.+)",
+      "My name is (.+)",
+      "From now on my name is (.+)",
+      "From now on call me (.+)",
+      "From now on I want you to call me (.+)"
+    ],
+    "vo-logout": [
+      "Logout",
+      "Log me out"
+    ],
+    "wiki": [
+      "Who is the (.+)",
+      "Who is (.+)",
+      "Who was the (.+)",
+      "Who was (.+)",
+      "What is a (.+)",
+      "What are (.+)",
+      "What are the (.+)",
+      "What was (.+)",
+      "What is (.+)"
+    ],
+    "greeting": [
+      "Hello %greetings%",
+      "Hello"
+    ],
+    "know-date-time": [
+      "What %datetime-period%",
+      "What %datetime-period% is",
+      "I wonder what %datetime-period% is",
+      "I wonder what %datetime-period% we are"
+    ],
+    "mmedia-search": [
+      "I want to see (.+) at %mmedia-sources%",
+      "See (.+) at %mmedia-sources%",
+      "Search (.+) at %mmedia-sources%",
+      "Search for (.+) at %mmedia-sources%"
+    ],
+    "mmedia-netflix": [
+      "I want to see (.+)",
+      "See %mmedia-video-type%"
+    ],
+    "dilbert": ["dilbert"],
+    "internet-search": [
+      "I want to search (.+) en %internet-search-sources%",
+      "I want to search (.+) at %internet-search-sources%",
+      "Search for (.+) in %internet-search-sources%",
+      "Search for (.+) at %internet-search-sources%",
+      "Search (.+) in %internet-search-sources%",
+      "Search (.+) at %internet-search-sources%",
+      "(.+) at %internet-search-sources%",
+      "(.+) in %internet-search-sources%"
+    ]
+  },
+  "entities": {
+    "internet-search-sources": {
+      "youtube": ["Youtube"],
+      "google maps": ["Google Maps"],
+      "google": ["Google"],
+      "bing": ["Bing"],
+      "twitter": ["Twitter"]
+    },
+    "mmedia-sources": {
+      "youtube": ["Youtube", "internet"]
+    },
+    "greetings": {
+      "morning": [ "good morning" ]
+    },
+    "mmedia-video-type": {
+      "show": [ "a tv show" ],
+      "action": [ "an action movie" ],
+      "rewarded": [ "winning film" ],
+      "all-family": [ "a film for family", "family film", "a film for the whole family" ],
+      "commedy": [ "a commedy", "a commedy film" ],
+      "docummentary": [ "a docummentary" ],
+      "drama": [ "a drama film", "a drama"],
+      "terror": [ "a terror movie" ],
+      "independent": [ "an independent film" ],
+      "romantic": [ "a romantic movie" ],
+      "scify": [ "a science fiction movie" ],
+      "humorist": [ "a humorist", "a monologue" ],
+      "thriller": [ "a thriller" ],
+      "film": [ "a movie" ]
+    },
+    "datetime-period": {
+      "day-of-month": [ "day of the month", "day of month" ],
+      "day-of-week": [ "day of the week", "day of week" ],
+      "time": [ "hour", "time" ],
+      "day": [ "day" ]
+    }
   }
 }
