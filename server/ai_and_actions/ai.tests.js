@@ -39,4 +39,11 @@ describe( 'ai tests', () => {
     assert.equal( textResult.intention, 'mmedia-netflix' );
     assert.equal( textResult.match, 'Nombre Aleatorio' );
   });
+  it( 'Quién era la más bella', () => {
+    var textResult = textRequest('Quién era la más bella');
+    assert.typeOf( textResult, 'object' );
+    assert.isUndefined( textResult.data );
+    assert.equal( textResult.intention, 'wiki' );
+    assert.equal( textResult.match, 'mas bella' );
+  });
 });
