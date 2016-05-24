@@ -1,10 +1,10 @@
 actions = {};
 
-actions['vo-meteor-name'] = function(analysis) {
+actions['vo-meteor-name'] = function(analysis, language) {
 
   var phrase = lodash.sample([
-    TAPi18n.__('actions.vo-meteor-name.phrase_1', {name:analysis.match}, 'es'),
-    TAPi18n.__('actions.vo-meteor-name.phrase_2', {name:analysis.match}, 'es')
+    _('actions.vo-meteor-name.phrase_1', {name:analysis.match}),
+    _('actions.vo-meteor-name.phrase_2', {name:analysis.match})
   ]);
 
   return {
@@ -39,7 +39,7 @@ actions['dilbert'] = function(analysis) {
 actions['vo-logout'] = function(analysis) {
 
   var phrase = lodash.sample([
-    TAPi18n.__('actions.vo-logout.phrase_1', {}, 'es')
+    _('actions.vo-logout.phrase_1', {})
   ]);
 
   return {
@@ -61,11 +61,11 @@ actions['wiki'] = function(analysis) {
     var googleUrl = 'https://www.google.es/#q=' + termUrl;
 
     var phrase = lodash.sample([
-      TAPi18n.__('actions.wiki.notSure_1', {}, 'es')
+      _('actions.wiki.notSure_1', {})
     ]);
 
     var tryAt = lodash.sample([
-      TAPi18n.__('actions.wiki.tryAt_1', {googleUrl: googleUrl}, 'es')
+      _('actions.wiki.tryAt_1', {googleUrl: googleUrl})
     ]);
 
     return {
@@ -101,8 +101,8 @@ actions['wiki'] = function(analysis) {
 actions['greeting'] = function(analysis) {
 
   var phrase = lodash.sample([
-    TAPi18n.__('actions.greeting.phrase_1', {}, 'es'),
-    TAPi18n.__('actions.greeting.phrase_2', {}, 'es')
+    _('actions.greeting.phrase_1', {}),
+    _('actions.greeting.phrase_2', {})
   ]);
 
   return {
@@ -126,7 +126,7 @@ actions['know-date-time'] = function(analysis) {
     };
 
     phrase = lodash.sample([
-      TAPi18n.__('actions.know-date-time.time_1', translationParams, 'es'),
+      _('actions.know-date-time.time_1', translationParams),
     ]);
   } else if (period === 'day-of-month') {
 
@@ -135,7 +135,7 @@ actions['know-date-time'] = function(analysis) {
     };
 
     phrase = lodash.sample([
-      TAPi18n.__('actions.know-date-time.day-of-month_1', translationParams, 'es'),
+      _('actions.know-date-time.day-of-month_1', translationParams),
     ]);
   } else if (period === 'day-of-week') {
 
@@ -144,7 +144,7 @@ actions['know-date-time'] = function(analysis) {
     };
 
     phrase = lodash.sample([
-      TAPi18n.__('actions.know-date-time.day-of-week_1', translationParams, 'es'),
+      _('actions.know-date-time.day-of-week_1', translationParams),
     ]);
   } else if (period === 'day') {
 
@@ -156,7 +156,7 @@ actions['know-date-time'] = function(analysis) {
     };
 
     phrase = lodash.sample([
-      TAPi18n.__('actions.know-date-time.day_1', translationParams, 'es')
+      _('actions.know-date-time.day_1', translationParams)
     ]);
   } else {
     return false;
@@ -251,8 +251,8 @@ _browser = function(url, provider) {
       application: 'browser',
       parameters: url
     },
-    say: TAPi18n.__('actions._browser.say', {provider: provider.join('/')}, 'es'),
-    text: TAPi18n.__('actions._browser.text', {url: url.join('')}, 'es')
+    say: _('actions._browser.say', {provider: provider.join('/')}),
+    text: _('actions._browser.text', {url: url.join('')})
   }
 
 }

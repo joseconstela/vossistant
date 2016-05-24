@@ -32,8 +32,8 @@
     "know-date-time": {
       "time_1": "I'ts __hour__:__minute__",
       "time_1_plural": "It's __hour__:__minute__",
-      "day-of-month_1": "Today is __day__",
-      "day-of-week_1": "Today is __day__",
+      "day-of-month_1": "Today is __dayOfMonth__",
+      "day-of-week_1": "Today is __dayOfWeek__",
       "day_1": "Today is __dayOfWeek__, __dayOfMonth__ __month__, __year__"
     },
     "_browser": {

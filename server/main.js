@@ -1,17 +1,21 @@
 Meteor.startup(() => {
 
   buildIntelligence(false);
-  moment.locale('es');
 
   Meteor.methods({
     'inbound': function(text, language, textId) {
+
+      _ = function(txt, opts) {
+        return TAPi18n.__(txt, opts, language);
+      }
+      moment.locale(language);
 
       // Make sure the user is logged in before inserting a task
       if (!this.userId) {
         throw new Meteor.Error('not-authorized');
       }
 
-      var analysis = textRequest(text, language, true);
+      var analysis = textRequest(text, language);
 
       if (!!analysis) {
 

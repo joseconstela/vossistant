@@ -28,7 +28,7 @@ practicalmeteor:chai
 aldeed:collection2
 aldeed:simple-schema
 momentjs:moment
-rzymek:moment-locale-es
+rzymek:moment-locales
 froatsnook:request
 fortawesome:fontawesome
 dispatch:mocha-phantomjs
