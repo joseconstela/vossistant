@@ -39,9 +39,9 @@ menuModule = function(module) {
       options: menuOpts
     });
 
-    var utterance = new SpeechSynthesisUtterance(TAPi18n.__('app.languageSetup'));
-    utterance.lang = TAPi18n.__('languageCode');
-    window.speechSynthesis.speak(utterance);
+    speechSay({
+      text: TAPi18n.__('app.languageSetup')
+    });
 
     Session.set('menuOptions', menu);
   }
@@ -77,10 +77,10 @@ Template.inboundBox.events({
 
       if(error){
         inbound(error.reason);
-        var utterance = new SpeechSynthesisUtterance(TAPi18n.__('speech.errorGeneral'));
-        utterance.lang = TAPi18n.__('languageCode');
+        speechSay({
+          text: TAPi18n.__('speech.errorGeneral')
+        });
         recognitionToggle(false);
-        window.speechSynthesis.speak(utterance);
         utterance.onend = function(e) {
           recognitionToggle(true);
         };
@@ -93,12 +93,12 @@ Template.inboundBox.events({
       }
 
       if(result && !!result.say) {
-        var utterance = new SpeechSynthesisUtterance(result.say);
-        utterance.lang = TAPi18n.__('languageCode');
-        window.speechSynthesis.speak(utterance);
-        utterance.onend = function(e) {
-          recognitionToggle(true);
-        };
+        speechSay({
+          text: result.say,
+          callback: function() {
+            recognitionToggle(true);
+          }
+        });
       } else {
         recognitionToggle(true);
       }

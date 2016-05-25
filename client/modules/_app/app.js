@@ -25,9 +25,9 @@ Template.inboundMenuOption.events({
         TAPi18n.setLanguage(getUserLanguage())
         .done(function () {
           recognition.lang = TAPi18n.__('languageCode');
-          var utterance = new SpeechSynthesisUtterance(TAPi18n.__('app.languageChanged'));
-          utterance.lang = TAPi18n.__('languageCode');
-          window.speechSynthesis.speak(utterance);
+          speechSay({
+            text: TAPi18n.__('app.languageChanged')
+          });
         })
         .fail(function (error_message) {
           // Handle the situation
