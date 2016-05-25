@@ -121,8 +121,9 @@ buildIntelligence = function() {
   var fs = require('fs');
   var path = require('path');
 
-  Meteor.rootPath     = path.resolve('.');
-  Meteor.absolutePath = Meteor.rootPath.split(path.sep + '.meteor')[0];
+  console.log('Meteor.rootPath', Meteor.rootPath);
+  console.log('Meteor.absolutePath', Meteor.absolutePath);
+  console.log('process.env.PWD', process.env.PWD);
 
   if (Meteor.isTest) {
     Meteor.absolutePath = process.env.PWD;
@@ -174,5 +175,5 @@ buildIntelligence = function() {
   } );
 
   console.log('intelligence size', roughSizeOfObject(intelligence));
-  
+
 }
