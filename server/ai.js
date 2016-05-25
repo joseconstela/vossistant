@@ -116,7 +116,7 @@ roughSizeOfObject = function( object ) {
 */
 buildIntelligence = function() {
 
-  var langs = Meteor.isTest ? ['es', 'en'] :lodash.keys(TAPi18n.getLanguages());
+  var langs = Meteor.isTest ? ['es', 'en'] : lodash.keys(TAPi18n.getLanguages());
 
   var fs = require('fs');
   var path = require('path');
@@ -124,6 +124,7 @@ buildIntelligence = function() {
   console.log('Meteor.rootPath', Meteor.rootPath);
   console.log('Meteor.absolutePath', Meteor.absolutePath);
   console.log('process.env.PWD', process.env.PWD);
+  console.log('TAPi18n', TAPi18next.options.resStore);
 
   if (Meteor.isTest) {
     Meteor.absolutePath = process.env.PWD;
