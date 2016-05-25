@@ -12,7 +12,7 @@ if (!('SpeechSynthesisUtterance' in window)) {
 
 speechSay = function(options) {
   if (!speech_enabled) return false;
-  speech.text = options.text;
+  speech.text = TAPi18n.__('languageCode');
   speech.lang = options.lang;
   if (typeof options.callback === 'function') {
     speech.onend = function() {

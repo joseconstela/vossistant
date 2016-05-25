@@ -17,7 +17,7 @@ Template.inboundMenu.helpers({
 Template.inboundMenuOption.events({
   "click li": function(event, template){
     var menu = menuOptions.findOne({_id:Session.get('menuOptions')});
-    
+
     if (menu.action === 'session') {
       Session.setPersistent(menu.parameters[0], template.data.value);
 
@@ -26,8 +26,7 @@ Template.inboundMenuOption.events({
         .done(function () {
           recognition.lang = TAPi18n.__('languageCode');
           speechSay({
-            text: TAPi18n.__('app.languageChanged'),
-            lang: TAPi18n.__('languageCode')
+            text: TAPi18n.__('app.languageChanged')
           });
         })
         .fail(function (error_message) {

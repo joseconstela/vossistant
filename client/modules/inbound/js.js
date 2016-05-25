@@ -40,8 +40,7 @@ menuModule = function(module) {
     });
 
     speechSay({
-      text: TAPi18n.__('app.languageSetup'),
-      lang: TAPi18n.__('languageCode')
+      text: TAPi18n.__('app.languageSetup')
     });
 
     Session.set('menuOptions', menu);
@@ -79,8 +78,7 @@ Template.inboundBox.events({
       if(error){
         inbound(error.reason);
         speechSay({
-          text: TAPi18n.__('speech.errorGeneral'),
-          lang: TAPi18n.__('languageCode')
+          text: TAPi18n.__('speech.errorGeneral')
         });
         recognitionToggle(false);
         utterance.onend = function(e) {
@@ -97,7 +95,6 @@ Template.inboundBox.events({
       if(result && !!result.say) {
         speechSay({
           text: result.say,
-          lang: TAPi18n.__('languageCode'),
           callback: function() {
             recognitionToggle(true);
           }
