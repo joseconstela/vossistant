@@ -1,0 +1,16 @@
+{
+  "electron": {
+    "name": "Vossistant",
+    "icon": {
+      "darwin": "client/appIcon.icns",
+      "win32": "client/appIcon.ico"
+    },
+    "version": "0.0.1",
+    "description": "",
+    "height": 650,
+    "width": 390,
+    "frame": true,
+    "title-bar-style": "hidden",
+    "resizable": true
+  }
+}
