@@ -1,6 +1,6 @@
 {
   "electron": {
-    "name": "Vossistant",
+    "name": "Vossistant - alpha 0.0.1",
     "icon": {
       "darwin": "client/appIcon.icns",
       "win32": "client/appIcon.ico"
@@ -10,7 +10,7 @@
     "height": 650,
     "width": 390,
     "frame": true,
-    "title-bar-style": "hidden",
+    "title-bar-style": "show",
     "resizable": true
   }
 }
