@@ -12,8 +12,8 @@ if (!('SpeechSynthesisUtterance' in window)) {
 
 speechSay = function(options) {
   if (!speech_enabled) return false;
-  speech.text = TAPi18n.__('languageCode');
-  speech.lang = options.lang;
+  speech.text = options.text;
+  speech.lang = TAPi18n.__('languageCode');
   if (typeof options.callback === 'function') {
     speech.onend = function() {
       options.callback();

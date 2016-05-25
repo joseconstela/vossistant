@@ -1,10 +1,10 @@
 menuOptions = new Mongo.Collection(null);
 
-getUserLanguage = function () {
-  return Session.get('language') ? Session.get('language') : 'en';
-};
-
 Meteor.startup(() => {
+
+  getUserLanguage = function () {
+    return Session.get('language') ? Session.get('language') : 'en';
+  };
 
   TAPi18n.setLanguage(getUserLanguage())
   .done(function () {
