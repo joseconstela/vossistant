@@ -1,16 +1,21 @@
 Meteor.startup(() => {
 
-  moment.locale('es');
+  buildIntelligence();
 
   Meteor.methods({
-    'inbound': function(text, textId) {
+    'inbound': function(text, language, textId) {
+
+      _ = function(txt, opts) {
+        return TAPi18n.__(txt, opts, language);
+      }
+      moment.locale(language);
 
       // Make sure the user is logged in before inserting a task
       if (!this.userId) {
         throw new Meteor.Error('not-authorized');
       }
 
-      var analysis = textRequest(text, true);
+      var analysis = textRequest(text, language);
 
       if (!!analysis) {
 
@@ -36,8 +41,6 @@ Meteor.startup(() => {
 
           var data = {};
           Object.assign(data, action, analysis);
-
-          console.log('data',data);
 
           chat.update({_id: textId}, {
             $set: {data:data}

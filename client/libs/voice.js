@@ -7,37 +7,14 @@ if (!('webkitSpeechRecognition' in window)) {
 } else {
   recognition = new webkitSpeechRecognition();
   recognition.continuous = true;
-  recognition.interimResults = true
-  recognition.lang = 'es-ES';
+  recognition.interimResults = true;
+  recognition.lang = 'en-GB';
 }
 
 final_transcript = '';
 recognizing = false;
 ignore_onend = null;
 start_timestamp = null;
-
-/**
- * Sends the focus back to #inbound
- * @return {[type]} [description]
- */
-inboundFocus = function() {
-  if ($('textarea, input:not(#inbound):visible').length) { return false; }
-  $('#inbound').focus(); return true;
-};
-
-inbound = function(error, text) {
-  if (error || voice_enabled === false) {
-    if (error) { sAlert.error(error); }
-    $('.navbar-brand .fa').attr('class', 'fa fa-microphone-slash');
-    $('#inbound').attr('placeholder', 'Escribe, te leo.').focus();
-  } else {
-
-    if(!text) text = 'Habla, te escucho.';
-    $('.navbar-brand .fa').attr('class', 'fa fa-microphone');
-    $('#inbound').attr('placeholder', text).focus();
-  }
-  $('#inbound').focus();
-};
 
 recognition.onstart = function() {
   recognizing = true;
@@ -47,17 +24,17 @@ recognition.onstart = function() {
 recognition.onerror = function(event) {
 
   if (event.error == 'no-speech') {
-    inbound(null, 'No escucho nada.');
+    inbound(null, TAPi18n.__('app.inboundNotHear'));
   };
 
   if (event.error == 'audio-capture') {
-    inbound('No escucho nada, ¿tienes un micrófono?', null);
+    inbound( TAPi18n.__('app.inboundNotEarGotMic'), null);
     voice_enabled = false;
     ignore_onend = true;
   };
 
   if (event.error == 'not-allowed') {
-    inbound('No escucho nada, no tengo permisos :(', null);
+    inbound( TAPi18n.__('app.inboundNotEarNoPermissions'), null);
     voice_enabled = false;
     ignore_onend = true;
   }
@@ -106,9 +83,9 @@ recognitionToggle = function(toggle) {
   if (toggle) {
     try {
       inbound();
-
-      if (voice_enabled)
+      if (voice_enabled) {
         recognition.start();
+      }
     } catch (ex) {
     }
   } else {

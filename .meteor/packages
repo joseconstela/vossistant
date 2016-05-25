@@ -28,8 +28,10 @@ practicalmeteor:chai
 aldeed:collection2
 aldeed:simple-schema
 momentjs:moment
-rzymek:moment-locale-es
+rzymek:moment-locales
 froatsnook:request
 fortawesome:fontawesome
 dispatch:mocha-phantomjs
 meteortoys:allthings
+tap:i18n
+u2622:persistent-session

@@ -1,9 +1,16 @@
 <template name="conversation">
+
+  <!-- Hide responses if  the app is showing a menu -->
+  {{#if sess 'menuOptions'}}
+  {{else}}
   <div id="responses" class="list-group">
     {{#each chat}}
       {{> chatItem}}
     {{/each}}
   </div>
+  {{/if}}
+
+
 </template>
 
 <template name="chatItem">

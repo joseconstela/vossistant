@@ -1,7 +1,12 @@
 actions = {};
 
-actions['meteor-update-profile-name'] = function(analysis) {
-  var phrase = 'De acuerdo. A partir de ahora te llamaré ' + analysis.match;
+actions['vo-meteor-name'] = function(analysis, language) {
+
+  var phrase = lodash.sample([
+    _('actions.vo-meteor-name.phrase_1', {name:analysis.match}),
+    _('actions.vo-meteor-name.phrase_2', {name:analysis.match})
+  ]);
+
   return {
     command: {
       application: 'mongo',
@@ -10,6 +15,7 @@ actions['meteor-update-profile-name'] = function(analysis) {
     say: phrase,
     text: phrase
   };
+
 };
 
 actions['dilbert'] = function(analysis) {
@@ -30,13 +36,18 @@ actions['dilbert'] = function(analysis) {
 
 }
 
-actions['meteor-logout'] = function(analysis) {
+actions['vo-logout'] = function(analysis) {
+
+  var phrase = lodash.sample([
+    _('actions.vo-logout.phrase_1', {})
+  ]);
+
   return {
     command: {
       application: 'meteor',
       parameters: ['logout']
     },
-    say: 'Hasta pronto.'
+    say: phrase
   };
 };
 
@@ -49,13 +60,21 @@ actions['wiki'] = function(analysis) {
   var fallback = function(termUrl) {
     var googleUrl = 'https://www.google.es/#q=' + termUrl;
 
+    var phrase = lodash.sample([
+      _('actions.wiki.notSure_1', {})
+    ]);
+
+    var tryAt = lodash.sample([
+      _('actions.wiki.tryAt_1', {googleUrl: googleUrl})
+    ]);
+
     return {
       command: {
         application: 'browser',
         parameters: [googleUrl]
       },
-      say: 'No lo tengo muy claro... pero puedes buscar aquí.',
-      text: 'Prueba en: ' + googleUrl
+      say: phrase,
+      text: tryAt
     };
 
   }
@@ -80,9 +99,15 @@ actions['wiki'] = function(analysis) {
 };
 
 actions['greeting'] = function(analysis) {
+
+  var phrase = lodash.sample([
+    _('actions.greeting.phrase_1', {}),
+    _('actions.greeting.phrase_2', {})
+  ]);
+
   return {
-    say: lodash.sample(['Hola', 'Hola, ¿Qué tal?']),
-    text: 'Hola, ¿qué tal?'
+    say: phrase,
+    text: phrase
   };
 };
 
@@ -90,45 +115,62 @@ actions['know-date-time'] = function(analysis) {
   var period = analysis.data['datetime-period'];
   var date = new Date();
 
-  var response = [];
+  var phrase = '';
 
   if (period === 'time') {
-    response.push(date.getHours() === 1 ? 'Es la' : 'Son las');
-    response.push( moment().format('HH:mm') );
-    return {
-      say: response.join(' '),
-      text: response.join(' ')
-    };
-  } else if (period === 'day-of-month') {
-    response.push('Estamos a día');
-    response.push( moment().format('D') );
-    return {
-      say: response.join(' '),
-      text: response.join(' ')
-    };
-  } else if (period === 'day-of-week') {
-    response.push('Estamos a');
-    response.push( moment().format('dddd') );
-    return {
-      say: response.join(' '),
-      text: response.join(' ')
-    };
-  } else if (period === 'day') {
-    response.push('Hoy es');
-    response.push( moment().format('dddd, D \\d\\e MMMM \\d\\e\\l YYYY') );
 
-    return {
-      say: response.join(' '),
-      text: response.join(' ')
+    var translationParams = {
+      count: date.getHours(),
+      hour: moment().format('HH'),
+      minute: moment().format('mm'),
     };
+
+    phrase = lodash.sample([
+      _('actions.know-date-time.time_1', translationParams),
+    ]);
+  } else if (period === 'day-of-month') {
+
+    var translationParams = {
+      dayOfMonth: moment().format('D')
+    };
+
+    phrase = lodash.sample([
+      _('actions.know-date-time.day-of-month_1', translationParams),
+    ]);
+  } else if (period === 'day-of-week') {
+
+    var translationParams = {
+      dayOfWeek: moment().format('dddd')
+    };
+
+    phrase = lodash.sample([
+      _('actions.know-date-time.day-of-week_1', translationParams),
+    ]);
+  } else if (period === 'day') {
+
+    var translationParams = {
+      dayOfWeek: moment().format('dddd'),
+      dayOfMonth: moment().format('D'),
+      month: moment().format('MMMM'),
+      year: moment().format('YYYY')
+    };
+
+    phrase = lodash.sample([
+      _('actions.know-date-time.day_1', translationParams)
+    ]);
+  } else {
+    return false;
   }
 
+  return {
+    say: phrase,
+    text: phrase
+  };
 };
 
 actions['internet-search'] = function(analysis) {
 
   var source = analysis.data['internet-search-sources'];
-
   var sSources = {
     'youtube': 'https://www.youtube.com/results?search_query=',
     'google': 'https://www.google.es/#q=',
@@ -139,7 +181,11 @@ actions['internet-search'] = function(analysis) {
 
   var match = encodeURI(analysis.match);
   return _browser([sSources[source], match], [source]);
+};
 
+actions['maps-search'] = function(analysis) {
+  var match = encodeURI(analysis.match);
+  return _browser(['https://www.google.com/maps/search/', match], ['Google Maps']);
 };
 
 actions['mmedia-search'] = function(analysis) {
@@ -150,6 +196,8 @@ actions['mmedia-search'] = function(analysis) {
     var searchUrl = 'https://www.youtube.com/results?search_query=';
     var match = encodeURI(analysis.match);
     return _browser([searchUrl, match], ['Youtube']);
+  } else {
+    return false;
   }
 
 };
@@ -208,8 +256,8 @@ _browser = function(url, provider) {
       application: 'browser',
       parameters: url
     },
-    say: 'Ok, abriendo ' + provider.join('/'),
-    text: 'Abriendo ' + url.join('')
+    say: _('actions._browser.say', {provider: provider.join('/')}),
+    text: _('actions._browser.text', {url: url.join('')})
   }
 
 }

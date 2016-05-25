@@ -15,12 +15,12 @@
           <i class="fa fa-microphone" aria-hidden="true"></i>
         </a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
+          <span class="sr-only">{{_ "Toggle navigation"}}</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Vossistant - alpha.</a>
+        <a class="navbar-brand" href="#">Vossistant - alpha</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
@@ -36,15 +36,32 @@
   {{> sAlert}}
 </template>
 
+<template name="inboundMenu">
+  <ul id="inbound-menu">
+    <li class="title">{{menu.title}}</li>
+    {{#each menu.options}}
+      {{> inboundMenuOption}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="inboundMenuOption">
+  <li class="option" data-value="{{value}}">{{title}}</li>
+</template>
+
 <template name="login">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="big-text">
-          <i class="fa fa-microphone" aria-hidden="true"></i>
-          <br>
-          Login first
-        </div>
+        {{#if sess 'menuOptions'}}
+          {{> inboundMenu}}
+        {{else}}
+          <div class="big-text">
+            <i class="fa fa-microphone" aria-hidden="true"></i>
+            <br>
+            {{_ "app.loginFirst"}}
+          </div>
+        {{/if}}
       </div>
     </div>
   </div>
