@@ -121,17 +121,17 @@ buildIntelligence = function() {
   var fs = require('fs');
   var path = require('path');
 
-  Meteor.rootPath     = path.resolve('.');
-  Meteor.absolutePath = Meteor.rootPath.split(path.sep + '.meteor')[0];
-
-  if (Meteor.isTest) {
-    Meteor.absolutePath = process.env.PWD;
-  }
-
   langs.forEach( function(langCode) {
-    var path = Meteor.absolutePath + '/i18n/' + langCode + '.i18n.json';
-    var buff = fs.readFileSync( path );
-    var translations = JSON.parse(buff);
+
+    var translations = {};
+
+    if (Meteor.isTest) {
+      var path = process.env.PWD + '/i18n/' + langCode + '.i18n.json';
+      var buff = fs.readFileSync( path );
+      translations = JSON.parse(buff);
+    } else {
+      translations = TAPi18next.options.resStore[langCode].project;
+    }
 
     intelligence[langCode] = [];
 
@@ -174,5 +174,5 @@ buildIntelligence = function() {
   } );
 
   console.log('intelligence size', roughSizeOfObject(intelligence));
-  
+
 }
