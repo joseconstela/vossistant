@@ -17,7 +17,7 @@ Template.inboundMenu.helpers({
 Template.inboundMenuOption.events({
   "click li": function(event, template){
     var menu = menuOptions.findOne({_id:Session.get('menuOptions')});
-
+    
     if (menu.action === 'session') {
       Session.setPersistent(menu.parameters[0], template.data.value);
 
@@ -25,9 +25,10 @@ Template.inboundMenuOption.events({
         TAPi18n.setLanguage(getUserLanguage())
         .done(function () {
           recognition.lang = TAPi18n.__('languageCode');
-          var utterance = new SpeechSynthesisUtterance(TAPi18n.__('app.languageChanged'));
-          utterance.lang = TAPi18n.__('languageCode');
-          window.speechSynthesis.speak(utterance);
+          speechSay({
+            text: TAPi18n.__('app.languageChanged'),
+            lang: TAPi18n.__('languageCode')
+          });
         })
         .fail(function (error_message) {
           // Handle the situation

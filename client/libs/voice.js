@@ -1,6 +1,28 @@
 voice_enabled = true;
+speech_enabled = true;
 
 recognition = {};
+speech = {};
+
+if (!('SpeechSynthesisUtterance' in window)) {
+  speech_enabled = false;
+} else {
+  speech = new SpeechSynthesisUtterance();
+}
+
+speechSay = function(options) {
+  if (!speech_enabled) return false;
+  speech.text = options.text;
+  speech.lang = options.lang;
+  if (typeof options.callback === 'function') {
+    speech.onend = function() {
+      options.callback();
+    };
+  } else {
+    speech.onend = function() {};
+  }
+  speechSynthesis.speak(speech);
+};
 
 if (!('webkitSpeechRecognition' in window)) {
   voice_enabled = false;
@@ -90,6 +112,6 @@ recognitionToggle = function(toggle) {
     }
   } else {
     if (voice_enabled)
-      recognition.stop();
+    recognition.stop();
   }
 }
