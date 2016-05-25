@@ -84,12 +84,16 @@
       "Search for (.+) at %mmedia-sources%"
     ],
     "mmedia-netflix": [
+      "I want to see %mmedia-video-type%",
       "I want to see (.+)",
-      "See %mmedia-video-type%"
+      "See %mmedia-video-type%",
+      "See (.+)"
     ],
     "dilbert": ["dilbert"],
     "maps-search": [
       "Where is (.+)",
+      "Show me a map for (.+)",
+      "Show me a map from (.+)",
       "Show me the map for (.+)",
       "Show me (.+) in the map",
       "Show me (.+) in a map"
