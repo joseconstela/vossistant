@@ -1,11 +1,19 @@
+Template.home.onCreated(function() {
+  var self = this;
+  self.autorun(function() {
+    if(Meteor.user()) {
+      self.subscribe('chat', Meteor.userId(), 0);
+    } else {
+      Meteor.logout();
+    }
+  });
+});
+
 Template.app.onRendered(function appRendered() {
-
   var lang = Session.get('language');
-
   if (!lang) {
     menuModule('languageSelector');
   }
-
 });
 
 Template.inboundMenu.helpers({

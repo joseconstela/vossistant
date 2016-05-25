@@ -4,6 +4,7 @@
 </head>
 
 <body>
+  {{> app}}
 </body>
 
 <template name="app">
@@ -32,7 +33,12 @@
     </div>
   </nav>
 
-  {{> yield}}
+  {{#if currentUser}}
+    {{> home}}
+  {{else}}
+    {{> login}}
+  {{/if}}
+
   {{> sAlert}}
 </template>
 

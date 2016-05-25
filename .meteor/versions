@@ -49,10 +49,6 @@ htmljs@1.0.9
 http@1.1.5
 ian:accounts-ui-bootstrap-3@1.2.89
 id-map@1.0.7
-iron:core@0.3.4
-iron:dynamic-template@0.4.1
-iron:layout@0.4.1
-iron:router@0.9.4
 jquery@1.11.8
 juliancwirko:s-alert@3.1.4
 launch-screen@1.0.11

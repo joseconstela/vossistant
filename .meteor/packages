@@ -23,7 +23,6 @@ accounts-password
 ian:accounts-ui-bootstrap-3
 alethes:lodash
 juliancwirko:s-alert
-iron:router@0.9.4
 practicalmeteor:chai
 aldeed:collection2
 aldeed:simple-schema
