@@ -119,21 +119,18 @@ buildIntelligence = function() {
   var langs = Meteor.isTest ? ['es', 'en'] : lodash.keys(TAPi18n.getLanguages());
 
   var fs = require('fs');
-  var path = require('path');
-
-  console.log('Meteor.rootPath', Meteor.rootPath);
-  console.log('Meteor.absolutePath', Meteor.absolutePath);
-  console.log('process.env.PWD', process.env.PWD);
-  console.log('TAPi18n', TAPi18next.options.resStore);
-
-  if (Meteor.isTest) {
-    Meteor.absolutePath = process.env.PWD;
-  }
 
   langs.forEach( function(langCode) {
-    var path = Meteor.absolutePath + '/i18n/' + langCode + '.i18n.json';
-    var buff = fs.readFileSync( path );
-    var translations = JSON.parse(buff);
+
+    var translations = {};
+
+    if (Meteor.isTest) {
+      var path = process.env.PWD + '/i18n/' + langCode + '.i18n.json';
+      var buff = fs.readFileSync( path );
+      translations = JSON.parse(buff);
+    } else {
+      translations = TAPi18next.options.resStore[langCode].project;
+    }
 
     intelligence[langCode] = [];
 
