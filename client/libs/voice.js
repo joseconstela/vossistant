@@ -1,6 +1,11 @@
 voice_enabled = true;
 speech_enabled = true;
 
+final_transcript = '';
+recognizing = false;
+ignore_onend = null;
+start_timestamp = null;
+
 recognition = {};
 speech = {};
 
@@ -33,11 +38,6 @@ if (!('webkitSpeechRecognition' in window)) {
   recognition.lang = 'en-GB';
 }
 
-final_transcript = '';
-recognizing = false;
-ignore_onend = null;
-start_timestamp = null;
-
 recognition.onstart = function() {
   recognizing = true;
   inbound();
@@ -45,8 +45,15 @@ recognition.onstart = function() {
 
 recognition.onerror = function(event) {
 
+  console.log('Recognition error', event);
+
   if (event.error == 'no-speech') {
     inbound(null, TAPi18n.__('app.inboundNotHear'));
+  };
+
+  if (event.error == 'network') {
+    voice_enabled = false;
+    inbound();
   };
 
   if (event.error == 'audio-capture') {
