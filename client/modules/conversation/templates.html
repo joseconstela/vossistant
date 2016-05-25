@@ -1,18 +1,39 @@
 <template name="conversation">
+
+  <!-- Hide responses if  the app is showing a menu -->
+  {{#if sess 'menuOptions'}}
+  {{else}}
   <div id="responses" class="list-group">
     {{#each chat}}
-    {{> chatItem}}
+      {{> chatItem}}
     {{/each}}
   </div>
+  {{/if}}
+
+
 </template>
 
 <template name="chatItem">
   <div class="list-group-item">
-    {{#if response}}
+
+    {{#if data.text}}
       <h4 class="list-group-item-heading">{{{chatText text}}}</h4>
-      <p class="list-group-item-text response">{{{chatText response}}}</p>
+      <p class="list-group-item-text response">{{{chatText data.text}}}</p>
     {{else}}
       <p class="list-group-item-text">{{{chatText text}}}</p>
     {{/if}}
+
+    {{#if data.display}}
+      <div class="list-group-item-display">
+        {{#if data.display.link}}
+          <a href="{{data.display.link}}" target="_blank">{{data.display.title}}</a>
+        {{else}}
+          {{data.display.title}}
+        {{/if}}
+        <br>
+        {{{data.display.html}}}
+      </div>
+    {{/if}}
+
   </div>
 </template>

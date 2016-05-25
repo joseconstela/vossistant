@@ -19,10 +19,11 @@ Router.route('login', {
   }
 });
 
-Router.route('home', {
-  path: '/',
-  waitOn: function () {
-    return Meteor.subscribe('chat', Meteor.userId());
+Router.route('/', function () {
+  this.render('home');
+}, {
+  subscriptions: function() {
+    return Meteor.subscribe('chat', Meteor.userId(), 0);
   },
   data: function() {
     if (this.ready) {

@@ -1,96 +1,10 @@
-intentions = {
-  'vo-name': [
-    'Llámame (.+)',
-    'Mi nombre es (.+)',
-    'Me llamo (.+)',
-    'De ahora en adelante me llamo (.+)',
-    'De ahora en adelante me llamaré (.+)',
-    'A partir de ahora llámame (.+)',
-    'A partir de ahora quiero que me llames (.+)',
-    'Desde ahora llámame (.+)'
-  ],
-  'vo-logout': [
-    'Cerrar sesión'
-  ],
-  'wiki': [
-    'Cuál es (.+)',
-    'Quién es un (.+)',
-    'Quién es una (.+)',
-    'Quién era la (.+)',
-    'Quién era el (.+)',
-    'Quién era (.+)',
-    'Qué es un (.+)',
-    'Qué es una (.+)',
-    'Qué son los (.+)',
-    'Qué son las (.+)',
-    'Qué era (.+)',
-    'Qué es (.+)'
-  ],
-  'greeting': [
-    'Hola %greetings%',
-    'Hola'
-  ],
-  'know-date-time': [
-    'Qué %datetime-period%',
-    'Qué %datetime-period% es',
-    'Me pregunto qué %datetime-period% es',
-    'Me pregunto a qué %datetime-period% estamos'
-  ],
-  'mmedia-search': [
-    'Quiero ver (.+) en %mmedia-sources%',
-    'Ver (.+) en %mmedia-sources%'
-  ],
-  'mmedia-netflix': [
-    'Quiero ver %mmedia-video-type%',
-    'Quiero ver (.+)'
-  ],
-  'internet-search': [
-    'Quiero buscar (.+) en %internet-search-sources%',
-    'Buscar (.+) en %internet-search-sources%',
-    '(.+) en %internet-search-sources%'
-  ]
-};
+intelligence = {};
 
-entities = {
-  'internet-search-sources': {
-    'youtube': ['Youtube'],
-    'google maps': ['Google Maps', 'Mapas de google'],
-    'google': ['Google'],
-    'bing': ['Bing'],
-    'twitter': ['Twitter']
-  },
-  'mmedia-sources': {
-    'youtube': ['Youtube', 'internet']
-  },
-  'greetings': {
-    'morning': [ 'buenos días' ]
-  },
-  'mmedia-video-type': {
-    'show': [ 'una serie' ],
-    'action': [ 'una película de acción' ],
-    'rewarded': [ 'película premiada' ],
-    'all-family': [ 'una película para la familia', 'una película en familia', 'una película para toda la familia' ],
-    'commedy': [ 'una comedia', 'una película de humor' ],
-    'docummentary': [ 'un documental' ],
-    'drama': [ 'una película de drama', 'un drama', 'un dramón' ],
-    'terror': [ 'una película de terror', 'una película de miedo', 'una peli de terror', 'una peli de miedo' ],
-    'independent': [ 'una película independiente' ],
-    'romantic': [ 'una película romántica' ],
-    'scify': [ 'una película de ciencia ficción' ],
-    'humorist': [ 'un humorista', 'un monólogo' ],
-    'thriller': [ 'un thriller' ],
-    'film': [ 'una peli', 'una película' ]
-  },
-  'datetime-period': {
-    'day-of-month': [ 'día del mes', 'día de mes' ],
-    'day-of-week': [ 'día de la semana', 'día de semana' ],
-    'time': [ 'hora' ],
-    'day': [ 'día' ]
-  }
-};
-
-intelligence = [];
-
+/**
+* [description]
+* @param  {[type]} function( [description]
+* @return {[type]}           [description]
+*/
 normalize = (function() {
   var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
   to = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
@@ -113,10 +27,16 @@ normalize = (function() {
 
 })();
 
-textRequest = function(phrase, debug) {
+/**
+* [function description]
+* @param  {[type]} phrase [description]
+* @param  {[type]} debug  [description]
+* @return {[type]}        [description]
+*/
+textRequest = function(phrase, language, debug) {
   phrase = normalize(phrase).trim();
   var r = null;
-  lodash.forOwn(intelligence, function(values, keys) {
+  lodash.forOwn(intelligence[language], function(values, keys) {
     var match = null;
     if(match = phrase.match(new RegExp(values.phrase,'i'))) {
       if (match[1]) values.match = match[1];
@@ -124,13 +44,19 @@ textRequest = function(phrase, debug) {
       return false;
     }
   });
-
   if (!!debug) {
-    console.log('test', '"' + phrase + '"', r);
+    console.log('TEST', '"' + phrase + '"', r);
   }
   return r;
 }
 
+/**
+* [regrexMatch description]
+* @param  {[type]} phrase [description]
+* @param  {[type]} search [description]
+* @param  {[type]} words  [description]
+* @return {[type]}        [description]
+*/
 regrexMatch = function (phrase, search, words) {
 
   var ww = null;
@@ -145,6 +71,11 @@ regrexMatch = function (phrase, search, words) {
   return phrase.replace(new RegExp(search, 'ig'), ww);
 };
 
+/**
+* [function description]
+* @param  {[type]} object [description]
+* @return {[type]}        [description]
+*/
 roughSizeOfObject = function( object ) {
 
   var objectList = [];
@@ -170,65 +101,77 @@ roughSizeOfObject = function( object ) {
     )
     {
       objectList.push( value );
-
       for( var i in value ) {
         stack.push( value[ i ] );
       }
     }
   }
-  return bytes/1024;
+  return (bytes/1024/1024).toFixed(2) + 'MB';
 }
 
-buildIntelligence = function(debug) {
+/**
+* [function description]
+* @param  {[type]} debug [description]
+* @return {[type]}       [description]
+*/
+buildIntelligence = function() {
 
-  lodash.forOwn(intentions, function(phrases, intention) {
+  var langs = Meteor.isTest ? ['es', 'en'] : lodash.keys(TAPi18n.getLanguages());
 
-    lodash.map(phrases, function(phrase) {
+  var fs = require('fs');
 
-      var _entities = phrase.match(/%(\w+(-\w+)*)%/g);
+  langs.forEach( function(langCode) {
 
-      var _uniqueEntities = lodash.uniq(_entities);
-      var _listEntities = [];
+    var translations = {};
 
-      if (!_uniqueEntities.length) {
-        intelligence.push({
-          intention: intention,
-          phrase: normalize(phrase)
-        });
-      } else {
-        lodash.forEach(_uniqueEntities, function(_ue) {
-          var _uec = _ue.replace(/\%/gi,'');
+    if (Meteor.isTest) {
+      var path = process.env.PWD + '/i18n/' + langCode + '.i18n.json';
+      var buff = fs.readFileSync( path );
+      translations = JSON.parse(buff);
+    } else {
+      translations = TAPi18next.options.resStore[langCode].project;
+    }
 
-          lodash.forOwn(entities[_uec], function(values, keys) {
-            var data = {};
-            data[_uec] = keys;
-            values = lodash.map(values, function(v) { return normalize(v); });
-            intelligence.push({
-              intention: intention,
-              phrase: regrexMatch(normalize(phrase), _ue, values),
-              data: data
-            });
+    intelligence[langCode] = [];
+
+    lodash.map(translations.intentions, function(v, k) {
+      var intention = k;
+      var phrases = v;
+
+      lodash.map(phrases, function(phrase) {
+
+        var _entities = phrase.match(/%(\w+(-\w+)*)%/g);
+
+        var _uniqueEntities = lodash.uniq(_entities);
+
+        if (!_uniqueEntities.length) {
+          intelligence[langCode].push({
+            intention: intention,
+            phrase: normalize(phrase)
           });
+        } else {
+          lodash.forEach(_uniqueEntities, function(_ue) {
+            var _uec = _ue.replace(/\%/gi,'');
 
-        });
-      }
+            lodash.forOwn(translations.entities[_uec], function(values, keys) {
+              var data = {};
+              data[_uec] = keys;
+              values = lodash.map(values, function(v) { return normalize(v); });
+              intelligence[langCode].push({
+                intention: intention,
+                phrase: regrexMatch(normalize(phrase), _ue, values),
+                data: data
+              });
+            });
+
+          });
+        }
+
+      });
 
     });
-
   } );
 
-  if(debug) {
-    console.log('intelligence size', roughSizeOfObject(intelligence));
-  }
+  console.log('intelligence size', roughSizeOfObject(intelligence));
 
 }
-
-buildIntelligence(false);
-/* [
-  'Quiero buscar aa en Twitter',
-  'Buscar Celanova en Google Maps'
-].forEach(function(r) {
-  if (!textRequest(r, true)) {
-    console.log('FAIL', r);
-  }
-}); */

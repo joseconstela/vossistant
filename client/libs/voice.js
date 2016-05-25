@@ -1,30 +1,66 @@
-recognition = new webkitSpeechRecognition();
+voice_enabled = true;
+speech_enabled = true;
+
+recognition = {};
+speech = {};
+
+if (!('SpeechSynthesisUtterance' in window)) {
+  speech_enabled = false;
+} else {
+  speech = new SpeechSynthesisUtterance();
+}
+
+speechSay = function(options) {
+  if (!speech_enabled) return false;
+  speech.text = options.text;
+  speech.lang = TAPi18n.__('languageCode');
+  if (typeof options.callback === 'function') {
+    speech.onend = function() {
+      options.callback();
+    };
+  } else {
+    speech.onend = function() {};
+  }
+  speechSynthesis.speak(speech);
+};
+
+if (!('webkitSpeechRecognition' in window)) {
+  voice_enabled = false;
+} else {
+  recognition = new webkitSpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.lang = 'en-GB';
+}
+
 final_transcript = '';
 recognizing = false;
 ignore_onend = null;
 start_timestamp = null;
 
-inbound = function(text) {
-  $('#inbound').attr('placeholder', text).focus();
-}
-
 recognition.onstart = function() {
   recognizing = true;
-  inbound('Habla, te escucho.');
+  inbound();
 };
 
 recognition.onerror = function(event) {
+
   if (event.error == 'no-speech') {
-    inbound('No escucho nada');
-  }
+    inbound(null, TAPi18n.__('app.inboundNotHear'));
+  };
+
   if (event.error == 'audio-capture') {
-    inbound('No escucho nada, ¿tienes un micrófono?');
+    inbound( TAPi18n.__('app.inboundNotEarGotMic'), null);
+    voice_enabled = false;
     ignore_onend = true;
-  }
+  };
+
   if (event.error == 'not-allowed') {
-    inbound('No escucho nada, no tengo permisos :(');
+    inbound( TAPi18n.__('app.inboundNotEarNoPermissions'), null);
+    voice_enabled = false;
     ignore_onend = true;
   }
+
 };
 
 recognition.onend = function() {
@@ -46,7 +82,7 @@ recognition.onresult = function(event) {
   var interim_transcript = '';
   if (typeof(event.results) == 'undefined') {
     recognition.onend = null;
-    recognition.stop();
+    recognitionToggle(false);
     return;
   }
   for (var i = event.resultIndex; i < event.results.length; ++i) {
@@ -58,7 +94,6 @@ recognition.onresult = function(event) {
   }
   final_transcript = capitalize(final_transcript);
   $('#inbound').val(linebreak(interim_transcript));
-  $('#interim_span').val(linebreak(interim_transcript));
 
   // execute here
   if (!final_transcript) { return false; }
@@ -69,9 +104,14 @@ recognition.onresult = function(event) {
 recognitionToggle = function(toggle) {
   if (toggle) {
     try {
-      recognition.start();
-    } catch (ex) {}
+      inbound();
+      if (voice_enabled) {
+        recognition.start();
+      }
+    } catch (ex) {
+    }
   } else {
+    if (voice_enabled)
     recognition.stop();
   }
 }

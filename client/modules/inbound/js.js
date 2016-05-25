@@ -1,28 +1,59 @@
-Template.inboundBox.onCreated(function conversationOnCreated() {
+/**
+* Sends the focus back to #inbound
+* @return {[type]} [description]
+*/
+inboundFocus = function() {
+  if ($('textarea, input:not(#inbound):visible').length) { return false; }
+  $('#inbound').focus(); return true;
+};
 
-  $(function() {
-    $("#inbound").focus(function(){
-      $("#cuboid form").addClass("ready");
-    })
-    //remove '.ready' when user blus away but only if there is no content
-    $("#inbound").blur(function(){
-      if($(this).val() == "")
-      $("#cuboid form").removeClass("ready");
-    })
+/**
+* Sets the placehodler text in #inbound
+* @param  {[type]} error [description]
+* @param  {[type]} text  [description]
+* @return {[type]}       [description]
+*/
+inbound = function(error, text) {
+  if (error || voice_enabled === false) {
+    if (error) { sAlert.error(error); }
+    $('.navbar-brand .fa').attr('class', 'fa fa-microphone-slash');
+    $('#inbound').attr('placeholder', TAPi18n.__('app.inboundWriteOk')).focus();
+  } else {
+    if(!text) text = TAPi18n.__('app.inboundTalkOk');
+    $('.navbar-brand .fa').attr('class', 'fa fa-microphone');
+    $('#inbound').attr('placeholder', text).focus();
+  }
+  $('#inbound').focus();
+};
 
-    //If the user is typing something make the arrow green/.active
-    $("#inbound").keyup(function(){
-      //this adds .active class only if the input has some text
-      $(".submit-icon").toggleClass("active", $(this).val().length > 0);
-    })
+menuModule = function(module) {
+
+  if (module === 'languageSelector') {
+    menuOpts = lodash.map(TAPi18n.getLanguages(), function(v, k) {
+      return { title: v.name, value:k };
+    });
+    var menu = menuOptions.insert({
+      title: TAPi18n.__('app.languageSetup'),
+      action: 'session',
+      parameters: ['language'],
+      options: menuOpts
+    });
+
+    speechSay({
+      text: TAPi18n.__('app.languageSetup')
+    });
+
+    Session.set('menuOptions', menu);
+  }
+
+}
+
+Template.inboundBox.onRendered(function inboundBoxRendered() {
+  $( document ).ready(function() {
+    recognitionToggle(true);
+    inboundFocus();
   });
-
-  recognition.continuous = true;
-  recognition.interimResults = true
-  recognition.lang = 'es-ES';
-  recognitionToggle(true);
 });
-
 
 Template.inboundBox.events({
   "submit #inbound-form": function(event, template){
@@ -39,37 +70,35 @@ Template.inboundBox.events({
     });
 
     $('#inbound').val('');
-    inbound('...');
+    inbound(null, '...');
 
-    Meteor.call('inbound', txt, textId, function(error, result){
+    Meteor.call('inbound', txt, Session.get('language'), textId, function(error, result){
       final_transcript = interim_transcript = '';
+
       if(error){
         inbound(error.reason);
-        var msg = new SpeechSynthesisUtterance('¡Oh! Algo ha ido mal...');
+        speechSay({
+          text: TAPi18n.__('speech.errorGeneral')
+        });
         recognitionToggle(false);
-        window.speechSynthesis.speak(msg);
-        msg.onend = function(e) {
+        utterance.onend = function(e) {
           recognitionToggle(true);
         };
         return false;
       }
 
-      if (!result) {
-        recognitionToggle(true);
-        return false;
-      }
-
-      if (!!result.command) {
+      if (result && !!result.command) {
         commands.execute(result, true);
         recognitionToggle(true);
       }
 
-      if(!!result.say) {
-        var msg = new SpeechSynthesisUtterance(result.say);
-        window.speechSynthesis.speak(msg);
-        msg.onend = function(e) {
-          recognitionToggle(true);
-        };
+      if(result && !!result.say) {
+        speechSay({
+          text: result.say,
+          callback: function() {
+            recognitionToggle(true);
+          }
+        });
       } else {
         recognitionToggle(true);
       }

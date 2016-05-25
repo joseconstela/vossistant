@@ -1,33 +1,21 @@
 Meteor.startup(() => {
 
-  moment.locale('es');
-
-  insertMessage = function(direction, text, responseTo) {
-
-    if (responseTo) {
-      return chat.update({_id: responseTo}, {
-        $set: { response: text }
-      });
-    } else {
-      return chat.insert({
-        userId: Meteor.userId(),
-        createdAt: new Date(),
-        direction: direction,
-        text: text
-      });
-    }
-
-  }
+  buildIntelligence();
 
   Meteor.methods({
-    'inbound': function(text, textId) {
+    'inbound': function(text, language, textId) {
+
+      _ = function(txt, opts) {
+        return TAPi18n.__(txt, opts, language);
+      }
+      moment.locale(language);
 
       // Make sure the user is logged in before inserting a task
       if (!this.userId) {
         throw new Meteor.Error('not-authorized');
       }
 
-      var analysis = textRequest(text);
+      var analysis = textRequest(text, language);
 
       if (!!analysis) {
 
@@ -51,12 +39,19 @@ Meteor.startup(() => {
             }
           }
 
-          if (!!action.text) {
-            insertMessage('outbound', action.text, textId);
-          }
+          var data = {};
+          Object.assign(data, action, analysis);
+
+          chat.update({_id: textId}, {
+            $set: {data:data}
+          });
 
           return action;
         }
+      } else {
+        chat.update({_id: textId}, {
+          $set: {data: {} }
+        });
       }
 
       return analysis;

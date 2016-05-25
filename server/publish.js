@@ -1,3 +1,3 @@
-Meteor.publish('chat', function (userId) {
-  return chat.find({userId: userId});
+Meteor.publish('chat', function (userId, limit) {
+  return chat.find({userId: userId}, {limit: limit});
 });

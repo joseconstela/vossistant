@@ -1,8 +1,13 @@
 language: node_js
 node_js:
-  - "0.10"
+  - '0.10'
+sudo: required
 before_install:
-  - "curl https://install.meteor.com | /bin/sh"
-services:
-  - mongodb
-script: meteor --test --release velocity:METEOR@1.1.0.2_3
+  - curl https://install.meteor.com | /bin/sh
+  - npm install -g modulus@next
+script: meteor test --once --driver-package dispatch:mocha-phantomjs
+deploy:
+  provider: modulus
+  project_name: "vossistant"
+  api_key:
+    secure: wAVkWYt0UaNv+hvQ13s2AO7X7sMYuEFyxF93r9ytLwBud9zSA0DyxWLqylyx0XpN/Kodsr8gwUGW4S9Mdh/DMbDT+2m9ENjBjNqRsmF/MWVB748iOwExRhdlgb+TxjalZJA/RyCg3vuNjMUvYVoZp3hH2t3bEeEi4/crlTgOFjwzVvBwd3P2TNVa02Zo4h3yyUfruHneVbXMJRZ4CNjC4aokcLhPpVL+ztWHsTjb3Kgkd5x7HNO05STNGJMYL9mnc6uAfUVLpCZKidXLY0zJuQmYtSkkgfYCBylyigxjmi0p2d5hmpAqsmOWykraUdUeEk7TUjtmYSUKrOjWBXgcI3Cb/EsUeZyWCBclFb41iYE5F7u5+ECUg4dqBhZt62FwdJTkGT2rpcrbwMTCwBNjxVCKBzGBH28SE7MI0j1EtDji+jqyNTHuBni+mSKvz77dBsMA6D80Xtls3VA1AvUtt8TjfzWA5OLIVNgGBA9feVepElP8tU2SOKweVScL4C3vmUotdorJx+pPz5OYShXxwUQh1ytEU6G9PNJKfgFJAovgOBRnaA8LuZFOgc3uD1MVMNvJ7SfutfXUPFTxcnYs3+qN1dENug/WaNq8kfzLpWrD0kOhoOQGnTufOGzog6TIXWNg7SFEblfyLSNPNWbFfpbXoP1nCS/VGX2sP+8k/lQ=
