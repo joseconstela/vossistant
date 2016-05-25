@@ -36,6 +36,9 @@
       "day-of-week_1": "Estamos a __day__",
       "day_1": "Hoy es __dayOfWeek__, __dayOfMonth__ de __month__ del __year__"
     },
+    "maps-search": {
+      "say_1": "Ubicando en el mapa..."
+    },
     "_browser": {
       "say": "Ok, abriendo __provider__",
       "text": "Abriendo __url__"
@@ -87,8 +90,14 @@
       "Quiero ver %mmedia-video-type%",
       "Quiero ver (.+)"
     ],
-    "dilbert": [
-      "Dilbert"
+    "dilbert": ["dilbert"],
+    "maps-search": [
+      "Dónde es (.+)",
+      "Dónde está (.+)",
+      "Dónde queda (.+)",
+      "Muéstrame un mapa de (.+)",
+      "Muéstrame (.+) en el mapa",
+      "Muéstrame (.+) en un mapa"
     ],
     "internet-search": [
       "Quiero buscar (.+) en %internet-search-sources%",

@@ -114,9 +114,10 @@ roughSizeOfObject = function( object ) {
 * @param  {[type]} debug [description]
 * @return {[type]}       [description]
 */
-buildIntelligence = function(debug) {
+buildIntelligence = function() {
 
-  var langs = lodash.keys(TAPi18n.getLanguages());
+  var langs = Meteor.isTest ? ['es', 'en'] :lodash.keys(TAPi18n.getLanguages());
+
   var fs = require('fs');
   var path = require('path');
 
@@ -127,7 +128,7 @@ buildIntelligence = function(debug) {
     Meteor.absolutePath = process.env.PWD;
   }
 
-  ['es', 'en'].forEach( function(langCode) {
+  langs.forEach( function(langCode) {
     var path = Meteor.absolutePath + '/i18n/' + langCode + '.i18n.json';
     var buff = fs.readFileSync( path );
     var translations = JSON.parse(buff);
@@ -172,8 +173,6 @@ buildIntelligence = function(debug) {
     });
   } );
 
-  if(!!debug) {
-    console.log('intelligence size', roughSizeOfObject(intelligence));
-  }
-
+  console.log('intelligence size', roughSizeOfObject(intelligence));
+  
 }

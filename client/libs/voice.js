@@ -83,9 +83,9 @@ recognitionToggle = function(toggle) {
   if (toggle) {
     try {
       inbound();
-
-      if (voice_enabled)
+      if (voice_enabled) {
         recognition.start();
+      }
     } catch (ex) {
     }
   } else {

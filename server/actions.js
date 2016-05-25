@@ -183,6 +183,11 @@ actions['internet-search'] = function(analysis) {
   return _browser([sSources[source], match], [source]);
 };
 
+actions['maps-search'] = function(analysis) {
+  var match = encodeURI(analysis.match);
+  return _browser(['https://www.google.com/maps/search/', match], ['Google Maps']);
+};
+
 actions['mmedia-search'] = function(analysis) {
 
   var source = analysis.data['mmedia-sources'];

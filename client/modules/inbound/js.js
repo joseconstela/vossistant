@@ -74,6 +74,7 @@ Template.inboundBox.events({
 
     Meteor.call('inbound', txt, Session.get('language'), textId, function(error, result){
       final_transcript = interim_transcript = '';
+
       if(error){
         inbound(error.reason);
         var utterance = new SpeechSynthesisUtterance(TAPi18n.__('speech.errorGeneral'));
@@ -86,17 +87,12 @@ Template.inboundBox.events({
         return false;
       }
 
-      if (!result) {
-        recognitionToggle(true);
-        return false;
-      }
-
-      if (!!result.command) {
+      if (result && !!result.command) {
         commands.execute(result, true);
         recognitionToggle(true);
       }
 
-      if(!!result.say) {
+      if(result && !!result.say) {
         var utterance = new SpeechSynthesisUtterance(result.say);
         utterance.lang = TAPi18n.__('languageCode');
         window.speechSynthesis.speak(utterance);

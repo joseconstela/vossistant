@@ -1,6 +1,6 @@
 Meteor.startup(() => {
 
-  buildIntelligence(false);
+  buildIntelligence();
 
   Meteor.methods({
     'inbound': function(text, language, textId) {
