@@ -2,8 +2,8 @@
   "electron": {
     "name": "Vossistant - alpha 0.0.1",
     "icon": {
-      "darwin": "client/appIcon.icns",
-      "win32": "client/appIcon.ico"
+      "darwin": "private/appIcon.icns",
+      "win32": "private/appIcon.ico"
     },
     "version": "0.0.1",
     "description": "",

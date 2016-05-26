@@ -1,14 +1,14 @@
-# vossistant
+# Vossistant
+<img src="https://raw.githubusercontent.com/joseconstela/vossistant/master/private/appIcon.png" width="120" align="right" />
+> Multilanguage Natural Language Understanding application built in MeteorJS, using Web Speech API for voice recognition and SpeechSynthesisUtterance for Natural Language replies. Based on Intentions & Entities principle, using regular expressions.
 
 [![Gitter](https://badges.gitter.im/joseconstela/vossistant.png)](https://gitter.im/joseconstela/vossistant)
 [![Travis](https://img.shields.io/travis/joseconstela/vossistant.svg)](https://travis-ci.org/joseconstela/vossistant)
 [![Stories in Ready](https://badge.waffle.io/joseconstela/vossistant.png?label=ready&title=Ready)](http://waffle.io/joseconstela/vossistant)
 
-Multilanguage Natural Language Understanding application built in MeteorJS, using [Web Speech API / webkitSpeechRecognition](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for voice recognition and [SpeechSynthesisUtterance](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance) for Natural Language replies. Based on Intentions & Entities principle, using regular expressions.
-
 [Try it on modulus](https://vossistant-63519.onmodulus.net/) (database gets cleaned periodically).
 
-![screenshoot](SCREENSHOT.png)
+<img src="https://raw.githubusercontent.com/joseconstela/vossistant/master/private/SCREENSHOT.png" />
 
 ## Example commands
 
