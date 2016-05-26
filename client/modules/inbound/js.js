@@ -56,6 +56,20 @@ Template.inboundBox.onRendered(function inboundBoxRendered() {
 });
 
 Template.inboundBox.events({
+
+  /* HACK to use your OS voice recognition solution focused in #inbound */
+  /*
+  "input #inbound": function(event, template) {
+    var $this = $(this);
+    var delay = 500; // 2 seconds delay after last input
+    clearTimeout($this.data('timer'));
+    $this.data('timer', setTimeout(function(){
+      $this.removeData('timer');
+      $('#inbound-form').submit();
+    }, delay));
+  },
+  */
+
   "submit #inbound-form": function(event, template){
     event.preventDefault();
     recognitionToggle(false);
