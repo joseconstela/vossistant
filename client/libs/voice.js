@@ -109,7 +109,7 @@ speechSay = function(options) {
 };
 
 recognitionToggle = function(toggle) {
-  if (toggle) {
+  if (toggle === true) {
     try {
       inbound();
       if (voice_enabled) {
@@ -117,8 +117,11 @@ recognitionToggle = function(toggle) {
       }
     } catch (ex) {
     }
-  } else {
+  } else if (toggle === false) {
     if (voice_enabled)
     recognition.stop();
+  } else if (toggle === 'restart') {
+    recognition.stop();
+    setTimeout(function() { recognitionToggle(true); }, 1000);
   }
 }

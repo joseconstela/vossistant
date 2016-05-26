@@ -122,7 +122,8 @@
       "youtube": ["Youtube", "internet"]
     },
     "greetings": {
-      "morning": [ "buenos días" ]
+      "morning": [ "buenos días" ],
+      "night": [ "buenas noches" ]
     },
     "mmedia-video-type": {
       "show": [ "una serie" ],

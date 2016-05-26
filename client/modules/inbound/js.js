@@ -48,8 +48,10 @@ menuModule = function(module) {
 
 Template.inboundBox.onRendered(function inboundBoxRendered() {
   $( document ).ready(function() {
-    recognitionToggle(true);
-    inboundFocus();
+    if ($('#inbound').length && Session.get('language')) {
+      recognitionToggle(true);
+      inboundFocus();
+    }
   });
 });
 

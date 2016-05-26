@@ -30,14 +30,17 @@ Template.inboundMenuOption.events({
         .done(function () {
           recognition.lang = TAPi18n.__('languageCode');
           speechSay({
-            text: TAPi18n.__('app.languageChanged')
+            text: TAPi18n.__('app.languageChanged'),
+            callback: function() {
+              recognitionToggle('restart');
+            }
           });
+
         })
         .fail(function (error_message) {
           // Handle the situation
           console.log(error_message);
           recognition.lang = 'en-GB';
-
         });
       }
 
