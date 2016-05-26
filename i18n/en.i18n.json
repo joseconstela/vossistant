@@ -128,7 +128,8 @@
       "youtube": ["Youtube", "internet"]
     },
     "greetings": {
-      "morning": [ "good morning" ]
+      "morning": [ "good morning" ],
+      "night": [ "good night" ]
     },
     "mmedia-video-type": {
       "show": [ "a tv show" ],

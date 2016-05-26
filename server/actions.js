@@ -16,6 +16,8 @@ actions['vo-login'] = function(analysis) {
 
   if (hourOfDay > 5 && hourOfDay < 10 ) {
     dayGreeting = _('entities.greetings.morning');
+  } else if(hourOfDay > 21 && hourOfDay < 23) {
+    dayGreeting = _('entities.greetings.night');
   }
 
   if (dayGreeting) {

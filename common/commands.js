@@ -10,7 +10,7 @@ commands = {
     if (!!commands[action.command.application]) {
       return commands[action.command.application](action.command.parameters, isClient);
     }
-    return false;
+    return true;
   },
 
   meteor: function(data, isClient) {
@@ -25,6 +25,7 @@ commands = {
       } else if (method === 'login') {
         Meteor.loginWithPassword(data[1], data[2]);
       }
+      return true;
 
     } else {
       if (method === 'logout') {

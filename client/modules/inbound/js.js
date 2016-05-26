@@ -89,7 +89,9 @@ Template.inboundBox.events({
       }
 
       if (result && !!result.command) {
-        commands.execute(result, true);
+        if (!commands.execute(result, true)) {
+          delete result.say;
+        }
         recognitionToggle(true);
       }
 
@@ -101,7 +103,7 @@ Template.inboundBox.events({
           }
         });
       } else {
-        recognitionToggle(true);
+        recognitionToggle('restart');
       }
 
     });

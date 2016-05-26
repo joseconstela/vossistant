@@ -1,5 +1,4 @@
 menuOptions = new Mongo.Collection(null);
-
 Meteor.startup(() => {
 
   getUserLanguage = function () {
