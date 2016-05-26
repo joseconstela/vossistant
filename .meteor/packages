@@ -30,7 +30,6 @@ momentjs:moment
 rzymek:moment-locales
 froatsnook:request
 fortawesome:fontawesome
-meson:electron
 dispatch:mocha-phantomjs
 meteortoys:allthings
 tap:i18n
