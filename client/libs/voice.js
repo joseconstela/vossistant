@@ -34,6 +34,7 @@ recognition.onerror = function(event) {
   console.log('Recognition error', event);
 
   if (event.error == 'no-speech') {
+    recognitionToggle(true);
     inbound(null, TAPi18n.__('app.inboundNotHear'));
   };
 
