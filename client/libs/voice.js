@@ -15,20 +15,6 @@ if (!('SpeechSynthesisUtterance' in window)) {
   speech = new SpeechSynthesisUtterance();
 }
 
-speechSay = function(options) {
-  if (!speech_enabled) return false;
-  speech.text = options.text;
-  speech.lang = TAPi18n.__('languageCode');
-  if (typeof options.callback === 'function') {
-    speech.onend = function() {
-      options.callback();
-    };
-  } else {
-    speech.onend = function() {};
-  }
-  speechSynthesis.speak(speech);
-};
-
 if (!('webkitSpeechRecognition' in window)) {
   voice_enabled = false;
 } else {
@@ -106,6 +92,20 @@ recognition.onresult = function(event) {
   if (!final_transcript) { return false; }
 
   $('#inbound-form').submit();
+};
+
+speechSay = function(options) {
+  if (!speech_enabled) return false;
+  speech.text = options.text;
+  speech.lang = TAPi18n.__('languageCode');
+  if (typeof options.callback === 'function') {
+    speech.onend = function() {
+      options.callback();
+    };
+  } else {
+    speech.onend = function() {};
+  }
+  speechSynthesis.speak(speech);
 };
 
 recognitionToggle = function(toggle) {

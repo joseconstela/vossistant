@@ -3,7 +3,6 @@
   "app": {
     "languageSetup": "Select your language:",
     "languageChanged": "Hello!",
-    "loginFirst": "To start, you must login.",
     "inboundWriteOk": "Write, I'm reading.",
     "inboundTalkOk": "Talk, I'm listening.",
     "inboundNotHear": "I can't hear anything.",
@@ -14,6 +13,9 @@
     "errorGeneral": "Oh! Something went wrong..."
   },
   "actions": {
+    "vo-login": {
+      "phrase_1": "Hello __name__. How can I help you today?"
+    },
     "vo-meteor-name": {
       "phrase_1": "Copy. I will call you __name__",
       "phrase_2": "Ok, __name__"
@@ -45,6 +47,9 @@
     }
   },
   "intentions": {
+    "vo-login": [
+      "I'm (.+)"
+    ],
     "vo-meteor-name": [
       "Call me (.+)",
       "My name is (.+)",

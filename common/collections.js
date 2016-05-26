@@ -1,7 +1,7 @@
 chat = new Mongo.Collection('chat');
 
 chat.allow({
-  insert: function () { return !!Meteor.user(); },
+  insert: function () { return true; },
   update: function () { return !!Meteor.user(); },
   remove: function () { return !!Meteor.user(); }
 });
@@ -10,8 +10,9 @@ chat.attachSchema(new SimpleSchema({
 
   'userId': {
     type: String,
+    optional: true,
     autoValue: function () {
-      if (this.isInsert) {
+      if (this.isInsert && Meteor.userId()) {
         return Meteor.userId();
       }
     }

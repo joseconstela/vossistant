@@ -1,6 +1,58 @@
 actions = {};
 
-actions['vo-meteor-name'] = function(analysis, language) {
+actions['vo-login'] = function(analysis) {
+
+  // Logout user
+  if (Meteor.userId()) {
+    commands.execute({command: {
+      application: 'meteor',
+      parameters: ['logout']
+    }}, false);
+  }
+
+  var phrase = lodash.sample([
+    _('actions.vo-login.phrase_1', {name: analysis.match})
+  ]);
+
+  // TODO slugify analysis.match
+  var parsedUserName = analysis.match.toLowerCase();
+
+  // Find user by username
+  var user = Meteor.users.findOne({username : parsedUserName});
+
+  if (user) {
+
+    return {
+      command: {
+        application: 'meteor',
+        parameters: ['login', parsedUserName + '@app.com', 'password']
+      },
+      say: phrase,
+      text: phrase
+    };
+
+  } else {
+    Accounts.createUser({
+      email: parsedUserName + '@app.com',
+      password: 'password',
+      username: parsedUserName,
+      profile: {
+        name: analysis.match
+      }
+    });
+
+    return {
+      command: {
+        application: 'meteor',
+        parameters: ['login', parsedUserName + '@app.com', 'password']
+      },
+      say: phrase
+    };
+  }
+
+};
+
+actions['vo-meteor-name'] = function(analysis) {
 
   var phrase = lodash.sample([
     _('actions.vo-meteor-name.phrase_1', {name:analysis.match}),

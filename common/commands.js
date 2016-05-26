@@ -22,11 +22,15 @@ commands = {
       if (method === 'logout') {
         Meteor.logout();
         return true;
+      } else if (method === 'login') {
+        Meteor.loginWithPassword(data[1], data[2]);
       }
 
     } else {
-      if (method === 'logout') { // TODO fix update filter
-        Meteor.users.update({}, {$set: { "services.resume.loginTokens" : [] }});
+      if (method === 'logout') {
+        Meteor.users.update({
+          _id: Meteor.userId(),
+        }, {$set: { "services.resume.loginTokens" : [] }});
         return true;
       }
     }

@@ -1,5 +1,15 @@
 html { -webkit-text-size-adjust: none; }
-body { padding-top: 70px; }
+body { padding-top: 70px; background: black !important; }
+* { color: white !important; }
+
+.container,
+.container-fluid {
+  padding: 100px !important;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
 
 #inbound-menu {
   width: 100%;
@@ -41,6 +51,8 @@ body { padding-top: 70px; }
 
 #responses > div {
   margin-bottom: 20px;
+  background: none;
+  padding: 0;
 }
 
 #responses .list-group-item-text {

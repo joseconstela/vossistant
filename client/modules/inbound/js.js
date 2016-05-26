@@ -16,11 +16,9 @@ inboundFocus = function() {
 inbound = function(error, text) {
   if (error || voice_enabled === false) {
     if (error) { sAlert.error(error); }
-    $('.navbar-brand .fa').attr('class', 'fa fa-microphone-slash');
     $('#inbound').attr('placeholder', TAPi18n.__('app.inboundWriteOk')).focus();
   } else {
     if(!text) text = TAPi18n.__('app.inboundTalkOk');
-    $('.navbar-brand .fa').attr('class', 'fa fa-microphone');
     $('#inbound').attr('placeholder', text).focus();
   }
   $('#inbound').focus();
@@ -68,6 +66,7 @@ Template.inboundBox.events({
       direction: 'inbound',
       text: txt
     });
+    console.log('doc', textId);
 
     $('#inbound').val('');
     inbound(null, '...');
@@ -77,13 +76,13 @@ Template.inboundBox.events({
 
       if(error){
         inbound(error.reason);
-        speechSay({
-          text: TAPi18n.__('speech.errorGeneral')
-        });
         recognitionToggle(false);
-        utterance.onend = function(e) {
-          recognitionToggle(true);
-        };
+        speechSay({
+          text: TAPi18n.__('speech.errorGeneral'),
+          callback: function() {
+            recognitionToggle(true);
+          }
+        });
         return false;
       }
 

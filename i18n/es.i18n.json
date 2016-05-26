@@ -3,7 +3,6 @@
   "app": {
     "languageSetup": "Selecciona tu idioma:",
     "languageChanged": "¡Hola!",
-    "loginFirst": "Para continuar, inicia sesión",
     "inboundWriteOk": "Escribe, te leo.",
     "inboundTalkOk": "Habla, te escucho.",
     "inboundNotHear": "No escucho nada.",
@@ -14,6 +13,9 @@
     "errorGeneral": "¡Oh! Algo ha ido mal..."
   },
   "actions": {
+    "vo-login": {
+      "phrase_1": "Hola __name__. ¿En qué te puedo ayudar?."
+    },
     "vo-meteor-name": {
       "phrase_1": "De acuerdo. A partir de ahora te llamaré __name__",
       "phrase_2": "De acuerdo, __name__"
@@ -32,8 +34,8 @@
     "know-date-time": {
       "time_1": "Es la __count__ __hour__:__minute__",
       "time_1_plural": "Son las __hour__:__minute__",
-      "day-of-month_1": "Estamos a día __day__",
-      "day-of-week_1": "Estamos a __day__",
+      "day-of-month_1": "Estamos a día __dayOfMonth__",
+      "day-of-week_1": "Estamos a __dayOfWeek__",
       "day_1": "Hoy es __dayOfWeek__, __dayOfMonth__ de __month__ del __year__"
     },
     "maps-search": {
@@ -45,6 +47,9 @@
     }
   },
   "intentions": {
+    "vo-login": [
+      "Soy (.+)"
+    ],
     "vo-meteor-name": [
       "Llámame (.+)",
       "Mi nombre es (.+)",

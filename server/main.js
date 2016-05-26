@@ -10,12 +10,9 @@ Meteor.startup(() => {
       }
       moment.locale(language);
 
-      // Make sure the user is logged in before inserting a task
-      if (!this.userId) {
-        throw new Meteor.Error('not-authorized');
-      }
-
+      console.log('inbound', text);
       var analysis = textRequest(text, language);
+      console.log('analysis', analysis);
 
       if (!!analysis) {
 
