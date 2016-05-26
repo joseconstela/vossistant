@@ -42,7 +42,15 @@ commands = {
     if (!data.length) { return false; }
 
     if (isClient) {
-      window.open(data.join(''), '_blank').focus();
+      var externalUrl = window.open(data.join(''), '_blank');
+      try {
+        externalUrl.focus();
+      } catch (ex) {
+        speechSay({
+          text: TAPi18n.__('speech.errorWindowFocus')
+        });
+        return false;
+      }
       return true;
     }
 

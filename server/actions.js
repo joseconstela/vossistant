@@ -10,9 +10,23 @@ actions['vo-login'] = function(analysis) {
     }}, false);
   }
 
-  var phrase = lodash.sample([
-    _('actions.vo-login.phrase_1', {name: analysis.match})
-  ]);
+  var hourOfDay = moment().format('HH');
+  var dayGreeting = null;
+  var phrase = null;
+
+  if (hourOfDay > 5 && hourOfDay < 10 ) {
+    dayGreeting = _('entities.greetings.morning');
+  }
+
+  if (dayGreeting) {
+    phrase = lodash.sample([
+      _('actions.vo-login.daily_phrase_1', {name:analysis.match, greeting:dayGreeting})
+    ]);
+  } else {
+    phrase = lodash.sample([
+      _('actions.vo-login.phrase_1', {name: analysis.match})
+    ]);
+  }
 
   // TODO slugify analysis.match
   var parsedUserName = analysis.match.toLowerCase();

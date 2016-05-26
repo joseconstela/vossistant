@@ -10,10 +10,12 @@
     "inboundNotEarNoPermissions": "I can't hear anything. I don't have permissions."
   },
   "speech": {
-    "errorGeneral": "Oh! Something went wrong..."
+    "errorGeneral": "Oh! Something went wrong...",
+    "errorWindowFocus": "Oh! I've tried to open the website, but your browser is blocking the popups."
   },
   "actions": {
     "vo-login": {
+      "daily_phrase_1": "Hello __name__, __greeting__. How can I help you today?",
       "phrase_1": "Hello __name__. How can I help you today?"
     },
     "vo-meteor-name": {
