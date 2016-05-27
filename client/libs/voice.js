@@ -18,10 +18,16 @@ if (!('SpeechSynthesisUtterance' in window)) {
 // Recognition
 recognition = {};
 
-if (!('webkitSpeechRecognition' in window)) {
+var SpeechRecognition = window.SpeechRecognition ||
+                        window.webkitSpeechRecognition ||
+                        window.mozSpeechRecognition ||
+                        window.msSpeechRecognition ||
+                        window.oSpeechRecognition;
+
+if (!SpeechRecognition) {
   voice_enabled = false;
 } else {
-  recognition = new webkitSpeechRecognition();
+  recognition = new SpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = true;
   recognition.lang = 'en-GB';
