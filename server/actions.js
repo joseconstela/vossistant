@@ -43,8 +43,7 @@ actions['vo-login'] = function(analysis) {
         application: 'meteor',
         parameters: ['login', parsedUserName + '@app.com', 'password']
       },
-      say: phrase,
-      text: phrase
+      say: phrase
     };
 
   } else {
