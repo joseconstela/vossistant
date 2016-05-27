@@ -11,6 +11,10 @@ body { padding-top: 70px; background: black !important; }
   width: 100%;
 }
 
+.center {
+  text-align: center;
+}
+
 #inbound-menu {
   width: 100%;
   margin: 0;

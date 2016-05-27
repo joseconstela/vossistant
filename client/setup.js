@@ -3,6 +3,8 @@ Meteor.startup(() => {
 
   Meteor.isElectron = Meteor.settings.public.isElectron ? Meteor.settings.public.isElectron : false;
 
+  if (navigator.userAgent.search('Electron') >= 0) { return; }
+
   getUserLanguage = function () {
     return Session.get('language') ? Session.get('language') : 'en';
   };

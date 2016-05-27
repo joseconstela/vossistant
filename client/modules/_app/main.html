@@ -4,12 +4,29 @@
 </head>
 
 <body>
-  {{> app}}
+  {{#if isElectronWindow}}
+    {{> electronWindow}}
+  {{else}}
+    {{> app}}
+  {{/if}}
 </body>
 
 <template name="app">
   {{> home}}
   {{> sAlert}}
+</template>
+
+<template name="electronWindow">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 center">
+        <a href="http://localhost:3000" target="_blank" type="button" class="btn btn-success">Open Vossistant</a>
+        <p>
+        <small>And minimise this window.</small>
+        </p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <template name="inboundMenu">

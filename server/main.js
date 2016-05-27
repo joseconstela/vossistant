@@ -5,8 +5,12 @@ Meteor.startup(() => {
   buildIntelligence();
 
   Meteor.methods({
-    'getElectronPort': function() {
-      return Meteor.isElectron ? Meteor.server.method_handlers['electrify.get.socket.port']() : false;
+    'openVossistanWindow': function(isDevelopment) {
+      var port = isDevelopment ? 3000 : Meteor.server.method_handlers['electrify.get.socket.port']();
+      commands.execute({command: {
+        application: 'browser',
+        parameters: ['http://localhost:' + port]
+      }}, false);
     },
     'inbound': function(text, language, textId) {
 

@@ -1,6 +1,6 @@
 {
   "public": {
-    "electron": true
+    "isElectron": true
   },
   "electron": {
     "name": "Vossistant - alpha 0.0.1",

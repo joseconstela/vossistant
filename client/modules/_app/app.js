@@ -18,6 +18,14 @@ Template.inboundMenu.helpers({
   }
 });
 
+Template.electronWindow.events({
+  "click a": function(event, template){
+     event.preventDefault();
+     Meteor.call('openVossistanWindow', Meteor.isDevelopment, function(error, result){
+     });
+  }
+});
+
 Template.inboundMenuOption.events({
   "click li": function(event, template){
     var menu = menuOptions.findOne({_id:Session.get('menuOptions')});

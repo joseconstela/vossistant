@@ -1,3 +1,5 @@
+if (navigator.userAgent.search('Electron') >= 0) { return; }
+
 voice_enabled = true;
 speech_enabled = true;
 
