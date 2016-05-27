@@ -6,7 +6,11 @@ Meteor.startup(() => {
 
   Meteor.methods({
     'openVossistanWindow': function(isDevelopment) {
-      var port = isDevelopment ? 3000 : Meteor.server.method_handlers['electrify.get.socket.port']();
+      var port = 0;
+      if (isDevelopment) { port = 3000; } else {
+        var _port = Number(Meteor.server.method_handlers['electrify.get.socket.port']());
+        port = ++_port;
+      }
       commands.execute({command: {
         application: 'browser',
         parameters: ['http://localhost:' + port]
