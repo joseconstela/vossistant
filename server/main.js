@@ -49,6 +49,7 @@ Meteor.startup(() => {
           var data = {};
           Object.assign(data, action, analysis);
 
+          // Flag the message as parsed, with all the details
           chat.update({_id: textId}, {
             $set: {data:data}
           });
@@ -56,6 +57,7 @@ Meteor.startup(() => {
           return action;
         }
       } else {
+        // Flag the message as parsed
         chat.update({_id: textId}, {
           $set: {data: {} }
         });
