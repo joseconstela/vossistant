@@ -1,8 +1,13 @@
 Meteor.startup(() => {
 
+  Meteor.isElectron = (Meteor.server.method_handlers['electrify.get.socket.port']() !== null);
+
   buildIntelligence();
 
   Meteor.methods({
+    'getElectronPort': function() {
+      return Meteor.isElectron ? Meteor.server.method_handlers['electrify.get.socket.port']() : false;
+    },
     'inbound': function(text, language, textId) {
 
       _ = function(txt, opts) {
@@ -10,9 +15,7 @@ Meteor.startup(() => {
       }
       moment.locale(language);
 
-      console.log('inbound', text);
       var analysis = textRequest(text, language);
-      console.log('analysis', analysis);
 
       if (!!analysis) {
 
@@ -23,7 +26,6 @@ Meteor.startup(() => {
           if (!action) return false;
 
           if (!!action.command) {
-
             if (action.command.application === 'mongo') {
               Meteor.users.update({
                 _id: Meteor.userId()

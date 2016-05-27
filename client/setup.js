@@ -1,6 +1,8 @@
 menuOptions = new Mongo.Collection(null);
 Meteor.startup(() => {
 
+  Meteor.isElectron = Meteor.settings.public.isElectron ? Meteor.settings.public.isElectron : false;
+
   getUserLanguage = function () {
     return Session.get('language') ? Session.get('language') : 'en';
   };

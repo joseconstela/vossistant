@@ -4,17 +4,16 @@ var electrify = require('electrify')(__dirname);
 
 var window    = null;
 
-  app.on('ready', function() {
-    electrify.start(function(meteor_root_url) {
-      // creates a new electron window
-      window = new browser({
-        width: 400, height: 400,
-        'node-integration': false
-      });
-      console.log('meteor_root_url', meteor_root_url);
-      window.loadURL('index.html');
+app.on('ready', function() {
+  electrify.start(function(meteor_root_url) {
+    // creates a new electron window
+    window = new browser({
+      width: 400, height: 400,
+      'node-integration': false
     });
+    window.loadURL(meteor_root_url);
   });
+});
 
 app.on('window-all-closed', function() {
   app.quit();
