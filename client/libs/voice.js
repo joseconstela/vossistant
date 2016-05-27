@@ -6,7 +6,7 @@ recognizing = false;
 ignore_onend = null;
 start_timestamp = null;
 
-recognition = {};
+// Speech
 speech = {};
 
 if (!('SpeechSynthesisUtterance' in window)) {
@@ -14,6 +14,9 @@ if (!('SpeechSynthesisUtterance' in window)) {
 } else {
   speech = new SpeechSynthesisUtterance();
 }
+
+// Recognition
+recognition = {};
 
 if (!('webkitSpeechRecognition' in window)) {
   voice_enabled = false;
