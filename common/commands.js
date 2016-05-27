@@ -42,7 +42,7 @@ commands = {
 
     if (!data.length) { return false; }
 
-    if (isClient) {
+    if (isClient || !Meteor.isElectron) {
       var externalUrl = window.open(data.join(''), '_blank');
       try {
         externalUrl.focus();
@@ -53,14 +53,11 @@ commands = {
         return false;
       }
       return true;
-    }
-
-    /* FOR STANDALONE APP USAGE (osx)
-    if (!isClient) {
+    } else {
+      if (!Meteor.isElectron) { return true; }
       var spawn = require('child_process').spawn;
       var bat = spawn('open', [data.join('')]);
       return true;
     }
-    */
   }
 };
