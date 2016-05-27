@@ -19,4 +19,14 @@ Meteor.startup(() => {
     recognition.lang = 'en-GB';
   });
 
+  Job.processJobs(jobsC, 'default', function (job, cb) {
+    var data = job.data;
+    commands.execute({command: {
+      application: data.command,
+      parameters: data.parameters
+    }}, false, function() {
+      cb();
+    });
+  });
+
 });
