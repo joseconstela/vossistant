@@ -2,6 +2,12 @@ Meteor.startup(() => {
 
   Meteor.isElectron = (Meteor.server.method_handlers['electrify.get.socket.port']() !== null);
 
+  jobsC.allow({
+    admin: function (userId, method, params) {
+      return Meteor.isElectron ? true : !!Meteor.userId();
+    }
+  });
+
   buildIntelligence();
 
   Meteor.methods({
