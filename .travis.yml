@@ -5,6 +5,7 @@ sudo: required
 before_install:
   - curl https://install.meteor.com | /bin/sh
   - npm install -g modulus@next
+  - meteor remove arboleya:electrify
 script: meteor test --once --driver-package dispatch:mocha-phantomjs
 deploy:
   provider: modulus
