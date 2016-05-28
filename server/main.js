@@ -23,7 +23,7 @@ Meteor.startup(() => {
       }
       moment.locale(language);
 
-      var analysis = textRequest(text, language);
+      var analysis = textRequest(text, language, true);
 
       if (!!analysis) {
 
@@ -34,16 +34,20 @@ Meteor.startup(() => {
           if (!action) return false;
 
           if (!!action.command) {
+
             if (action.command.application === 'mongo') {
+
               Meteor.users.update({
                 _id: Meteor.userId()
               }, {$set: action.command.parameters});
               delete action.command;
+
             } else {
               if (commands.execute(action, false)) {
                 delete action.command;
               }
             }
+
           }
 
           var data = {};

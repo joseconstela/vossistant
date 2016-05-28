@@ -34,6 +34,7 @@ normalize = (function() {
 * @return {[type]}        [description]
 */
 textRequest = function(phrase, language, debug) {
+
   phrase = normalize(phrase).trim();
   var r = null;
   lodash.forOwn(intelligence[language], function(values, keys) {

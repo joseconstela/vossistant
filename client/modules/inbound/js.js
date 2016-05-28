@@ -88,6 +88,7 @@ Template.inboundBox.events({
     inbound(null, '...');
 
     Meteor.call('inbound', txt, Session.get('language'), textId, function(error, result){
+
       final_transcript = interim_transcript = '';
 
       if(error){
@@ -103,6 +104,7 @@ Template.inboundBox.events({
       }
 
       if (result && !!result.command) {
+
         if (!commands.execute(result, true)) {
           delete result.say;
         }

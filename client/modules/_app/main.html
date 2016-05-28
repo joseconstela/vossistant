@@ -43,7 +43,7 @@
 </template>
 
 <template name="home">
-  <div class="container-fluid">
+  <div class="container-fluid {{#if sess 'application'}}application{{/if}}">
     <div class="row">
       <div class="col-md-12">
         {{> inboundBox}}

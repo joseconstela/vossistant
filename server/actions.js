@@ -1,5 +1,16 @@
 actions = {};
 
+actions['vo-terminal'] = function(analysis) {
+
+  return {
+    command: {
+      application: 'terminal',
+      parameters: ['open']
+    }
+  };
+
+};
+
 actions['vo-login'] = function(analysis) {
 
   // Logout user

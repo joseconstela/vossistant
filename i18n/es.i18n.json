@@ -65,6 +65,9 @@
     "vo-logout": [
       "Cerrar sesión"
     ],
+    "vo-terminal": [
+      "!"
+    ],
     "wiki": [
       "Cuál es (.+)",
       "Quién es un (.+)",

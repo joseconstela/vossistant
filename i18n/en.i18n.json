@@ -63,6 +63,9 @@
       "Logout",
       "Log me out"
     ],
+    "vo-terminal": [
+      "!"
+    ],
     "wiki": [
       "Who is the (.+)",
       "Who is (.+)",
