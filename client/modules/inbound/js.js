@@ -94,10 +94,7 @@ Template.inboundBox.events({
         inbound(error.reason);
         recognitionToggle(false);
         speechSay({
-          text: TAPi18n.__('speech.errorGeneral'),
-          callback: function() {
-            recognitionToggle(true);
-          }
+          text: TAPi18n.__('speech.errorGeneral')
         });
         return false;
       }
@@ -111,10 +108,7 @@ Template.inboundBox.events({
 
       if(result && !!result.say) {
         speechSay({
-          text: result.say,
-          callback: function() {
-            recognitionToggle(true);
-          }
+          text: result.say
         });
       } else {
         recognitionToggle('restart');

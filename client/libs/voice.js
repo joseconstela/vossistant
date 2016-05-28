@@ -108,14 +108,19 @@ recognition.onresult = function(event) {
 
 speechSay = function(options) {
   if (!speech_enabled) return false;
+  recognitionToggle(false);
+  inbound(null, '...');
   speech.text = options.text;
   speech.lang = TAPi18n.__('languageCode');
   if (typeof options.callback === 'function') {
     speech.onend = function() {
       options.callback();
+      recognitionToggle(true);
     };
   } else {
-    speech.onend = function() {};
+    speech.onend = function() {
+      recognitionToggle(true);
+    };
   }
   speechSynthesis.speak(speech);
 };
@@ -126,6 +131,7 @@ recognitionToggle = function(toggle) {
       inbound();
       if (voice_enabled) {
         recognition.start();
+        inbound();
       }
     } catch (ex) {
     }
