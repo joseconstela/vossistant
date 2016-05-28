@@ -3,16 +3,18 @@
 <a href="https://github.com/joseconstela/vossistant/blob/master/LICENSE">
   <img src="https://img.shields.io/badge/LICENSE-MIT-brightgreen.svg">
 </a>
+<a href="https://travis-ci.org/joseconstela/vossistant">
+  <img src="https://img.shields.io/travis/joseconstela/vossistant.svg">
+</a>
 <a href="https://gitter.im/joseconstela/vossistant">
   <img src="https://img.shields.io/badge/JOIN%20THE%20CHAT-gitter-yellow.svg">
 </a>
 <a href="https://travis-ci.org/joseconstela/vossistant">
-  <img src="https://img.shields.io/travis/joseconstela/vossistant.svg">
+  <img src="https://img.shields.io/badge/DEVELOPER%3F-wiki-orange.svg">
 </a>
 <a href="https://travis-ci.org/joseconstela/vossistant">
-  <img src="https://img.shields.io/badge/WHATS%20GOING%20ON-waffle-blue.svg">
+  <img src="https://img.shields.io/badge/ROADMAP-waffle-blue.svg">
 </a>
-
 
 Voice-enabled personal assistant web application built in MeteorJS.
 
