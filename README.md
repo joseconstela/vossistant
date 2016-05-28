@@ -1,16 +1,45 @@
 # Vossistant
 <img src="https://raw.githubusercontent.com/joseconstela/vossistant/master/private/appIcon.png" width="120" align="right" />
-> Multilanguage Natural Language Understanding application built in MeteorJS.
->
->[![Gitter](https://badges.gitter.im/joseconstela/vossistant.png)](https://gitter.im/joseconstela/vossistant) [![Travis](https://img.shields.io/travis/joseconstela/vossistant.svg)](https://travis-ci.org/joseconstela/vossistant) [![Stories in Ready](https://badge.waffle.io/joseconstela/vossistant.png?label=ready&title=Ready)](http://waffle.io/joseconstela/vossistant)
+<a href="https://github.com/joseconstela/vossistant/blob/master/LICENSE">
+  <img src="https://img.shields.io/badge/LICENSE-MIT-brightgreen.svg">
+</a>
+<a href="https://gitter.im/joseconstela/vossistant">
+  <img src="https://img.shields.io/badge/JOIN%20THE%20CHAT-gitter-yellow.svg">
+</a>
+<a href="https://travis-ci.org/joseconstela/vossistant">
+  <img src="https://img.shields.io/travis/joseconstela/vossistant.svg">
+</a>
+<a href="https://travis-ci.org/joseconstela/vossistant">
+  <img src="https://img.shields.io/badge/WHATS%20GOING%20ON-waffle-blue.svg">
+</a>
 
-Vossistant uses [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for voice recognition and [Synthesis Utterance](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance) for Natural Language replies. Based on Intentions & Entities principle, using regular expressions.
 
-[Try a limited demo on modulus](https://vossistant-63519.onmodulus.net/) (database gets cleaned periodically).
+Voice-enabled personal assistant web application built in MeteorJS.
 
-> Fork, commit, play and visit the [Wiki](https://github.com/joseconstela/vossistant/wiki)
+It uses [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for voice recognition and [Synthesis Utterance](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance) for Natural Language replies. Based on Intentions & Entities principle, using regular expressions.
 
 <img src="https://raw.githubusercontent.com/joseconstela/vossistant/master/private/SCREENSHOT.png" />
+
+## Demo
+
+Try a [limited demo on modulus](https://vossistant-63519.onmodulus.net/) - database gets cleaned periodically. For full performance, install locally.
+
+## Install locally
+
+At the moment there's no packaged version for Vossistant, but you still can run it running the following commands (OSX & Linux)
+
+```
+curl https://install.meteor.com/ | sh
+git clone git@github.com:joseconstela/vossistant.git
+cd vossistant
+meteor
+```
+
+## Development and customization
+
+Fork, commit, play and visit the [Wiki](https://github.com/joseconstela/vossistant/wiki)
+
+
 
 ## Example commands
 
@@ -95,14 +124,6 @@ Vossistant uses [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/AP
     </tr>
 </table>
 
-## MIT License
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-# Other licenses
-
-App icon: Linkware. http://www.pelfusion.com
+# Licenses
+* Vossistant: [MIT](https://github.com/joseconstela/vossistant/blob/master/LICENSE)
+* App icon: Linkware. http://www.pelfusion.com
