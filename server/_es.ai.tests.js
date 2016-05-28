@@ -54,7 +54,7 @@ describe( 'ai tests', () => {
     assert.equal( textResult.intention, 'reminder-wake-up' );
     assert.equal( textResult.match, '3' );
     assert.typeOf( textResult.data, 'object' );
-    assert.equal( textResult.data['time-period'], 'hours' );
+    assert.equal( textResult.data['moment-period'], 'h' );
   });
   it( 'Despiértame a la 1 de la manana', () => {
     var textResult = textRequest('Despiértame a la 1 de la manana', 'es');
