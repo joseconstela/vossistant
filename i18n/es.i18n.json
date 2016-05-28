@@ -70,6 +70,7 @@
       "Cerrar sesión"
     ],
     "reminder-wake-up": [
+      "Despiértame en (.+) %moment-period%",
       "Despiértame dentro de (.+) %moment-period%",
       "Despiértame a las (.+) de la %day-period%",
       "Despiértame a la (.+) de la %day-period%",
