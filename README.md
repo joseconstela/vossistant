@@ -12,7 +12,7 @@
 <a href="https://travis-ci.org/joseconstela/vossistant">
   <img src="https://img.shields.io/badge/DEVELOPER%3F-wiki-orange.svg">
 </a>
-<a href="https://travis-ci.org/joseconstela/vossistant">
+<a href="https://waffle.io/joseconstela/vossistant">
   <img src="https://img.shields.io/badge/ROADMAP-waffle-blue.svg">
 </a>
 
