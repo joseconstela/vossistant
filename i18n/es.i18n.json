@@ -172,7 +172,7 @@
       "d": [ "día", "días" ],
       "h": [ "hora", "horas" ],
       "m": [ "minuto", "minutos" ],
-      "s": [ "segundos", "segundos" ]
+      "s": [ "segundo", "segundos" ]
     }
   }
 }

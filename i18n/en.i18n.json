@@ -164,6 +164,19 @@
       "day-of-week": [ "day of the week", "day of week" ],
       "time": [ "hour", "time" ],
       "day": [ "day" ]
+    },
+    "day-period": {
+      "morning": [ "morning" ],
+      "evening": [ "evening" ],
+      "night": [ "night" ]
+    },
+    "moment-period": {
+      "M": [ "month", "months" ],
+      "w": [ "week", "weeks" ],
+      "d": [ "day", "days" ],
+      "h": [ "hour", "hours" ],
+      "m": [ "minute", "minutes" ],
+      "s": [ "second", "seconds" ]
     }
   }
 }
