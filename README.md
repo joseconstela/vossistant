@@ -22,7 +22,7 @@ It uses [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Sp
 
 ## Demo
 
-Try a [limited demo on modulus](https://vossistant-63519.onmodulus.net/) - database gets cleaned periodically. For full performance, install locally.
+Try a [limited demo on modulus](https://vossistant-63519.onmodulus.net/) - database gets cleaned periodically. For full performance and features, install locally.
 
 ## Install locally
 
