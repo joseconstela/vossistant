@@ -12,9 +12,8 @@ chat.attachSchema(new SimpleSchema({
 
   'userId': {
     type: String,
-    optional: true,
     autoValue: function () {
-      if (this.isInsert && Meteor.userId()) {
+      if (this.isInsert) {
         return Meteor.userId();
       }
     }

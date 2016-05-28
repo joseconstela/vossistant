@@ -17,30 +17,21 @@ commands = {
 
   reminder: function(data, isClient) {
 
-    console.log('data ~ > ', data);
+    speechSay({
+      text: data.say || '',
+      callback: function() {
+        recognitionToggle(true);
 
-    if (data.say) {
-      speechSay({
-        text: data.say,
-        callback: function() {
-          recognitionToggle(true);
-
-          chat.insert({
-            "direction" : "outbound",
-            "text" : data.say,
-            "userId" : data.userId,
-            "data" : {
-              "display" : {
-                "title" : "Some music...",
-                "link" : "",
-                "html" : '<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/257717036&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>'
-              }
-            }
-          });
-        }
-      });
-
-    }
+        chat.insert({
+          "direction" : "outbound",
+          "text" : data.say,
+          "userId" : data.userId,
+          "data" : {
+            "display" : soundCloudSong('242394750')
+          }
+        });
+      }
+    });
 
   },
 

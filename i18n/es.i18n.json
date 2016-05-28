@@ -14,10 +14,6 @@
     "errorWindowFocus": "¡Oh! He intentado abrir la página web, pero tu navegador está bloqueando las ventanas emergentes."
   },
   "actions": {
-    "vo-login": {
-      "daily_phrase_1": "Hola __name__, __greeting__. ¿En qué te puedo ayudar?",
-      "phrase_1": "Hola __name__. ¿En qué te puedo ayudar?."
-    },
     "vo-meteor-name": {
       "phrase_1": "De acuerdo. A partir de ahora te llamaré __name__",
       "phrase_2": "De acuerdo, __name__"
@@ -53,9 +49,6 @@
     }
   },
   "intentions": {
-    "vo-login": [
-      "Soy (.+)"
-    ],
     "vo-meteor-name": [
       "Llámame (.+)",
       "Mi nombre es (.+)",

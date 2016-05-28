@@ -14,10 +14,6 @@
     "errorWindowFocus": "Oh! I've tried to open the website, but your browser is blocking the popups."
   },
   "actions": {
-    "vo-login": {
-      "daily_phrase_1": "Hello __name__, __greeting__. How can I help you today?",
-      "phrase_1": "Hello __name__. How can I help you today?"
-    },
     "vo-meteor-name": {
       "phrase_1": "Copy. I will call you __name__",
       "phrase_2": "Ok, __name__"
@@ -53,9 +49,6 @@
     }
   },
   "intentions": {
-    "vo-login": [
-      "I'm (.+)"
-    ],
     "vo-meteor-name": [
       "Call me (.+)",
       "My name is (.+)",
