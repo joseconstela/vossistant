@@ -26,7 +26,7 @@
       "phrase_1": "See you soon."
     },
     "reminder-wake-up": {
-      "phrase_1": "Alarm setup.",
+      "phrase_1": "Alarm setup at __time__",
       "alarm_1": "Wake up!"
     },
     "wiki": {

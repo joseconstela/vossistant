@@ -26,7 +26,7 @@
       "phrase_1": "Hasta pronto."
     },
     "reminder-wake-up": {
-      "phrase_1": "Despertador programado",
+      "phrase_1": "Alarma programada a las __time__.",
       "alarm_1": "¡Despiértate!"
     },
     "wiki": {
