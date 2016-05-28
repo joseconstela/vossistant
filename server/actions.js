@@ -161,7 +161,6 @@ actions['reminder-wake-up'] = function(analysis) {
       user: Meteor.userId(),
       say: alarm,
       text: '"' + analysis.phrase + '"',
-      music: true
     }
   }).delay( date.diff(moment(), 'seconds') *1000).save();
 
