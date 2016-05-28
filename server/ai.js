@@ -110,21 +110,19 @@ roughSizeOfObject = function( object ) {
 }
 
 /**
-* [function description]
-* @param  {[type]} debug [description]
-* @return {[type]}       [description]
+* Builds the ```intelligence``` object for all languages.
 */
 buildIntelligence = function() {
 
+  // When running meteor tests, TAPi18n's method returns null.
   var langs = Meteor.isTest ? ['es', 'en'] : lodash.keys(TAPi18n.getLanguages());
-
-  var fs = require('fs');
 
   langs.forEach( function(langCode) {
 
     var translations = {};
 
     if (Meteor.isTest) {
+      var fs = require('fs');
       var path = process.env.PWD + '/i18n/' + langCode + '.i18n.json';
       var buff = fs.readFileSync( path );
       translations = JSON.parse(buff);

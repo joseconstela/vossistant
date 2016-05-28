@@ -47,4 +47,35 @@ describe( 'ai tests', () => {
     assert.equal( textResult.intention, 'wiki' );
     assert.equal( textResult.match, 'mas bella' );
   });
+
+  it( 'Despiértame dentro de 3 horas', () => {
+    var textResult = textRequest('Despiértame dentro de 3 horas', 'es');
+    assert.typeOf( textResult, 'object' );
+    assert.equal( textResult.intention, 'reminder-wake-up' );
+    assert.equal( textResult.match, '3' );
+    assert.typeOf( textResult.data, 'object' );
+    assert.equal( textResult.data['moment-period'], 'h' );
+  });
+  it( 'Despiértame a la 1 de la manana', () => {
+    var textResult = textRequest('Despiértame a la 1 de la manana', 'es');
+    assert.typeOf( textResult, 'object' );
+    assert.equal( textResult.intention, 'reminder-wake-up' );
+    assert.equal( textResult.match, '1' );
+    assert.typeOf( textResult.data, 'object' );
+    assert.equal( textResult.data['day-period'], 'morning' );
+  });
+  it( 'Despiértame a las 8:30 de la manana', () => {
+    var textResult = textRequest('Despiértame a las 8:30 de la manana', 'es');
+    assert.typeOf( textResult, 'object' );
+    assert.equal( textResult.intention, 'reminder-wake-up' );
+    assert.equal( textResult.match, '8:30' );
+    assert.typeOf( textResult.data, 'object' );
+    assert.equal( textResult.data['day-period'], 'morning' );
+  });
+  it( 'Despiértame a las 12:30', () => {
+    var textResult = textRequest('Despiértame a las 12:30', 'es');
+    assert.typeOf( textResult, 'object' );
+    assert.equal( textResult.intention, 'reminder-wake-up' );
+    assert.equal( textResult.match, '12:30' );
+  });
 });

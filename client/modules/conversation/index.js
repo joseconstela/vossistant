@@ -1,6 +1,6 @@
 
 Template.conversation.helpers({
   chat: function(){
-    return chat.find({}, {limit: 1, sort: {createdAt: -1}});
+    return chat.find({}, {sort: {createdAt: -1}});
   }
 });

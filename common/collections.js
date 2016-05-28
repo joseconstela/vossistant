@@ -1,3 +1,5 @@
+jobsC = JobCollection('job');
+
 chat = new Mongo.Collection('chat');
 
 chat.allow({

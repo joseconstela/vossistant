@@ -118,6 +118,66 @@ actions['vo-logout'] = function(analysis) {
   };
 };
 
+actions['reminder-wake-up'] = function(analysis) {
+
+  var date = moment();
+
+  var fullTime = !Number(analysis.match);
+  if (!fullTime) {
+    analysis.match += ':00';
+  }
+  var hourSplit = analysis.match.split(':');
+
+  if (!!analysis.data) {
+
+    if(!!analysis.data['moment-period']) {
+      date.add(Number(hourSplit[0]), analysis.data['moment-period']);
+    } else if(!!analysis.data['day-period']) {
+      date.set('hour', hourSplit[0]);
+      date.set('minutes', hourSplit[1]);
+      var period = analysis.data['day-period'];
+
+      if (isThisTime(date.get('hour'), 1) && period === 'evening') {
+        date.set('hour', date.get('hour') + 12);
+      } else if (isThisTime(date.get('hour'), 2), period === 'night') {
+        if (date.get('hour') > timeRanges[0][0]) {
+          date.set('hour', date.get('hour') + 12);
+        }
+      } else if (!period) {
+        if (hourSplit[0] <= moment().get('hour')) {
+          date.set('hour', date.get('hour') + 12);
+        }
+      }
+    }
+  }
+
+  var alarm = lodash.sample([
+    _('actions.reminder-wake-up.alarm_1', {}),
+  ]);
+
+  new Job(jobsC, 'default', {
+    command: 'reminder',
+    parameters: {
+      user: Meteor.userId(),
+      say: alarm,
+      text: '"' + analysis.phrase + '"',
+      music: true
+    }
+  }).delay( date.diff(moment(), 'seconds') *1000).save();
+
+  var phrase = lodash.sample([
+    _('actions.reminder-wake-up.phrase_1', {
+      time: date.format('hh:mm a')
+    })
+  ]);
+
+  return {
+    say: phrase,
+    text: phrase
+  };
+
+};
+
 actions['wiki'] = function(analysis) {
 
   var url = ['https://es.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='];

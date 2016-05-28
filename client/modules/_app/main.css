@@ -1,14 +1,17 @@
 html { -webkit-text-size-adjust: none; }
-body { padding-top: 70px; background: black !important; }
+body { padding: 0; margin: 0; background: black !important; }
 * { color: white !important; }
 
 .container,
 .container-fluid {
   padding: 100px !important;
+  width: 100%;
+}
+
+.minimal-ui {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 100%;
 }
 
 .center {
@@ -73,6 +76,10 @@ body { padding-top: 70px; background: black !important; }
 
 #responses .list-group-item-display img {
   width: 100%;
+}
+
+#responses .list-group-item-display iframe {
+  max-width: 50%;
 }
 
 #responses .response {

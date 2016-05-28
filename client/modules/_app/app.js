@@ -38,10 +38,7 @@ Template.inboundMenuOption.events({
         .done(function () {
           recognition.lang = TAPi18n.__('languageCode');
           speechSay({
-            text: TAPi18n.__('app.languageChanged'),
-            callback: function() {
-              recognitionToggle('restart');
-            }
+            text: TAPi18n.__('app.languageChanged')
           });
 
         })

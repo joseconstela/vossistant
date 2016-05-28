@@ -25,6 +25,10 @@
     "vo-logout": {
       "phrase_1": "Hasta pronto."
     },
+    "reminder-wake-up": {
+      "phrase_1": "Alarma programada a las __time__.",
+      "alarm_1": "¡Despiértate!"
+    },
     "wiki": {
       "notSure_1": "No lo tengo muy claro... pero puedes buscar aquí.",
       "tryAt_1": "Prueba en: __googleUrl__"
@@ -64,6 +68,13 @@
     ],
     "vo-logout": [
       "Cerrar sesión"
+    ],
+    "reminder-wake-up": [
+      "Despiértame dentro de (.+) %moment-period%",
+      "Despiértame a las (.+) de la %day-period%",
+      "Despiértame a la (.+) de la %day-period%",
+      "Despiértame a las (.+)",
+      "Despiértame a la (.+)"
     ],
     "wiki": [
       "Cuál es (.+)",
@@ -148,6 +159,19 @@
       "day-of-week": [ "día de la semana", "día de semana" ],
       "time": [ "hora" ],
       "day": [ "día" ]
+    },
+    "day-period": {
+      "morning": [ "mañana" ],
+      "evening": [ "tarde" ],
+      "night": [ "noche" ]
+    },
+    "moment-period": {
+      "M": [ "mes", "meses" ],
+      "w": [ "semana", "semanas" ],
+      "d": [ "día", "días" ],
+      "h": [ "hora", "horas" ],
+      "m": [ "minuto", "minutos" ],
+      "s": [ "segundos", "segundos" ]
     }
   }
 }
