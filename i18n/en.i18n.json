@@ -25,6 +25,10 @@
     "vo-logout": {
       "phrase_1": "See you soon."
     },
+    "reminder-wake-up": {
+      "phrase_1": "Alarm setup.",
+      "alarm_1": "Wake up!"
+    },
     "wiki": {
       "notSure_1": "I'm not sure... but you can look here.",
       "tryAt_1": "Try at: __googleUrl__"
@@ -62,6 +66,14 @@
     "vo-logout": [
       "Logout",
       "Log me out"
+    ],
+    "reminder-wake-up": [
+      "Wake me up in (.+) %moment-period%",
+      "Wake me up at (.+) on the %day-period%",
+      "Wake me up at (.+) on %day-period%",
+      "Wake me up at (.+) %day-period%",
+      "Wake me up at (.+)",
+      "Wake me up (.+)"
     ],
     "wiki": [
       "Who is the (.+)",

@@ -82,7 +82,6 @@ Template.inboundBox.events({
       direction: 'inbound',
       text: txt
     });
-    console.log('doc', textId);
 
     $('#inbound').val('');
     inbound(null, '...');

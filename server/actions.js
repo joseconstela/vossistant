@@ -120,27 +120,21 @@ actions['vo-logout'] = function(analysis) {
 
 actions['reminder-wake-up'] = function(analysis) {
 
-  console.log('analysis', analysis);
-
-  var alarm = lodash.sample([
-    _('actions.reminder-wake-up.alarm_1', {}),
-  ]);
-
   var date = moment();
 
   var fullTime = !Number(analysis.match);
   if (!fullTime) {
     analysis.match += ':00';
   }
+  var hourSplit = analysis.match.split(':');
 
   if (!!analysis.data) {
-    if(!!analysis.data['moment-period']) {
-      date.add(analysis.match, analysis.data['moment-period']);
-    } else if(!!analysis.data['day-period']) {
 
-      var hourSplit = analysis.match.split(':');
-          date.set('hour', hourSplit[0]);
-          date.set('minutes', hourSplit[1]);
+    if(!!analysis.data['moment-period']) {
+      date.add(Number(hourSplit[0]), analysis.data['moment-period']);
+    } else if(!!analysis.data['day-period']) {
+      date.set('hour', hourSplit[0]);
+      date.set('minutes', hourSplit[1]);
       var period = analysis.data['day-period'];
 
       if (isThisTime(date.get('hour'), 1) && period === 'evening') {
@@ -154,11 +148,14 @@ actions['reminder-wake-up'] = function(analysis) {
           date.set('hour', date.get('hour') + 12);
         }
       }
-
     }
   }
 
-  /*new Job(jobsC, 'default', {
+  var alarm = lodash.sample([
+    _('actions.reminder-wake-up.alarm_1', {}),
+  ]);
+
+  new Job(jobsC, 'default', {
     command: 'reminder',
     parameters: {
       user: Meteor.userId(),
@@ -166,15 +163,17 @@ actions['reminder-wake-up'] = function(analysis) {
       text: '"' + analysis.phrase + '"',
       music: true
     }
-  }).delay(3*1000).save();*/
+  }).delay( date.diff(moment(), 'seconds') *1000).save();
 
   var phrase = lodash.sample([
-    _('actions.reminder-wake-up.phrase_1', {})
+    _('actions.reminder-wake-up.phrase_1', {
+      time: date.format('hh:mm a')
+    })
   ]);
 
   return {
-    say: 'Despertador a las ' + date.format('hh:mm a'),
-    text: 'Despertador a las ' + date.format('HH:mm a')
+    say: phrase,
+    text: phrase
   };
 
 };

@@ -78,6 +78,10 @@ body { padding: 0; margin: 0; background: black !important; }
   width: 100%;
 }
 
+#responses .list-group-item-display iframe {
+  max-width: 50%;
+}
+
 #responses .response {
   border-left: 2px solid white;
   padding-left: 10px;

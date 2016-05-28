@@ -29,7 +29,7 @@ Meteor.startup(() => {
       }
       moment.locale(language);
 
-      var analysis = textRequest(text, language);
+      var analysis = textRequest(text, language, true);
 
       if (!!analysis) {
 
