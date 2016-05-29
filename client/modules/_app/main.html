@@ -3,30 +3,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body>
-  {{#if isElectronWindow}}
-    {{> electronWindow}}
-  {{else}}
-    {{> app}}
-  {{/if}}
-</body>
-
 <template name="app">
-  {{> home}}
+  {{#if currentUser}}
+    {{> home}}
+  {{else}}
+    {{> notLogged}}
+  {{/if}}
   {{> sAlert}}
-</template>
-
-<template name="electronWindow">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12 center">
-        <a href="http://localhost:3000" target="_blank" type="button" class="btn btn-success">Open Vossistant</a>
-        <p>
-        <small>And minimise this window.</small>
-        </p>
-      </div>
-    </div>
-  </div>
 </template>
 
 <template name="inboundMenu">
@@ -43,15 +26,33 @@
 </template>
 
 <template name="home">
-  <div class="container-fluid minimal-ui">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        {{> inboundBox}}
+        {{#if sess 'menuOptions'}}
+          {{> inboundMenu}}
+        {{else}}
+          {{> inboundBox}}
+        {{/if}}
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         {{> conversation}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="notLogged">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        {{#if sess 'menuOptions'}}
+          {{> inboundMenu}}
+        {{else}}
+          {{> loginForm}}
+        {{/if}}
       </div>
     </div>
   </div>

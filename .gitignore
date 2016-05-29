@@ -2,4 +2,3 @@
 .meteor/meteorite
 node_modules/
 .demeteorized
-.meteor-electron

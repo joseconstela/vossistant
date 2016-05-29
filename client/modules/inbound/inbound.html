@@ -1,11 +1,5 @@
 <template name="inboundBox">
-
-  {{#if sess 'menuOptions'}}
-    {{> inboundMenu}}
-  {{else}}
-    <form id="inbound-form">
-      <input type="text" id="inbound" onblur="inboundFocus()" class="form-control" autocomplete="off">
-    </form>
-  {{/if}}
-
+  <form id="inbound-form">
+    <input type="text" id="inbound" onblur="inboundFocus()" class="main-input form-control" autocomplete="off">
+  </form>
 </template>

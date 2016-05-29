@@ -1,28 +1,41 @@
 Meteor.startup(() => {
 
-  Meteor.isElectron = (Meteor.server.method_handlers['electrify.get.socket.port']() !== null);
-
   jobsC.allow({
     admin: function (userId, method, params) {
-      return Meteor.isElectron ? true : !!Meteor.userId();
+      return !!Meteor.userId();
     }
+  });
+
+  Job.processJobs(jobsC, 'default', function (job, cb) {
+    var data = job.data;
+    commands.execute({command: {
+      application: data.command,
+      parameters: data.parameters
+    }}, false, function() {
+      cb();
+    });
   });
 
   buildIntelligence();
 
   Meteor.methods({
-    'openVossistanWindow': function(isDevelopment) {
-      var port = 0;
-      if (isDevelopment) { port = 3000; } else {
-        var _port = Number(Meteor.server.method_handlers['electrify.get.socket.port']());
-        port = ++_port;
+    'loginOrSignup': function(credentials) {
+      var account = Meteor.users.findOne({ 'emails.address' : credentials.email });
+
+      if (account) {
+        return 'login';
+      } else {
+        var accountId = Accounts.createUser(credentials);
+        var res = Accounts.sendVerificationEmail(accountId);
+        return 'signup';
       }
-      commands.execute({command: {
-        application: 'browser',
-        parameters: ['http://localhost:' + port]
-      }}, false);
     },
+
     'inbound': function(text, language, textId) {
+
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized');
+      }
 
       _ = function(txt, opts) {
         return TAPi18n.__(txt, opts, language);

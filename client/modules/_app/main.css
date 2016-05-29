@@ -6,9 +6,6 @@ body { padding: 0; margin: 0; background: black !important; }
 .container-fluid {
   padding: 100px !important;
   width: 100%;
-}
-
-.minimal-ui {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -40,20 +37,19 @@ body { padding: 0; margin: 0; background: black !important; }
   background: none;
 }
 
-#inbound-menu, #inbound {
+#inbound-menu, .main-input {
   margin-bottom: 20px !important;
-  font-size: 2.8em;
-  background: none;
+  font-size: 2.8em !important;
+  background: none !important;
 }
 
-#inbound {
-  height: initial;
-  margin-bottom: 30px;
-  border: none;
-  /* background: none; */
-  color: white;
-  padding: 0;
-  box-shadow: none;
+.main-input {
+  height: initial !important;
+  margin-bottom: 30px !important;
+  border: none !important;
+  color: white !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
 #responses > div {

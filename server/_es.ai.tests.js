@@ -56,16 +56,24 @@ describe( 'ai tests', () => {
     assert.typeOf( textResult.data, 'object' );
     assert.equal( textResult.data['moment-period'], 'h' );
   });
-  it( 'Despiértame a la 1 de la manana', () => {
-    var textResult = textRequest('Despiértame a la 1 de la manana', 'es');
+  it( 'Despiértame a la 1 de la mañana', () => {
+    var textResult = textRequest('Despiértame a la 1 de la mañana', 'es');
     assert.typeOf( textResult, 'object' );
     assert.equal( textResult.intention, 'reminder-wake-up' );
     assert.equal( textResult.match, '1' );
     assert.typeOf( textResult.data, 'object' );
     assert.equal( textResult.data['day-period'], 'morning' );
   });
-  it( 'Despiértame a las 8:30 de la manana', () => {
-    var textResult = textRequest('Despiértame a las 8:30 de la manana', 'es');
+  it( 'Despiértame a las 7 de la mañana', () => {
+    var textResult = textRequest('Despiértame a las 7 de la mañana', 'es');
+    assert.typeOf( textResult, 'object' );
+    assert.equal( textResult.intention, 'reminder-wake-up' );
+    assert.equal( textResult.match, '7' );
+    assert.typeOf( textResult.data, 'object' );
+    assert.equal( textResult.data['day-period'], 'morning' );
+  });
+  it( 'Despiértame a las 8:30 de la mañana', () => {
+    var textResult = textRequest('Despiértame a las 8:30 de la mañana', 'es');
     assert.typeOf( textResult, 'object' );
     assert.equal( textResult.intention, 'reminder-wake-up' );
     assert.equal( textResult.match, '8:30' );
@@ -77,5 +85,13 @@ describe( 'ai tests', () => {
     assert.typeOf( textResult, 'object' );
     assert.equal( textResult.intention, 'reminder-wake-up' );
     assert.equal( textResult.match, '12:30' );
+  });
+  it( 'Despiértame a las 7 pm', () => {
+    var textResult = textRequest('Despiértame a las 7 pm', 'es');
+    assert.typeOf( textResult, 'object' );
+    assert.equal( textResult.intention, 'reminder-wake-up' );
+    assert.equal( textResult.match, '7' );
+    assert.typeOf( textResult.data, 'object' );
+    assert.equal( textResult.data['time-period'], 'pm' );
   });
 });

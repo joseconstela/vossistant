@@ -7,9 +7,17 @@
     "inboundTalkOk": "Talk, I'm listening.",
     "inboundNotHear": "I can't hear anything.",
     "inboundNotEarGotMic": "I can't hear anything. Do you have a microphone?",
-    "inboundNotEarNoPermissions": "I can't hear anything. I don't have permissions."
+    "inboundNotEarNoPermissions": "I can't hear anything. I don't have permissions.",
+    "waitAMomentPlease": "Wait a moment please..."
   },
   "speech": {
+    "incorrectEmail": "Incorrect email address",
+    "incorrectEmailSay": "Incorrect email address.",
+    "incorrectPassword": "Incorrect password",
+    "incorrectPasswordSay": "Incorrect password. It must have a minimum of 6 characters.",
+    "typeYourEmail": "Helo! Type your email address and press enter.",
+    "typeYourPassword": "Now your password. If you have already signup, and you can't remember it, just press enter.",
+    "incorrectLoginDetails": "Email address and password don't match.",
     "errorGeneral": "Oh! Something went wrong...",
     "errorWindowFocus": "Oh! I've tried to open the website, but your browser is blocking the popups."
   },
@@ -22,8 +30,7 @@
       "phrase_1": "See you soon."
     },
     "reminder-wake-up": {
-      "phrase_1": "Alarm setup at __time__",
-      "alarm_1": "Wake up!"
+      "phrase_1": "Alarm setup at __time__"
     },
     "wiki": {
       "notSure_1": "I'm not sure... but you can look here.",
@@ -65,6 +72,7 @@
       "Wake me up at (.+) on the %day-period%",
       "Wake me up at (.+) on %day-period%",
       "Wake me up at (.+) %day-period%",
+      "Wake me up at (.+) %time-period%",
       "Wake me up at (.+)",
       "Wake me up (.+)"
     ],
@@ -162,6 +170,10 @@
       "morning": [ "morning" ],
       "evening": [ "evening" ],
       "night": [ "night" ]
+    },
+    "time-period": {
+      "pm": [ "pm" ],
+      "am": [ "am" ]
     },
     "moment-period": {
       "M": [ "month", "months" ],

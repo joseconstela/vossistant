@@ -17,21 +17,18 @@ commands = {
 
   reminder: function(data, isClient) {
 
-    speechSay({
-      text: data.say || '',
-      callback: function() {
-        recognitionToggle(true);
+    console.log('data', data);
 
-        chat.insert({
-          "direction" : "outbound",
-          "text" : data.say,
-          "userId" : data.userId,
-          "data" : {
-            "display" : soundCloudSong('242394750')
-          }
-        });
-      }
-    });
+    if (!isClient) {
+      chat.insert({
+        "direction" : "outbound",
+        "text" : data.text,
+        "userId" : data.userId,
+        "data" : {
+          "display" : soundCloudSong('242394750')
+        }
+      });
+    }
 
   },
 
@@ -44,18 +41,9 @@ commands = {
       if (method === 'logout') {
         Meteor.logout();
         return true;
-      } else if (method === 'login') {
-        Meteor.loginWithPassword(data[1], data[2]);
       }
       return true;
 
-    } else {
-      if (method === 'logout') {
-        Meteor.users.update({
-          _id: Meteor.userId(),
-        }, {$set: { "services.resume.loginTokens" : [] }});
-        return true;
-      }
     }
 
   },
@@ -64,7 +52,7 @@ commands = {
 
     if (!data.length) { return false; }
 
-    if (isClient || !Meteor.isElectron) {
+    if (isClient) {
       var externalUrl = window.open(data.join(''), '_blank');
       try {
         externalUrl.focus();
@@ -74,11 +62,6 @@ commands = {
         });
         return false;
       }
-      return true;
-    } else {
-      if (!Meteor.isElectron) { return true; }
-      var spawn = require('child_process').spawn;
-      var bat = spawn('open', [data.join('')]);
       return true;
     }
   }

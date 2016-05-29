@@ -7,9 +7,17 @@
     "inboundTalkOk": "Habla, te escucho.",
     "inboundNotHear": "No escucho nada.",
     "inboundNotEarGotMic": "No escucho nada, ¿tienes un micrófono?",
-    "inboundNotEarNoPermissions": "No escucho nada, no tengo permisos :("
+    "inboundNotEarNoPermissions": "No escucho nada, no tengo permisos :(",
+    "waitAMomentPlease": "Un momento porfavor..."
   },
   "speech": {
+    "incorrectEmail": "Email incorrecto",
+    "incorrectEmailSay": "Email incorrecto.",
+    "incorrectPassword": "Contraseña incorrecta",
+    "incorrectPasswordSay": "Contraseña incorrecta. Debe tener un mínimo de 6 caracteres.",
+    "typeYourEmail": "¡Hola! Introduce tu correo electrónico y presiona intro.",
+    "typeYourPassword": "Ahora tu contraseña. Si ya estabas registrado, y no la recuerdas, simplemente presiona intro.",
+    "incorrectLoginDetails": "La dirección de correo y la contraseña no coinciden",
     "errorGeneral": "¡Oh! Algo ha ido mal...",
     "errorWindowFocus": "¡Oh! He intentado abrir la página web, pero tu navegador está bloqueando las ventanas emergentes."
   },
@@ -22,8 +30,7 @@
       "phrase_1": "Hasta pronto."
     },
     "reminder-wake-up": {
-      "phrase_1": "Alarma programada a las __time__.",
-      "alarm_1": "¡Despiértate!"
+      "phrase_1": "Alarma programada a las __time__."
     },
     "wiki": {
       "notSure_1": "No lo tengo muy claro... pero puedes buscar aquí.",
@@ -67,6 +74,8 @@
       "Despiértame dentro de (.+) %moment-period%",
       "Despiértame a las (.+) de la %day-period%",
       "Despiértame a la (.+) de la %day-period%",
+      "Despiértame a las (.+) %time-period%",
+      "Despiértame a la (.+) %time-period%",
       "Despiértame a las (.+)",
       "Despiértame a la (.+)"
     ],
@@ -158,6 +167,10 @@
       "morning": [ "mañana" ],
       "evening": [ "tarde" ],
       "night": [ "noche" ]
+    },
+    "time-period": {
+      "pm": [ "pm" ],
+      "am": [ "am" ]
     },
     "moment-period": {
       "M": [ "mes", "meses" ],

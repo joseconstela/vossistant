@@ -1,5 +1,3 @@
-if (navigator.userAgent.search('Electron') >= 0) { return; }
-
 voice_enabled = true;
 speech_enabled = true;
 
@@ -78,7 +76,7 @@ recognition.onend = function() {
   }
 
   if (window.getSelection) {
-    $('#inbound').val('');
+    $('.main-input').val('');
     final_transcript = interim_transcript = '';
   }
 };
@@ -98,7 +96,7 @@ recognition.onresult = function(event) {
     }
   }
   final_transcript = capitalize(final_transcript);
-  $('#inbound').val(linebreak(interim_transcript));
+  $('.main-input').val(linebreak(interim_transcript));
 
   // execute here
   if (!final_transcript) { return false; }
@@ -110,7 +108,7 @@ speechSay = function(options) {
   if (!speech_enabled) return false;
   recognitionToggle(false);
   inbound(null, '...');
-  speech.text = options.text;
+  speech.text = options.text || '';
   speech.lang = TAPi18n.__('languageCode');
   if (typeof options.callback === 'function') {
     speech.onend = function() {
@@ -130,7 +128,9 @@ recognitionToggle = function(toggle) {
     try {
       inbound();
       if (voice_enabled) {
-        recognition.start();
+        if ($('#inbound:visible').length) {
+          recognition.start();
+        }
         inbound();
       }
     } catch (ex) {

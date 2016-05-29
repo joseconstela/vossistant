@@ -13,7 +13,7 @@ chat.attachSchema(new SimpleSchema({
   'userId': {
     type: String,
     autoValue: function () {
-      if (this.isInsert) {
+      if (this.isInsert && !this.isSet) {
         return Meteor.userId();
       }
     }
@@ -31,7 +31,8 @@ chat.attachSchema(new SimpleSchema({
     allowedValues: ['outbound', 'inbound']
   },
   'text': {
-    type: String
+    type: String,
+    optional: true
   },
   data: {
     type: Object,

@@ -4,7 +4,7 @@
 */
 inboundFocus = function() {
   if ($('textarea, input:not(#inbound):visible').length) { return false; }
-  $('#inbound').focus(); return true;
+  $('.main-input').focus(); return true;
 };
 
 /**
@@ -14,6 +14,9 @@ inboundFocus = function() {
 * @return {[type]}       [description]
 */
 inbound = function(error, text) {
+
+  if (!$('#inbound:visible').length) { return false; }
+
   if (error || voice_enabled === false) {
     if (error) { sAlert.error(error); }
     $('#inbound').attr('placeholder', TAPi18n.__('app.inboundWriteOk')).focus();
@@ -48,7 +51,7 @@ menuModule = function(module) {
 
 Template.inboundBox.onRendered(function inboundBoxRendered() {
   $( document ).ready(function() {
-    if ($('#inbound').length && Session.get('language')) {
+    if ($('.main-input').length && Session.get('language')) {
       recognitionToggle(true);
       inboundFocus();
     }
@@ -74,7 +77,7 @@ Template.inboundBox.events({
     event.preventDefault();
     recognitionToggle(false);
 
-    var txt = $('#inbound').val() ? $('#inbound').val() : final_transcript;
+    var txt = $('.main-input').val() ? $('.main-input').val() : final_transcript;
 
     if (txt === '') return false;
 
@@ -83,7 +86,7 @@ Template.inboundBox.events({
       text: txt
     });
 
-    $('#inbound').val('');
+    $('.main-input').val('');
     inbound(null, '...');
 
     Meteor.call('inbound', txt, Session.get('language'), textId, function(error, result){

@@ -51,6 +51,8 @@ actions['vo-logout'] = function(analysis) {
   };
 };
 
+
+
 actions['reminder-wake-up'] = function(analysis) {
 
   var date = moment();
@@ -59,12 +61,15 @@ actions['reminder-wake-up'] = function(analysis) {
   if (!fullTime) {
     analysis.match += ':00';
   }
+
   var hourSplit = analysis.match.split(':');
+  hourSplit[0] = Number(hourSplit[0]);
+  hourSplit[1] = Number(hourSplit[1]);
 
   if (!!analysis.data) {
 
     if(!!analysis.data['moment-period']) {
-      date.add(Number(hourSplit[0]), analysis.data['moment-period']);
+      date.add(hourSplit[0], analysis.data['moment-period']);
     } else if(!!analysis.data['day-period']) {
       date.set('hour', hourSplit[0]);
       date.set('minutes', hourSplit[1]);
@@ -81,19 +86,27 @@ actions['reminder-wake-up'] = function(analysis) {
           date.set('hour', date.get('hour') + 12);
         }
       }
-    }
-  }
+    } else if(!!analysis.data['time-period']) {
 
-  var alarm = lodash.sample([
-    _('actions.reminder-wake-up.alarm_1', {}),
-  ]);
+      if ( hourSplit[0] < 13 && analysis.data['time-period'] === 'pm' ) {
+        date.set('hour', hourSplit[0] + 12);
+      } else if ( hourSplit[0] === 12 && analysis.data['time-period'] === 'am' ) {
+        date.set('hour', 0);
+      } else {
+        date.set('hour', hourSplit[0]);
+      }
+
+      date.set('minutes', hourSplit[1]);
+    }
+  } else {
+    date.set('hour', hourSplit[0]);
+    date.set('minutes', hourSplit[1]);
+  }
 
   new Job(jobsC, 'default', {
     command: 'reminder',
     parameters: {
-      user: Meteor.userId(),
-      say: alarm,
-      text: '"' + analysis.phrase + '"',
+      userId: Meteor.userId()
     }
   }).delay( date.diff(moment(), 'seconds') *1000).save();
 

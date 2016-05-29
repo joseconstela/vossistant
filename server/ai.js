@@ -124,8 +124,20 @@ buildIntelligence = function() {
     if (Meteor.isTest) {
       var fs = require('fs');
       var path = process.env.PWD + '/i18n/' + langCode + '.i18n.json';
-      var buff = fs.readFileSync( path );
-      translations = JSON.parse(buff);
+      var translations = fs.readFileSync( path, 'utf8' );
+      console.log('path', path);
+      translations = translations.replace(/\\n/g, "\\n")
+      .replace(/\\'/g, "\\'")
+      .replace(/\\"/g, '\\"')
+      .replace(/\\&/g, "\\&")
+      .replace(/\\r/g, "\\r")
+      .replace(/\\t/g, "\\t")
+      .replace(/\\b/g, "\\b")
+      .replace(/\\f/g, "\\f");
+      // remove non-printable and other non-valid JSON chars
+      translations = translations.replace(/[\u0000-\u0019]+/g,"");
+
+      translations = JSON.parse(translations);
     } else {
       translations = TAPi18next.options.resStore[langCode].project;
     }

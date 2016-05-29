@@ -1,3 +1,7 @@
+getUserLanguage = function () {
+  return Session.get('language') ? Session.get('language') : 'en';
+};
+
 Template.home.onCreated(function() {
   var self = this;
   self.autorun(function() {
@@ -18,14 +22,6 @@ Template.inboundMenu.helpers({
   }
 });
 
-Template.electronWindow.events({
-  "click a": function(event, template){
-     event.preventDefault();
-     Meteor.call('openVossistanWindow', Meteor.isDevelopment, function(error, result){
-     });
-  }
-});
-
 Template.inboundMenuOption.events({
   "click li": function(event, template){
     var menu = menuOptions.findOne({_id:Session.get('menuOptions')});
@@ -37,10 +33,15 @@ Template.inboundMenuOption.events({
         TAPi18n.setLanguage(getUserLanguage())
         .done(function () {
           recognition.lang = TAPi18n.__('languageCode');
-          speechSay({
-            text: TAPi18n.__('app.languageChanged')
-          });
-
+          if (!Meteor.userId()) {
+            speechSay({
+              text: TAPi18n.__('speech.typeYourEmail')
+            });
+          } else {
+            speechSay({
+              text: TAPi18n.__('app.languageChanged')
+            });
+          }
         })
         .fail(function (error_message) {
           // Handle the situation

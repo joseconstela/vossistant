@@ -20,7 +20,6 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 twbs:bootstrap
 accounts-base
 accounts-password
-ian:accounts-ui-bootstrap-3
 alethes:lodash
 juliancwirko:s-alert
 practicalmeteor:chai
@@ -36,5 +35,6 @@ tap:i18n
 u2622:persistent-session
 ostrio:meteor-root
 session
-arboleya:electrify
 vsivsi:job-collection
+check
+iron:router
