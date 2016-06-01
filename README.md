@@ -22,10 +22,6 @@ It uses [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Sp
 
 <img src="https://raw.githubusercontent.com/joseconstela/vossistant/master/private/SCREENSHOT.png" />
 
-## Demo
-
-Try a [limited demo on modulus](https://vossistant-63519.onmodulus.net/) - database gets cleaned periodically. For full performance and features, install locally.
-
 ## Install locally
 
 At the moment there's no packaged version for Vossistant, but you still can run it running the following commands (OSX & Linux)
