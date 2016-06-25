@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Vossistant by joseconstela</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Vossistant</h1>
+        <p>Multilanguage Natural Language Understanding application built in MeteorJS</p>
+
+        <p class="view"><a href="https://github.com/joseconstela/vossistant">View the Project on GitHub <small>joseconstela/vossistant</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/joseconstela/vossistant/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/joseconstela/vossistant/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/joseconstela/vossistant">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="vossistant" class="anchor" href="#vossistant" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Vossistant</h1>
+
+<p><a href="https://github.com/joseconstela/vossistant/blob/master/LICENSE">
+  <img src="https://img.shields.io/badge/LICENSE-MIT-brightgreen.svg">
+</a>
+<a href="https://travis-ci.org/joseconstela/vossistant">
+  <img src="https://img.shields.io/travis/joseconstela/vossistant.svg">
+</a>
+<a href="https://gitter.im/joseconstela/vossistant">
+  <img src="https://img.shields.io/badge/JOIN%20THE%20CHAT-gitter-yellow.svg">
+</a>
+<a href="https://travis-ci.org/joseconstela/vossistant">
+  <img src="https://img.shields.io/badge/DEVELOPER%3F-wiki-orange.svg">
+</a>
+<a href="https://waffle.io/joseconstela/vossistant">
+  <img src="https://img.shields.io/badge/ROADMAP-waffle-blue.svg">
+</a></p>
+
+<p>Voice-enabled personal assistant web application built in MeteorJS.</p>
+
+<p>It uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API">Web Speech API</a> for voice recognition and <a href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance">Synthesis Utterance</a> for Natural Language replies. Based on Intentions &amp; Entities principle, using regular expressions.</p>
+
+<p><img src="https://raw.githubusercontent.com/joseconstela/vossistant/master/private/SCREENSHOT.png"></p>
+
+<h2>
+<a id="install-locally" class="anchor" href="#install-locally" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install locally</h2>
+
+<p>At the moment there's no packaged version for Vossistant, but you still can run it running the following commands (OSX &amp; Linux)</p>
+
+<pre><code>curl https://install.meteor.com/ | sh
+git clone git@github.com:joseconstela/vossistant.git
+cd vossistant
+meteor
+</code></pre>
+
+<h2>
+<a id="development-and-customization" class="anchor" href="#development-and-customization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development and customization</h2>
+
+<p>Fork, commit, play and visit the <a href="https://github.com/joseconstela/vossistant/wiki">Wiki</a></p>
+
+<h2>
+<a id="example-commands" class="anchor" href="#example-commands" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example commands</h2>
+
+<p><em>Vossistant supports multiple phrases and words that can trigger the same action. The following list is an example. It might be outdated.</em></p>
+
+<table>
+    <tr>
+        <th>Actions</th>
+        <th>Trigger(s)</th>
+        <th>Other possibilities</th>
+    </tr>
+    <tr>
+        <td>Login</td>
+        <td>I'm ```your user name```</td>
+        <td>_There's no need to signup_</td>
+    </tr>
+    <tr>
+        <td>Logout</td>
+        <td>Logout</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Change username</td>
+        <td>Call me ```___```</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Greeting</td>
+        <td>Hello</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Search on wikipedia</td>
+        <td>What is ```___```</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Get the time</td>
+        <td>What time is it</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Search multimedia</td>
+        <td>Search ```___``` in ```Youtube```</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Netflix</td>
+        <td>I want to see ```___```</td>
+        <td>
+          <ul>
+            <li>a tv show</li>
+            <li>an action movie</li>
+            <li>a commedy</li>
+            <li>a thriller</li>
+            <li>...</li>
+          </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Dilbert commic</td>
+        <td>Dilbert</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Google Maps search</td>
+        <td>Show me a map for ```___```</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Search on internet</td>
+        <td>Search ```___``` at ```Google```</td>
+        <td>
+          <ul>
+            <li>Youtube</li>
+            <li>Google Maps</li>
+            <li>Google</li>
+            <li>Bing</li>
+            <li>Twitter</li>
+          </ul>
+        </td>
+    </tr>
+</table>
+
+<h1>
+<a id="licenses" class="anchor" href="#licenses" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Licenses</h1>
+
+<ul>
+<li>Vossistant: <a href="https://github.com/joseconstela/vossistant/blob/master/LICENSE">MIT</a>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/joseconstela">joseconstela</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
