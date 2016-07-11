@@ -18,9 +18,13 @@
 
 Voice-enabled personal assistant web application built in MeteorJS.
 
-It uses [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for voice recognition and [Synthesis Utterance](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance) for Natural Language replies. Based on Intentions & Entities principle, using regular expressions.
+It uses [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for voice recognition and [Synthesis Utterance](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance) for Natural Language replies. Based on Intents & Entities principle, using regular expressions.
 
 <img src="https://raw.githubusercontent.com/joseconstela/vossistant/master/private/SCREENSHOT.png" />
+
+## Demo
+
+Try a [limited demo on modulus](https://vossistant-63519.onmodulus.net/) - database gets cleaned periodically. For full performance and features, install locally.
 
 ## Install locally
 

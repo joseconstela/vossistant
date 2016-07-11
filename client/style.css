@@ -1,0 +1,70 @@
+#inbound {
+  font-size: 4em;
+  height: 1em;
+  border: none;
+  box-shadow: none;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+* {
+  outline: none;
+}
+
+input::-webkit-input-placeholder,
+input:-moz-placeholder,
+input::-moz-placeholder,
+input:-ms-input-placeholder {
+   color: #cacbcf;
+}
+
+.navbar img {
+  height: 30px;
+  width: 30px;
+  margin: 10px;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+label, .control-label, .help-block, .checkbox, .radio {
+  font-size: 15px !important;
+}
+
+.table-condensed-form .autoform-remove-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 15px;
+  vertical-align: middle;
+  height: 100%;
+  background: #F5F5F5;
+}
+
+.table-condensed-form input {
+  position: absolute;
+  margin: 0 !important;
+  border: 0 !important;
+  width: 100% !important;
+  height: 37px !important;
+  border-radius: 0 !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+  height: 100%;
+}
+.table-condensed-form td {
+  margin: 0 !important;
+  padding: 0 !important;
+  position:relative;
+}
+
+.condensed-form.autoform-add-item {
+  margin-bottom: 20px;
+  cursor: pointer;
+  color: #3889B8;
+}
+.condensed-form.autoform-add-item:hover {
+  text-decoration: underline;
+}

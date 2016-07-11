@@ -1,0 +1,88 @@
+<template name="intentsMenu">
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="{{#if currentRouteIs 'intents.mine'}}active{{/if}}"><a href="{{pathFor 'intents.mine'}}">My intents</a></li>
+        <li role="presentation" class="{{#if currentRouteIs 'intents.community'}}active{{/if}}"><a href="{{pathFor 'intents.community'}}">Community intents</a></li>
+        <li role="presentation" class="{{#if currentRouteIs 'intents.new'}}active{{/if}}"><a href="{{pathFor 'intents.new'}}">New intent</a></li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<template name="intentsMine">
+  {{> intentsMenu}}
+  {{> intentsList}}
+</template>
+
+<template name="intentsCommunity">
+  {{> intentsMenu}}
+  {{> intentsList}}
+</template>
+
+<template name="intentsList">
+  <div class="row">
+    {{#each intents}}
+      {{> intentsListItem}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="intentsListItem">
+  <div class="col-md-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">{{t}}</div>
+      <div class="panel-body">
+        <p>{{d}}</p>
+        {{#if editableItem u}}
+          <a href="{{pathFor 'intents.edit'}}" class="btn btn-default">Edit</a>
+        {{/if}}
+        {{#if intentEnabled id}}
+          <button type="button" class="btn btn-default">Disable</button>
+        {{else}}
+          <button type="button" class="btn btn-default">Enable</button>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="intentsNew">
+  {{> intentsMenu}}
+  <div class="row">
+    <div class="col-md-12">
+      {{#autoForm collection="Intents" id="intentForm" type="insert"}}
+      <fieldset>
+        {{> afQuickField name="t"}}
+        {{> afQuickField name="d"}}
+        {{> afQuickField name="tr" template="simpleArray"}}
+        {{> afQuickField name="ac"}}
+        {{> afQuickField name="sr" template="simpleArray"}}
+        <div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </fieldset>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
+
+<template name="intentsView">
+  {{> intentsMenu}}
+</template>
+
+<template name="intentsEdit">
+  {{> intentsMenu}}
+  {{#autoForm collection="Intents" id="intentForm" type="update" doc=intent}}
+  <fieldset>
+    {{> afQuickField name="t"}}
+    {{> afQuickField name="d"}}
+    {{> afQuickField name="tr" template="simpleArray"}}
+    {{> afQuickField name="ac"}}
+    {{> afQuickField name="sr" template="simpleArray"}}
+    <div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </fieldset>
+  {{/autoForm}}
+</template>

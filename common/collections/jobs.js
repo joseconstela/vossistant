@@ -1,0 +1,1 @@
+jobsC = JobCollection('job');

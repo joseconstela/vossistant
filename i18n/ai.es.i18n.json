@@ -1,0 +1,197 @@
+{
+  "actions": {
+    "app-section-open": {
+      "phrase_1": "Abriendo __section__",
+      "phrase_2": "De acuerdo, abriendo __section__",
+      "phrase_3": "Mostrando __section__"
+    },
+    "meteor-change-name": {
+      "phrase_1": "De acuerdo. A partir de ahora te llamaré __name__",
+      "phrase_2": "De acuerdo, __name__"
+    },
+    "meteor-get-name": {
+      "phraseName_1": "Te llamas __name__. O eso pienso...",
+      "phraseNoName_1": "No lo sé... dímelo tú."
+    },
+    "vo-logout": {
+      "phrase_1": "Hasta pronto."
+    },
+    "reminder-wake-up": {
+      "phrase_1": "Alarma programada a las __time__."
+    },
+    "wiki": {
+      "notSure_1": "No lo tengo muy claro... pero puedes buscar aquí.",
+      "tryAt_1": "Prueba en: __googleUrl__"
+    },
+    "greeting": {
+      "phrase_1": "Hola",
+      "phrase_2": "Hola, ¿Qué tal?"
+    },
+    "know-date-time": {
+      "time_1": "Es la __count__ __hour__:__minute__",
+      "time_1_plural": "Son las __hour__:__minute__",
+      "day-of-month_1": "Estamos a día __dayOfMonth__",
+      "day-of-week_1": "Estamos a __dayOfWeek__",
+      "day_1": "Hoy es __dayOfWeek__, __dayOfMonth__ de __month__ del __year__"
+    },
+    "maps-search": {
+      "say_1": "Ubicando en el mapa..."
+    },
+    "_browser": {
+      "say": "Ok, abriendo __provider__",
+      "text": "Abriendo __url__"
+    }
+  },
+  "intents": {
+    "app-section-close": [
+      "(Cerrar|Cierra|Oculta|Ocultar) %app-section-name%"
+    ],
+    "app-section-open": [
+      "(Abre|Abrir|Muéstrame|Muestra) %app-section-name%",
+      "%app-section-name%"
+    ],
+    "meteor-change-name": [
+      "Llámame (.+)",
+      "Mi nombre es (.+)",
+      "Me llamo (.+)",
+      "De ahora en adelante me llamo (.+)",
+      "De ahora en adelante me llamaré (.+)",
+      "A partir de ahora llámame (.+)",
+      "A partir de ahora quiero que me llames (.+)",
+      "Desde ahora llámame (.+)"
+    ],
+    "meteor-get-name": [
+      "¿Cómo me llamo?",
+      "¿Cuál es mi nombre?",
+      "Cómo me llamo",
+      "Cuál es mi nombre"
+    ],
+    "vo-logout": [
+      "Cerrar sesión"
+    ],
+    "reminder-wake-up": [
+      "Despiértame en (.+) %moment-period%",
+      "Despiértame dentro de (.+) %moment-period%",
+      "Despiértame a las (.+) de la %day-period%",
+      "Despiértame a la (.+) de la %day-period%",
+      "Despiértame a las (.+) %time-period%",
+      "Despiértame a la (.+) %time-period%",
+      "Despiértame a las (.+)",
+      "Despiértame a la (.+)"
+    ],
+    "wiki": [
+      "Cuál es (.+)",
+      "Quién es un (.+)",
+      "Quién es una (.+)",
+      "Quién era la (.+)",
+      "Quién era el (.+)",
+      "Quién era (.+)",
+      "Qué es un (.+)",
+      "Qué es una (.+)",
+      "Qué son los (.+)",
+      "Qué son las (.+)",
+      "Qué era (.+)",
+      "Qué es (.+)"
+    ],
+    "know-date-time": [
+      "Qué %datetime-period%",
+      "Qué %datetime-period% es",
+      "Me pregunto qué %datetime-period% es",
+      "Me pregunto a qué %datetime-period% estamos"
+    ],
+    "mmedia-search": [
+      "Quiero ver (.+) en %mmedia-sources%",
+      "Ver (.+) en %mmedia-sources%"
+    ],
+    "mmedia-netflix": [
+      "Quiero ver %mmedia-video-type%",
+      "Quiero ver (.+)"
+    ],
+    "dilbert": ["dilbert"],
+    "maps-search": [
+      "Dónde es (.+)",
+      "Dónde está (.+)",
+      "Dónde queda (.+)",
+      "Muéstrame un mapa de (.+)",
+      "Muéstrame (.+) en el mapa",
+      "Muéstrame (.+) en un mapa"
+    ],
+    "internet-search": [
+      "Quiero buscar (.+) en %internet-search-sources%",
+      "Buscar (.+) en %internet-search-sources%",
+      "(.+) en %internet-search-sources%"
+    ],
+    "greeting": [
+      "Hola %greetings%",
+      "Hola"
+    ],
+    "tasks-add": [
+      "Añadir (.+) a mi lista de tareas %tasks-planning-type%",
+      "Añade (.+) a mi lista de tareas %tasks-planning-type%",
+      "Añadir (.+) a mi lista de tareas",
+      "Añade (.+) a mi lista de tareas"
+    ]
+  },
+  "entities": {
+    "app-section-name": {
+    },
+    "internet-search-sources": {
+      "youtube": ["Youtube"],
+      "google maps": ["Google Maps", "Mapas de google"],
+      "google images": ["Google Images", "Imágenes de Google", "las imágenes de Google", "Google imágenes"],
+      "google": ["Google"],
+      "bing": ["Bing"],
+      "twitter": ["Twitter"]
+    },
+    "mmedia-sources": {
+      "youtube": ["Youtube", "internet"]
+    },
+    "greetings": {
+      "morning": [ "buenos días" ],
+      "night": [ "buenas noches" ]
+    },
+    "mmedia-video-type": {
+      "show": [ "una serie" ],
+      "action": [ "una película de acción" ],
+      "rewarded": [ "película premiada" ],
+      "all-family": [ "una película para la familia", "una película en familia", "una película para toda la familia" ],
+      "commedy": [ "una comedia", "una película de humor" ],
+      "docummentary": [ "un documental" ],
+      "drama": [ "una película de drama", "un drama", "un dramón" ],
+      "terror": [ "una película de terror", "una película de miedo", "una peli de terror", "una peli de miedo" ],
+      "independent": [ "una película independiente" ],
+      "romantic": [ "una película romántica" ],
+      "scify": [ "una película de ciencia ficción" ],
+      "humorist": [ "un humorista", "un monólogo" ],
+      "thriller": [ "un thriller" ],
+      "film": [ "una peli", "una película" ]
+    },
+    "datetime-period": {
+      "day-of-month": [ "día del mes", "día de mes" ],
+      "day-of-week": [ "día de la semana", "día de semana" ],
+      "time": [ "hora" ],
+      "day": [ "día" ]
+    },
+    "day-period": {
+      "morning": [ "mañana" ],
+      "evening": [ "tarde" ],
+      "night": [ "noche" ]
+    },
+    "time-period": {
+      "pm": [ "pm" ],
+      "am": [ "am" ]
+    },
+    "moment-period": {
+      "M": [ "mes", "meses" ],
+      "w": [ "semana", "semanas" ],
+      "d": [ "día", "días" ],
+      "h": [ "hora", "horas" ],
+      "m": [ "minuto", "minutos" ],
+      "s": [ "segundo", "segundos" ]
+    },
+    "tasks-planning-type": {
+      "daily": ["diaria", "del día", "de hoy", "del día de hoy"],
+      "weekly": ["semanal", "de la semana", "de esta semana", "de la semana actual"]
+    }
+  }
+}

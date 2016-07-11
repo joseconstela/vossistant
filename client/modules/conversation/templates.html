@@ -1,38 +1,76 @@
 <template name="conversation">
 
-  <!-- Hide responses if  the app is showing a menu -->
-  {{#if sess 'menuOptions'}}
-  {{else}}
-  <div id="responses" class="list-group">
-    {{#each chat}}
-      {{> chatItem}}
-    {{/each}}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="inbound">
+        {{> inboundBox}}
+      </div>
+    </div>
+  </div>
+
+  {{#if lastCard}}
+  <div class="row">
+    <div class="col-md-12">
+      {{> cardItem}}
+    </div>
   </div>
   {{/if}}
 
 </template>
 
-<template name="chatItem">
-  <div class="list-group-item">
+<template name="card">
+  <div class="card">
 
-    {{#if data.text}}
-      <!-- <h4 class="list-group-item-heading">{{{chatText text}}}</h4> -->
-      <p class="list-group-item-text response">{{{chatText data.text}}}</p>
-    {{else}}
-      <p class="list-group-item-text">{{{chatText text}}}</p>
+    {{#if title}}
+    <div class="card-header">
+      <h2>{{title}}</h2>
+    </div>
     {{/if}}
 
-    {{#if data.display}}
-      <div class="list-group-item-display">
-        {{#if data.display.link}}
-          <a href="{{data.display.link}}" target="_blank">{{data.display.title}}</a>
-        {{else}}
-          {{data.display.title}}
-        {{/if}}
-        <br>
-        {{{data.display.html}}}
+    <div class="card-block">
+      {{#if description}}<p>{{{cardText 'description' description}}}</p>{{/if}}
+
+      {{#if div}}
+      <div class="{{type}}-div"> <!-- normal|full -->
+        {{{content}}}
       </div>
-    {{/if}}
+      {{/if}}
 
+      {{#if links}}
+      {{#each links}}
+      <hr>
+      <span class="blue fa fa-{{icon}}" aria-hidden="true"></span>
+      <span class="blue">{{label}}</span>
+      {{/each}}
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="cardItem">
+  <div class="card">
+
+    <div class="card-block">
+      {{#if r.t}}<p>{{{cardText 'description' r.t}}}</p>{{/if}}
+
+      {{#if d.h}}
+      {{else}}
+      {{#if d.l}}
+      <span class="blue fa fa-file" aria-hidden="true"></span>
+      <span class="blue"><a href="{{d.l}}" target="_blank">{{d.t}}</a></span>
+      {{/if}}
+      {{/if}}
+    </div>
+    {{#if d.h}}
+    <div class="full-div"> <!-- normal|full -->
+      {{{cardDisplayHtml d.h}}}
+    </div>
+    {{#if d.l}}
+    <div class="card-block">
+      <span class="blue fa fa-file" aria-hidden="true"></span>
+      <span class="blue"><a href="{{d.l}}" target="_blank">{{d.t}}</a></span>
+    </div>
+    {{/if}}
+    {{/if}}
   </div>
 </template>

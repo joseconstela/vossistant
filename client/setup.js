@@ -1,32 +1,40 @@
-menuOptions = new Mongo.Collection(null);
 Meteor.startup(() => {
 
-  Meteor.isElectron = Meteor.settings.public.isElectron ? Meteor.settings.public.isElectron : false;
-
-  if (navigator.userAgent.search('Electron') >= 0) { return; }
-
   getUserLanguage = function () {
-    return Session.get('language') ? Session.get('language') : 'en';
+    if (Session.get('language')) {
+      $('html').attr('lang', Session.get('language'));
+      return Session.get('language');
+    } else {
+      var userLang = navigator.language || navigator.userLanguage;
+      try {
+        userLang = userLang.split('-')[0];
+      } catch (ex) {}
+
+      var langs = lodash.keys(TAPi18n.getLanguages());
+      if (langs.indexOf(userLang) >= 0) {
+        $('html').attr('lang', userLang);
+        return userLang;
+      } else {
+        $('html').attr('lang', 'en');
+        return 'en';
+      }
+    }
   };
 
   TAPi18n.setLanguage(getUserLanguage())
   .done(function () {
+    moment.locale(getUserLanguage());
     recognition.lang = TAPi18n.__('languageCode');
   })
-  .fail(function (error_message) {
-    // Handle the situation
-    console.log(error_message);
+  .fail(function (error) {
+    // TODO Handle the situation
+    console.log('Error setting language', error);
     recognition.lang = 'en-GB';
   });
 
-  Job.processJobs(jobsC, 'default', function (job, cb) {
-    var data = job.data;
-    commands.execute({command: {
-      application: data.command,
-      parameters: data.parameters
-    }}, false, function() {
-      cb();
-    });
-  });
-
 });
+
+i = (t) => {
+  $('#inbound').val(t);
+  $('#inbound-form').submit();
+}

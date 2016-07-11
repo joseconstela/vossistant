@@ -1,0 +1,33 @@
+{
+  "public": {
+    "loginServices": {
+      "twitter": {
+        "consumerKey": "...",
+        "loginStyle": "popup"
+      },
+      "github": {
+        "clientId": "..."
+      },
+      "google": {
+        "clientId": "..."
+      }
+    },
+    "google": {
+      "maps": "..."
+    }
+  },
+  "private": {
+    "test": "test",
+    "loginServices": {
+      "twitter": {
+        "secret": "..."
+      },
+      "github": {
+        "secret": "..."
+      },
+      "google": {
+        "secret": "..."
+      }
+    }
+  }
+}

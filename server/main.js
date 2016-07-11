@@ -1,28 +1,72 @@
 Meteor.startup(() => {
 
-  Meteor.isElectron = (Meteor.server.method_handlers['electrify.get.socket.port']() !== null);
+  Accounts.validateLoginAttempt((att) => {
+    if (!!att.user) {
+      let img = att.user.services.twitter.profile_image_url;
+
+      Meteor.users.update({
+        _id: att.user._id
+      }, {
+        $set: {
+          'profile.profile_image_url': img
+        }
+      });
+
+    }
+    return true;
+  })
 
   jobsC.allow({
     admin: function (userId, method, params) {
-      return Meteor.isElectron ? true : !!Meteor.userId();
+      return !!Meteor.userId();
     }
+  });
+
+  Job.processJobs(jobsC, 'default', function (job, cb) {
+    var data = job.data;
+    commands.execute({co: {
+      a: data.command,
+      p: data.parameters
+    }}, function() {
+      cb();
+    });
   });
 
   buildIntelligence();
 
   Meteor.methods({
-    'openVossistanWindow': function(isDevelopment) {
-      var port = 0;
-      if (isDevelopment) { port = 3000; } else {
-        var _port = Number(Meteor.server.method_handlers['electrify.get.socket.port']());
-        port = ++_port;
-      }
-      commands.execute({command: {
-        application: 'browser',
-        parameters: ['http://localhost:' + port]
-      }}, false);
+
+    entitiesSearch: function(text) {
+      return Entities.aggregate([
+        {
+          $match: {
+            t: 'title'
+          }
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "u",
+            foreignField: "_id",
+            as: "user"
+          }
+        },
+        {
+          $unwind: '$user'
+        },
+        {
+          $project: {
+            t: 1, d: 1, 'user.profile.name': 1
+          }
+        }
+      ]);
     },
-    'inbound': function(text, language, textId) {
+
+    inbound: function(text, language, textId) {
+
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized');
+      }
 
       _ = function(txt, opts) {
         return TAPi18n.__(txt, opts, language);
@@ -31,46 +75,68 @@ Meteor.startup(() => {
 
       var analysis = textRequest(text, language, true);
 
+      {
+        let keys = lodash.keys(analysis)
+        if(keys.length === 1 && keys[0] === 'c') {
+          analysis = false;
+        }
+      }
+
       if (!!analysis) {
+        cards.update({_id: textId}, {
+          $set: {a:analysis}
+        });
 
-        if (!!actions[analysis.intention]) {
+        if (!!actions[analysis.i]) {
 
-          var action = actions[analysis.intention](analysis);
+          var action = actions[analysis.i](analysis, text);
 
           if (!action) return false;
 
-          if (!!action.command) {
-            if (action.command.application === 'mongo') {
+          if (!!action.co) {
+
+            if (action.co.a === 'mongo') {
               Meteor.users.update({
                 _id: Meteor.userId()
-              }, {$set: action.command.parameters});
-              delete action.command;
+              }, {$set: action.co.p});
+              delete action.co;
+
             } else {
-              if (commands.execute(action, false)) {
-                delete action.command;
+
+              if (commands.execute(action)) {
+                delete action.co;
               }
+
             }
           }
 
-          var data = {};
-          Object.assign(data, action, analysis);
-
           // Flag the message as parsed, with all the details
-          chat.update({_id: textId}, {
-            $set: {data:data}
-          });
+          if (!!action && action.store === false) {
+            delete action.store;
+            cards.update({_id: textId}, {
+              $set: {da: new Date()}
+            });
+          } else {
+            delete action.store
+
+            let u = {}
+            lodash.map(action, (p, k) => {
+              u[k] = p
+            })
+
+            cards.update({_id: textId}, {
+              $set: u
+            })
+          }
 
           return action;
         }
+        return analysis;
       } else {
-        // Flag the message as parsed
-        chat.update({_id: textId}, {
-          $set: {data: {} }
+        cards.update({_id: textId}, {
+          $set: {at: true}
         });
       }
-
-      return analysis;
-
     }
   });
 

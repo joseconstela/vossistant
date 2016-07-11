@@ -1,0 +1,79 @@
+<template name="entitiesMenu">
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="{{#if currentRouteIs 'entities.mine'}}active{{/if}}"><a href="{{pathFor 'entities.mine'}}">My entities</a></li>
+        <li role="presentation" class="{{#if currentRouteIs 'entities.community'}}active{{/if}}"><a href="{{pathFor 'entities.community'}}">Community entities</a></li>
+        <li role="presentation" class="{{#if currentRouteIs 'entities.new'}}active{{/if}}"><a href="{{pathFor 'entities.new'}}">New entities</a></li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<template name="entitiesMine">
+  {{> entitiesMenu}}
+  {{> entitiesList}}
+</template>
+
+<template name="entitiesCommunity">
+  {{> entitiesMenu}}
+  {{> entitiesList}}
+</template>
+
+<template name="entitiesList">
+  <div class="row">
+    {{#each entities}}
+    {{> entitiesListItem}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="entitiesListItem">
+  <div class="col-md-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">{{t}}</div>
+      <div class="panel-body">
+        <p>{{d}}</p>
+        {{#if editableItem u}}
+        <a href="{{pathFor 'entities.edit'}}" class="btn btn-default">Edit</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="entitiesNew">
+  {{> entitiesMenu}}
+  <div class="row">
+    <div class="col-md-12">
+      {{#autoForm collection="Entities" id="entitiesForm" type="insert"}}
+      <fieldset>
+        {{> afQuickField name="t"}}
+        {{> afQuickField name="d"}}
+        {{> afQuickField name="e" template="entities"}}
+        <div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </fieldset>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
+
+<template name="entitiesView">
+  {{> entitiesMenu}}
+</template>
+
+<template name="entitiesEdit">
+  {{> entitiesMenu}}
+  {{#autoForm collection="Entities" id="entitiesForm" type="update" doc=entity}}
+  <fieldset>
+    {{> afQuickField name="t"}}
+    {{> afQuickField name="d"}}
+    {{> afQuickField name="e" template="entities"}}
+    <div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </fieldset>
+  {{/autoForm}}
+</template>

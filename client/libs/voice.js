@@ -1,6 +1,4 @@
-if (navigator.userAgent.search('Electron') >= 0) { return; }
-
-voice_enabled = true;
+recognition_enabled = true;
 speech_enabled = true;
 
 final_transcript = '';
@@ -8,26 +6,21 @@ recognizing = false;
 ignore_onend = null;
 start_timestamp = null;
 
-// Speech
-speech = {};
-
 if (!('SpeechSynthesisUtterance' in window)) {
   speech_enabled = false;
-} else {
-  speech = new SpeechSynthesisUtterance();
 }
 
 // Recognition
 recognition = {};
 
 var SpeechRecognition = window.SpeechRecognition ||
-                        window.webkitSpeechRecognition ||
-                        window.mozSpeechRecognition ||
-                        window.msSpeechRecognition ||
-                        window.oSpeechRecognition;
+window.webkitSpeechRecognition ||
+window.mozSpeechRecognition ||
+window.msSpeechRecognition ||
+window.oSpeechRecognition;
 
 if (!SpeechRecognition) {
-  voice_enabled = false;
+  recognition_enabled = false;
 } else {
   recognition = new SpeechRecognition();
   recognition.continuous = true;
@@ -35,39 +28,48 @@ if (!SpeechRecognition) {
   recognition.lang = 'en-GB';
 }
 
+/**
+* [function description]
+* @return {[type]} [description]
+*/
 recognition.onstart = function() {
   recognizing = true;
   inbound();
 };
 
+/**
+* [function description]
+* @param  {[type]} event [description]
+* @return {[type]}       [description]
+*/
 recognition.onerror = function(event) {
-
-  console.log('Recognition error', event);
-
   if (event.error == 'no-speech') {
     recognitionToggle('restart');
     inbound(null, TAPi18n.__('app.inboundNotHear'));
   };
 
   if (event.error == 'network') {
-    voice_enabled = false;
+    recognition_enabled = false;
     inbound();
   };
 
   if (event.error == 'audio-capture') {
     inbound( TAPi18n.__('app.inboundNotEarGotMic'), null);
-    voice_enabled = false;
+    recognition_enabled = false;
     ignore_onend = true;
   };
 
   if (event.error == 'not-allowed') {
     inbound( TAPi18n.__('app.inboundNotEarNoPermissions'), null);
-    voice_enabled = false;
+    recognition_enabled = false;
     ignore_onend = true;
   }
-
 };
 
+/**
+* [function description]
+* @return {[type]} [description]
+*/
 recognition.onend = function() {
   recognizing = false;
   if (ignore_onend) {
@@ -83,6 +85,11 @@ recognition.onend = function() {
   }
 };
 
+/**
+* [function description]
+* @param  {[type]} event [description]
+* @return {[type]}       [description]
+*/
 recognition.onresult = function(event) {
   var interim_transcript = '';
   if (typeof(event.results) == 'undefined') {
@@ -106,40 +113,77 @@ recognition.onresult = function(event) {
   $('#inbound-form').submit();
 };
 
+/**
+* [function description]
+* @param  {[type]} options [description]
+* @return {[type]}         [description]
+*/
 speechSay = function(options) {
-  if (!speech_enabled) return false;
-  recognitionToggle(false);
-  inbound(null, '...');
-  speech.text = options.text;
-  speech.lang = TAPi18n.__('languageCode');
-  if (typeof options.callback === 'function') {
-    speech.onend = function() {
-      options.callback();
-      recognitionToggle(true);
-    };
-  } else {
-    speech.onend = function() {
-      recognitionToggle(true);
+
+  if (typeof options.c !== 'function') {
+    options.c = function() {
+      recognitionToggle('restart');
     };
   }
+
+  if (!speech_enabled || !recognition_enabled) {
+    inbound(null, options.t);
+    return false;
+  };
+
+  recognitionToggle(false);
+  inbound(null)
+
+  var speech = new SpeechSynthesisUtterance();
+  speech.text = options.t || '';
+  speech.lang = TAPi18n.__('languageCode');
+
+  speech.onend = function() {
+    options.c();
+    recognitionToggle(true);
+  };
+
   speechSynthesis.speak(speech);
 };
 
+/**
+* [function description]
+* @param  {[type]} toggle [description]
+* @return {[type]}        [description]
+*/
 recognitionToggle = function(toggle) {
+
+  if(!recognition.stop) {
+    return inbound();
+  }
+
   if (toggle === true) {
+
     try {
       inbound();
-      if (voice_enabled) {
-        recognition.start();
-        inbound();
+      if (recognition_enabled) {
+        if ($('#inbound:visible').length) {
+          inbound();
+          recognition.start();
+        } else {
+          recognition.top();
+        }
       }
     } catch (ex) {
+      console.log('ex', ex);
     }
+
+    $('#inbound').focus();
+
   } else if (toggle === false) {
-    if (voice_enabled)
-    recognition.stop();
+    if(!!recognition.stop) {
+      recognition.stop();
+    }
   } else if (toggle === 'restart') {
-    recognition.stop();
-    setTimeout(function() { recognitionToggle(true); }, 500);
+    if(!!recognition.stop) {
+      recognition.stop();
+      setTimeout(function() { recognitionToggle(true); }, 500);
+    }
   }
-}
+
+};

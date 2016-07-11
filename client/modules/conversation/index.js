@@ -1,6 +1,9 @@
+Template.conversation.onRendered(function conversationRendered() {
+
+});
 
 Template.conversation.helpers({
-  chat: function(){
-    return chat.find({}, {sort: {createdAt: -1}});
+  lastCards: function(){
+    return cards.find({}, {sort: {h: -1, c: -1, }, limit: 1});
   }
 });

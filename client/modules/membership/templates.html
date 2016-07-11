@@ -1,0 +1,15 @@
+<template name="loginForm">
+  <div class="row">
+    <div class="col-sm-8 col-md-offset-2">
+      <h1 class="text-center login-title">{{_ "membership.login.title"}}</h1>
+      <div class="form-feedback hidden"></div>
+      <div class="text-center">{{> socialLoginsLogin}}</div>
+    </div>
+  </div>
+</template>
+
+<template name="socialLoginsLogin">
+  <div class="btn btn-lg btn-primary login-with-twitter"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</div>
+  <div class="btn btn-lg btn-primary login-with-github"><i class="fa fa-github" aria-hidden="true"></i> Github</div>
+  <div class="btn btn-lg btn-primary login-with-google"><i class="fa fa-google" aria-hidden="true"></i> Google</div>
+</template>

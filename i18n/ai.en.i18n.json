@@ -1,0 +1,192 @@
+{
+  "actions": {
+    "app-section-open": {
+      "phrase_1": "Openning __section__",
+      "phrase_2": "Ok, openning __section__",
+      "phrase_3": "Showing __section__"
+    },
+    "meteor-change-name": {
+      "phrase_1": "Copy. I will call you __name__",
+      "phrase_2": "Ok, __name__"
+    },
+    "meteor-get-name": {
+      "phraseName_1": "Your name is __name__. Or that's what I think...",
+      "phraseNoName_1": "I don't know... you tell me."
+    },
+    "vo-logout": {
+      "phrase_1": "See you soon."
+    },
+    "reminder-wake-up": {
+      "phrase_1": "Alarm setup at __time__"
+    },
+    "wiki": {
+      "notSure_1": "I'm not sure... but you can look here.",
+      "tryAt_1": "Try at: __googleUrl__"
+    },
+    "greeting": {
+      "phrase_1": "Hello",
+      "phrase_2": "Hi. How are you?"
+    },
+    "know-date-time": {
+      "time_1": "I'ts __hour__:__minute__",
+      "time_1_plural": "It's __hour__:__minute__",
+      "day-of-month_1": "Today is __dayOfMonth__",
+      "day-of-week_1": "Today is __dayOfWeek__",
+      "day_1": "Today is __dayOfWeek__, __dayOfMonth__ __month__, __year__"
+    },
+    "maps-search": {
+      "say_1": "Locating in the map..."
+    },
+    "_browser": {
+      "say": "Ok, openning __provider__",
+      "text": "Openning __url__"
+    }
+  },
+  "intents": {
+    "app-section-close": [
+      "(Close|Hide) %app-section-name%"
+    ],
+    "app-section-open": [
+      "(Open|Show|Show me) %app-section-name%",
+      "%app-section-name%"
+    ],
+    "meteor-change-name": [
+      "Call me (.+)",
+      "My name is (.+)",
+      "From now on my name is (.+)",
+      "From now on call me (.+)",
+      "From now on I want you to call me (.+)"
+    ],
+    "meteor-get-name": [
+      "What is my name?",
+      "What's my name?",
+      "What is it my name?",
+      "What's my name",
+      "What is my name",
+      "What is it my name"
+    ],
+    "vo-logout": [
+      "Logout",
+      "Log me out"
+    ],
+    "reminder-wake-up": [
+      "Wake me up in (.+) %moment-period%",
+      "Wake me up at (.+) on the %day-period%",
+      "Wake me up at (.+) on %day-period%",
+      "Wake me up at (.+) %day-period%",
+      "Wake me up at (.+) %time-period%",
+      "Wake me up at (.+)",
+      "Wake me up (.+)"
+    ],
+    "wiki": [
+      "Who is the (.+)",
+      "Who is (.+)",
+      "Who was the (.+)",
+      "Who was (.+)",
+      "What is a (.+)",
+      "What are (.+)",
+      "What are the (.+)",
+      "What was (.+)",
+      "What is (.+)"
+    ],
+    "know-date-time": [
+      "What %datetime-period%",
+      "What %datetime-period% is",
+      "I wonder what %datetime-period% is",
+      "I wonder what %datetime-period% we are"
+    ],
+    "mmedia-search": [
+      "I want to see (.+) at %mmedia-sources%",
+      "See (.+) at %mmedia-sources%",
+      "Search (.+) at %mmedia-sources%",
+      "Search for (.+) at %mmedia-sources%"
+    ],
+    "mmedia-netflix": [
+      "I want to see %mmedia-video-type%",
+      "I want to see (.+)",
+      "See %mmedia-video-type%",
+      "See (.+)"
+    ],
+    "dilbert": ["dilbert"],
+    "maps-search": [
+      "Where is (.+)",
+      "Show me a map for (.+)",
+      "Show me a map from (.+)",
+      "Show me the map for (.+)",
+      "Show me (.+) in the map",
+      "Show me (.+) in a map"
+    ],
+    "internet-search": [
+      "I want to search (.+) en %internet-search-sources%",
+      "I want to search (.+) at %internet-search-sources%",
+      "Search for (.+) in %internet-search-sources%",
+      "Search for (.+) at %internet-search-sources%",
+      "Search (.+) in %internet-search-sources%",
+      "Search (.+) at %internet-search-sources%",
+      "(.+) at %internet-search-sources%",
+      "(.+) in %internet-search-sources%"
+    ],
+    "greeting": [
+      "Hello %greetings%",
+      "Hello"
+    ]
+  },
+  "entities": {
+    "app-section-name": {
+    },
+    "internet-search-sources": {
+      "youtube": ["Youtube"],
+      "google maps": ["Google Maps"],
+      "google images": ["Google Images"],
+      "google": ["Google"],
+      "bing": ["Bing"],
+      "twitter": ["Twitter"]
+    },
+    "mmedia-sources": {
+      "youtube": ["Youtube", "internet"]
+    },
+    "greetings": {
+      "morning": [ "good morning" ],
+      "night": [ "good night" ]
+    },
+    "mmedia-video-type": {
+      "show": [ "a tv show" ],
+      "action": [ "an action movie" ],
+      "rewarded": [ "winning film" ],
+      "all-family": [ "a film for family", "family film", "a film for the whole family" ],
+      "commedy": [ "a commedy", "a commedy film" ],
+      "docummentary": [ "a docummentary" ],
+      "drama": [ "a drama film", "a drama"],
+      "terror": [ "a terror movie" ],
+      "independent": [ "an independent film" ],
+      "romantic": [ "a romantic movie" ],
+      "scify": [ "a science fiction movie" ],
+      "humorist": [ "a humorist", "a monologue" ],
+      "thriller": [ "a thriller" ],
+      "film": [ "a movie" ]
+    },
+    "datetime-period": {
+      "day-of-month": [ "day of the month", "day of month" ],
+      "day-of-week": [ "day of the week", "day of week" ],
+      "time": [ "hour", "time" ],
+      "day": [ "day" ]
+    },
+    "day-period": {
+      "morning": [ "morning" ],
+      "evening": [ "evening" ],
+      "night": [ "night" ]
+    },
+    "time-period": {
+      "pm": [ "pm" ],
+      "am": [ "am" ]
+    },
+    "moment-period": {
+      "M": [ "month", "months" ],
+      "w": [ "week", "weeks" ],
+      "d": [ "day", "days" ],
+      "h": [ "hour", "hours" ],
+      "m": [ "minute", "minutes" ],
+      "s": [ "second", "seconds" ]
+    }
+  }
+}

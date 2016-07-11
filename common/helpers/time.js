@@ -2,8 +2,6 @@ isThisTime = function(h, period) {
   // morning evening night
   var ranges = [{min:6,max:11}, {min:11,max:20}, {min:20,max:6}];
   ranges.forEach(function(p,k){
-    console.log(h, '>=', p.min, '&&', h, '<', p.max);
-    console.log(h >= p.min, h < p.max);
     if (h >= p.min && h < p.max) { r = k; }
   });
   return (typeof period !== 'undefined') ? r === period : r;

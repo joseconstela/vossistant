@@ -1,0 +1,56 @@
+<template name="afArrayField_entitiesItemSyn">
+  {{> afFieldInput this.atts}}
+</template>
+<template name="afFormGroup_entitiesItemValue">
+  {{> afFieldInput this.afFieldInputAtts}}
+</template>
+<template name="afArrayField_entities">
+  <label class="control-label">{{afFieldLabelText name=this.atts.name}}</label>
+  {{#if afFieldIsInvalid name=this.atts.name}}
+    <span class="help-block">{{{afFieldMessage name=this.atts.name}}}</span>
+  {{/if}}
+  <table class="table table-bordered table-condensed table-condensed-form">
+    <tbody>
+      {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+      <tr>
+        <td width="5">
+          {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
+            <div class="autoform-remove-item"><i class="fa fa-trash-o" aria-hidden="true"></i></div>
+          {{/if}}
+        </td>
+        <td width="250">{{> afQuickField name=this.current.v template="entitiesItemValue"}}</td>
+        <td>{{> afQuickField name=this.current.s template="entitiesItemSyn"}}</td>
+      </tr>
+      {{/afEachArrayItem}}
+    </tbody>
+  </table>
+  {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+    <div class="condensed-form autoform-add-item" data-autoform-field="{{this.atts.name}}" data-autoform-minCount="{{this.atts.minCount}}" data-autoform-maxCount="{{this.atts.maxCount}}">Add new...</div>
+  {{/if}}
+</template>
+
+<template name="afArrayField_simpleArray">
+  <label class="control-label">{{afFieldLabelText name=this.atts.name}}</label>
+  {{#if afFieldIsInvalid name=this.atts.name}}
+    <span class="help-block">{{{afFieldMessage name=this.atts.name}}}</span>
+  {{/if}}
+  <table class="table table-bordered table-condensed table-condensed-form">
+    <tbody>
+      {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+      <tr>
+        <td width="5">
+          {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
+            <div class="autoform-remove-item"><i class="fa fa-trash-o" aria-hidden="true"></i></div>
+          {{/if}}
+        </td>
+        <td>
+          {{> afFieldInput name=this.name}}
+        </td>
+      </tr>
+      {{/afEachArrayItem}}
+    </tbody>
+  </table>
+  {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+    <div class="condensed-form autoform-add-item" data-autoform-field="{{this.atts.name}}" data-autoform-minCount="{{this.atts.minCount}}" data-autoform-maxCount="{{this.atts.maxCount}}">Add new...</div>
+  {{/if}}
+</template>

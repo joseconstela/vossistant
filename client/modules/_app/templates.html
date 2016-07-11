@@ -1,0 +1,71 @@
+<head>
+  <title>Vossistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
+
+  <meta name="HandheldFriendly" content="true">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#3070D4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/touch-icon-iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/touch-icon-ipad-retina.png">
+  <link rel="apple-touch-startup-image" href="/startup.png">
+</head>
+
+<template name="applicationLayout">
+
+  <div class="container">
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{pathFor 'app.index'}}">Vossistant</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          {{#if currentUser}}
+            <ul class="nav navbar-nav">
+              <li class="{{#if currentRouteIs 'app.index'}}active{{/if}}"><a href="{{pathFor 'app.index'}}">Home</a></li>
+              <li class="{{#if currentRouteIs 'intents'}}active{{/if}}"><a href="{{pathFor 'intents.mine'}}">Intents</a></li>
+              <li class="{{#if currentRouteIs 'entities'}}active{{/if}}"><a href="{{pathFor 'entities.mine'}}">Entities</a></li>
+            </ul>
+            {{> currentUserNavBar}}
+          {{/if}}
+        </div><!--/.nav-collapse -->
+      </div><!--/.container-fluid -->
+    </nav>
+
+    {{#if currentUser}}
+      {{> yield}}
+    {{else}}
+      {{> loginForm}}
+    {{/if}}
+
+  </div> <!-- /container -->
+
+</template>
+
+<template name="currentUserNavBar">
+  <ul class="nav navbar-nav navbar-right">
+    <li>
+      <img class="avatar" src="{{userAvatar}}">
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+          {{userEmail}}
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="{{pathFor 'app.logout'}}">Logout</a></li>
+        </ul>
+      </li>
+  </ul>
+</template>

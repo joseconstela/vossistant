@@ -1,11 +1,16 @@
-/**
-* Sends the focus back to #inbound
-* @return {[type]} [description]
-*/
-inboundFocus = function() {
-  if ($('textarea, input:not(#inbound):visible').length) { return false; }
-  $('#inbound').focus(); return true;
-};
+Template.inboundBox.onRendered(function inboundBoxRendered() {
+
+  $().ready(() => {
+    if ($('#inbound').length) {
+      recognitionToggle(true)
+    }
+
+    $('#inbound').on('click', () => {
+      $('#inbound').select()
+    })
+  })
+
+})
 
 /**
 * Sets the placehodler text in #inbound
@@ -13,106 +18,78 @@ inboundFocus = function() {
 * @param  {[type]} text  [description]
 * @return {[type]}       [description]
 */
-inbound = function(error, text) {
-  if (error || voice_enabled === false) {
-    if (error) { sAlert.error(error); }
-    $('#inbound').attr('placeholder', TAPi18n.__('app.inboundWriteOk')).focus();
-  } else {
-    if(!text) text = TAPi18n.__('app.inboundTalkOk');
-    $('#inbound').attr('placeholder', text).focus();
+inbound = (error, text) => {
+
+  if (text && !recognition_enabled) {
+    $('#inbound').attr('placeholder', text)
+    return true
   }
-  $('#inbound').focus();
-};
 
-menuModule = function(module) {
+  if (error || recognition_enabled === false) {
+    $('#inbound').attr('placeholder', TAPi18n.__('app.inboundWriteOk'))
+  } else {
+    $('#inbound').attr('placeholder', TAPi18n.__('app.inboundTalkOk'))
+  }
 
-  if (module === 'languageSelector') {
-    menuOpts = lodash.map(TAPi18n.getLanguages(), function(v, k) {
-      return { title: v.name, value:k };
-    });
-    var menu = menuOptions.insert({
-      title: TAPi18n.__('app.languageSetup'),
-      action: 'session',
-      parameters: ['language'],
-      options: menuOpts
-    });
-
-    speechSay({
-      text: TAPi18n.__('app.languageSetup')
-    });
-
-    Session.set('menuOptions', menu);
+  if (Session.get('inboundFocused')) {
+    $('#inbound').focus()
   }
 
 }
 
-Template.inboundBox.onRendered(function inboundBoxRendered() {
-  $( document ).ready(function() {
-    if ($('#inbound').length && Session.get('language')) {
-      recognitionToggle(true);
-      inboundFocus();
-    }
-  });
-});
-
 Template.inboundBox.events({
 
-  /* HACK to use your OS voice recognition solution focused in #inbound */
-  /*
-  "input #inbound": function(event, template) {
-    var $this = $(this);
-    var delay = 500; // 2 seconds delay after last input
-    clearTimeout($this.data('timer'));
-    $this.data('timer', setTimeout(function(){
-      $this.removeData('timer');
-      $('#inbound-form').submit();
-    }, delay));
-  },
-  */
+  'submit #inbound-form': (evt, tpl) => {
+    evt.preventDefault()
 
-  "submit #inbound-form": function(event, template){
-    event.preventDefault();
-    recognitionToggle(false);
+    Session.set('inboundFocused', !!$('#inbound:focus').length)
 
-    var txt = $('#inbound').val() ? $('#inbound').val() : final_transcript;
+    let txt = $('#inbound').val() ? $('#inbound').val() : final_transcript
 
-    if (txt === '') return false;
+    recognitionToggle(false)
 
-    var textId = chat.insert({
-      direction: 'inbound',
-      text: txt
-    });
+    if (txt === '') {
+      return false
+    }
 
-    $('#inbound').val('');
-    inbound(null, '...');
+    var cardId = cards.insert({
+      i: {
+        t: txt,
+        ty: 't'
+      }
+    })
 
-    Meteor.call('inbound', txt, Session.get('language'), textId, function(error, result){
-      final_transcript = interim_transcript = '';
+    $('#inbound').select()
+    inbound(null)
 
-      if(error){
-        inbound(error.reason);
-        recognitionToggle(false);
+    Meteor.call('inbound', txt, getUserLanguage(), cardId, (err, res) => {
+      final_transcript = interim_transcript = ''
+
+      if(err) {
+        inbound(err.reason)
+        recognitionToggle(false)
         speechSay({
-          text: TAPi18n.__('speech.errorGeneral')
-        });
-        return false;
+          t: TAPi18n.__('speech.errorGeneral')
+        })
+        return false
       }
 
-      if (result && !!result.command) {
-        if (!commands.execute(result, true)) {
-          delete result.say;
-        }
-        recognitionToggle(true);
+      if (!res) {
+        return recognitionToggle('restart')
       }
 
-      if(result && !!result.say) {
+      if (!!res.co) {
+        commands.execute(res)
+      }
+
+      if(!!res.r && !!res.r.s) {
         speechSay({
-          text: result.say
-        });
+          t: res.r.s
+        })
       } else {
-        recognitionToggle('restart');
+        recognitionToggle('restart')
       }
 
-    });
+    })
   }
-});
+})

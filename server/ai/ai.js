@@ -35,12 +35,14 @@ normalize = (function() {
 */
 textRequest = function(phrase, language, debug) {
   phrase = normalize(phrase).trim();
-  var r = null;
+  var r = { c: new Date() };
   lodash.forOwn(intelligence[language], function(values, keys) {
     var match = null;
-    if(match = phrase.match(new RegExp(values.phrase,'i'))) {
-      if (match[1]) values.match = match[1];
-      r = values;
+    console.log(values.p);
+
+    if(match = phrase.match(new RegExp(values.p,'i'))) {
+      if (match[1]) values.m = match[1];
+      Object.assign(r, values);
       return false;
     }
   });
@@ -123,16 +125,28 @@ buildIntelligence = function() {
 
     if (Meteor.isTest) {
       var fs = require('fs');
-      var path = process.env.PWD + '/i18n/' + langCode + '.i18n.json';
-      var buff = fs.readFileSync( path );
-      translations = JSON.parse(buff);
+      var path = process.env.PWD + '/i18n/ai.' + langCode + '.i18n.json';
+      var translations = fs.readFileSync( path, 'utf8' );
+
+      translations = translations.replace(/\\n/g, "\\n")
+      .replace(/\\'/g, "\\'")
+      .replace(/\\"/g, '\\"')
+      .replace(/\\&/g, "\\&")
+      .replace(/\\r/g, "\\r")
+      .replace(/\\t/g, "\\t")
+      .replace(/\\b/g, "\\b")
+      .replace(/\\f/g, "\\f");
+      // remove non-printable and other non-valid JSON chars
+      translations = translations.replace(/[\u0000-\u0019]+/g,"");
+
+      translations = JSON.parse(translations);
     } else {
       translations = TAPi18next.options.resStore[langCode].project;
     }
 
     intelligence[langCode] = [];
 
-    lodash.map(translations.intentions, function(v, k) {
+    lodash.map(translations.intents, function(v, k) {
       var intention = k;
       var phrases = v;
 
@@ -144,8 +158,8 @@ buildIntelligence = function() {
 
         if (!_uniqueEntities.length) {
           intelligence[langCode].push({
-            intention: intention,
-            phrase: normalize(phrase)
+            i: intention,
+            p: normalize(phrase)
           });
         } else {
           lodash.forEach(_uniqueEntities, function(_ue) {
@@ -156,9 +170,9 @@ buildIntelligence = function() {
               data[_uec] = keys;
               values = lodash.map(values, function(v) { return normalize(v); });
               intelligence[langCode].push({
-                intention: intention,
-                phrase: regrexMatch(normalize(phrase), _ue, values),
-                data: data
+                i: intention,
+                p: regrexMatch(normalize(phrase), _ue, values),
+                d: data
               });
             });
 
@@ -170,6 +184,7 @@ buildIntelligence = function() {
     });
   } );
 
-  console.log('intelligence size', roughSizeOfObject(intelligence));
+  console.log('Intelligence ~ > built');
+  console.log('Intelligence ~ > size:', roughSizeOfObject(intelligence));
 
 }
