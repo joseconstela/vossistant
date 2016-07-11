@@ -1,5 +1,9 @@
 # Vossistant
-<img src="https://raw.githubusercontent.com/joseconstela/vossistant/master/private/appIcon.png" width="120" align="right" />
+
+## Mass update in progress.
+
+Vossistant is near 1.0. Check [v1.0-dev](https://github.com/joseconstela/vossistant/tree/v1.0-dev) for progress and updates. (This note was added on 11th July 2016)
+
 <a href="https://github.com/joseconstela/vossistant/blob/master/LICENSE">
   <img src="https://img.shields.io/badge/LICENSE-MIT-brightgreen.svg">
 </a>
