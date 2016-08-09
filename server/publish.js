@@ -1,36 +1,34 @@
 jobsC.startJobServer();
 console.log('Jobs server ~ > started');
 
-Meteor.publish('cards', function (userId, limit) {
-  return cards.find({u: userId, da: null, at: null}, {limit: limit, sort: {c: -1}});
-});
-
-Meteor.publish('jobs', function (userId) {
+Meteor.publish('jobs', (userId) => {
   return jobsC.find({'data.parameters.userId': userId});
-});
+})
 
-Meteor.publish('intentsByUser', function (userId) {
+Meteor.publish('intentsHash', (userId) => {
+  return IntentsHash.find({u: userId})
+})
+
+Meteor.publish('intentsByUser', (userId) => {
   return Intents.find({u: userId});
-});
+})
 
-Meteor.publish('intent', function (intentId) {
+Meteor.publish('intent', (intentId) => {
   return Intents.find({_id: intentId});
-});
+})
 
-Meteor.publish('intentsCommunity', function () {
+Meteor.publish('intentsCommunity', () => {
   return Intents.find({});
-});
+})
 
-
-
-Meteor.publish('entitiesByUser', function (userId) {
+Meteor.publish('entitiesByUser', (userId) => {
   return Entities.find({u: userId});
-});
+})
 
-Meteor.publish('entities', function (entitieId) {
+Meteor.publish('entities', (entitieId) => {
   return Entities.find({_id: entitieId});
-});
+})
 
-Meteor.publish('entitiesCommunity', function () {
+Meteor.publish('entitiesCommunity', () => {
   return Entities.find({});
-});
+})

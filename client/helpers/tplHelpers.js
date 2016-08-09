@@ -2,6 +2,10 @@ Template.registerHelper( 'cardText', (type, txt) => {
   return linkify(txt);
 });
 
+Template.registerHelper( 'any', (arr) => {
+  return arr.length
+});
+
 Template.registerHelper('cardDisplayHtml', function(html){
   html = html.replace('{{settings.public.google.maps}}', Meteor.settings.public.google.maps)
   if (validUrl(html)) {
@@ -28,6 +32,15 @@ Template.registerHelper('length', (thing) => {
   try {
     return thing ? thing.fetch().length : true;
   } catch (ex) {
+    return false;
+  }
+});
+
+Template.registerHelper('user', (p, profile) => {
+  if (!Meteor.user()) { return false; }
+  try {
+    return profile ? Meteor.user().profile[p] : Meteor.user()[p];
+  } catch (ex){
     return false;
   }
 });

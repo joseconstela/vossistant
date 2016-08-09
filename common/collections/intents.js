@@ -80,21 +80,14 @@ Intents.attachSchema(new SimpleSchema({
     }
   },
   ac: {
-    label: "Actions",
-    type: [Object]
-  },
-  'ac.$': {
-    label: "Actions",
-    type: Object
-  },
-  'ac.$.t': {
-    label: "Vossistant will...",
+    label: "Action",
     type: String,
-    optional: false,
-    allowedValues: ['function', 'website'],
-    autoValue: function () {
-      if (!this.isSet) {
-        return 'stopped'
+    optional: true,
+    autoform: {
+      afFieldInput: {
+        type: "textarea",
+        rows: 10,
+        class: "codemirror"
       }
     }
   },

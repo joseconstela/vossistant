@@ -2,6 +2,7 @@
   "languageCode": "en-GB",
   "membership": {
     "login": {
+      "title": "Login / Signup",
       "unknownError": "Something went wrong.",
       "services": {
         "twitter": {

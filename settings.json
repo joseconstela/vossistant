@@ -2,31 +2,31 @@
   "public": {
     "loginServices": {
       "twitter": {
-        "consumerKey": "...",
+        "consumerKey": "UqQWgiCmXmcmWDL0ojMtLk5y5",
         "loginStyle": "popup"
       },
       "github": {
-        "clientId": "..."
+        "clientId": "40ad5bee7f9c12f8f6e5"
       },
       "google": {
-        "clientId": "..."
+        "clientId": "947249406321-m2defc4sskta9jd7guo0b5gj925g9r9b.apps.googleusercontent.com"
       }
     },
     "google": {
-      "maps": "..."
+      "maps": "AIzaSyCIS1QpbOXmsFwmZl1QExOgRD79UfxnIFQ"
     }
   },
   "private": {
     "test": "test",
     "loginServices": {
       "twitter": {
-        "secret": "..."
+        "secret": "lVomX3MfIX4VAyhq1mFXYIUIZiHT4MzNECNlh07iRiv1QXWDPh"
       },
       "github": {
-        "secret": "..."
+        "secret": "daf98fa857dfda34e7338f837ae6c622836c978d"
       },
       "google": {
-        "secret": "..."
+        "secret": "25boWMx7Fq5zUmdSRjJcwjoE"
       }
     }
   }

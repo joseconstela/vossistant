@@ -11,8 +11,19 @@
 </template>
 
 <template name="intentsMine">
+
   {{> intentsMenu}}
+
+  <div class="jumbotron">
+    <h1>Create intents!</h1>
+    <p>{{user 'name' true}}, create and share your intents in minutes.</p>
+    <p>
+      <a class="btn btn-primary btn-lg" href="{{pathFor 'intents.new'}}" role="button">Create</a>
+    </p>
+  </div>
+
   {{> intentsList}}
+
 </template>
 
 <template name="intentsCommunity">
@@ -35,12 +46,18 @@
       <div class="panel-body">
         <p>{{d}}</p>
         {{#if editableItem u}}
-          <a href="{{pathFor 'intents.edit'}}" class="btn btn-default">Edit</a>
+          <a href="{{pathFor 'intents.edit'}}" class="btn btn-info">Edit</a>
         {{/if}}
-        {{#if intentEnabled id}}
-          <button type="button" class="btn btn-default">Disable</button>
+        {{#if intentEnabled _id}}
+          <button type="button" class="intent-switch intent-disable btn btn-warning">
+            <i class="fa fa-spinner spinner" aria-hidden="true"></i>
+            Disable
+          </button>
         {{else}}
-          <button type="button" class="btn btn-default">Enable</button>
+          <button type="button" class="intent-switch intent-enable btn btn-success">
+            <i class="fa fa-spinner spinner" aria-hidden="true"></i>
+            Enable
+          </button>
         {{/if}}
       </div>
     </div>

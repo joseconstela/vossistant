@@ -52,44 +52,41 @@ Template.inboundBox.events({
       return false
     }
 
-    var cardId = cards.insert({
-      i: {
-        t: txt,
-        ty: 't'
-      }
-    })
-
     $('#inbound').select()
     inbound(null)
 
-    Meteor.call('inbound', txt, getUserLanguage(), cardId, (err, res) => {
-      final_transcript = interim_transcript = ''
+    final_transcript = interim_transcript = ''
 
-      if(err) {
-        inbound(err.reason)
-        recognitionToggle(false)
-        speechSay({
-          t: TAPi18n.__('speech.errorGeneral')
-        })
-        return false
-      }
+    try {
+      let req = textRequest(txt, 'es', true);
 
-      if (!res) {
+      if (req) {
+        // Do all the stuff
+
+        let trigger = lodash.find(triggersRaw, {_id: req.i})
+
+        if (!!trigger.ac) {
+          eval(trigger.ac)
+        }
+
+        if(!!trigger.sr) {
+          speechSay({
+            t: lodash.sample(trigger.sr)
+          })
+        }
+
+        recognitionToggle('restart')
+      } else {
         return recognitionToggle('restart')
       }
 
-      if (!!res.co) {
-        commands.execute(res)
-      }
+    } catch (ex) {
+      inbound(TAPi18n.__('speech.errorGeneral'))
+      recognitionToggle(false)
+      speechSay({
+        t: TAPi18n.__('speech.errorGeneral')
+      })
+    }
 
-      if(!!res.r && !!res.r.s) {
-        speechSay({
-          t: res.r.s
-        })
-      } else {
-        recognitionToggle('restart')
-      }
-
-    })
   }
 })

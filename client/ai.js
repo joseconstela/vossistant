@@ -1,4 +1,6 @@
-intelligence = {};
+triggers = {}
+triggersRaw = []
+entitiesRaw = []
 
 /**
 * [description]
@@ -35,14 +37,12 @@ normalize = (function() {
 */
 textRequest = function(phrase, language, debug) {
   phrase = normalize(phrase).trim();
-  var r = { c: new Date() };
-  lodash.forOwn(intelligence[language], function(values, keys) {
+  var r = {};
+  lodash.forOwn(triggers[language], function(values, keys) {
     var match = null;
-    console.log(values.p);
-
     if(match = phrase.match(new RegExp(values.p,'i'))) {
       if (match[1]) values.m = match[1];
-      Object.assign(r, values);
+        Object.assign(r, values);
       return false;
     }
   });
@@ -114,77 +114,58 @@ roughSizeOfObject = function( object ) {
 /**
 * Builds the ```intelligence``` object for all languages.
 */
-buildIntelligence = function() {
+buildIntelligence = function(input, entities) {
+
+  triggers = {}
+  triggersRaw = input
+  entitiesRaw = entities
 
   // When running meteor tests, TAPi18n's method returns null.
-  var langs = Meteor.isTest ? ['es', 'en'] : lodash.keys(TAPi18n.getLanguages());
+  var langs = Meteor.isTest ? ['es', 'en'] : lodash.keys(TAPi18n.getLanguages())
+
+  langs = ['es']
 
   langs.forEach( function(langCode) {
 
-    var translations = {};
+    var translations = {}
 
-    if (Meteor.isTest) {
-      var fs = require('fs');
-      var path = process.env.PWD + '/i18n/ai.' + langCode + '.i18n.json';
-      var translations = fs.readFileSync( path, 'utf8' );
+    triggers[langCode] = []
 
-      translations = translations.replace(/\\n/g, "\\n")
-      .replace(/\\'/g, "\\'")
-      .replace(/\\"/g, '\\"')
-      .replace(/\\&/g, "\\&")
-      .replace(/\\r/g, "\\r")
-      .replace(/\\t/g, "\\t")
-      .replace(/\\b/g, "\\b")
-      .replace(/\\f/g, "\\f");
-      // remove non-printable and other non-valid JSON chars
-      translations = translations.replace(/[\u0000-\u0019]+/g,"");
+    lodash.map(input, function(intention) {
 
-      translations = JSON.parse(translations);
-    } else {
-      translations = TAPi18next.options.resStore[langCode].project;
-    }
+      lodash.map(intention.tr, function(phrase) {
 
-    intelligence[langCode] = [];
+        var _entities = phrase.match(/%(\w+(-\w+)*)%/g)
 
-    lodash.map(translations.intents, function(v, k) {
-      var intention = k;
-      var phrases = v;
-
-      lodash.map(phrases, function(phrase) {
-
-        var _entities = phrase.match(/%(\w+(-\w+)*)%/g);
-
-        var _uniqueEntities = lodash.uniq(_entities);
+        var _uniqueEntities = lodash.uniq(_entities)
 
         if (!_uniqueEntities.length) {
-          intelligence[langCode].push({
-            i: intention,
+          triggers[langCode].push({
+            i: intention._id,
             p: normalize(phrase)
-          });
+          })
         } else {
-          lodash.forEach(_uniqueEntities, function(_ue) {
-            var _uec = _ue.replace(/\%/gi,'');
 
-            lodash.forOwn(translations.entities[_uec], function(values, keys) {
-              var data = {};
-              data[_uec] = keys;
-              values = lodash.map(values, function(v) { return normalize(v); });
-              intelligence[langCode].push({
-                i: intention,
+          lodash.forEach(_uniqueEntities, function(_ue) {
+            var _uec = _ue.replace(/\%/gi,'')
+
+            lodash.forOwn(entities[_uec], function(values, keys) {
+              let data = {}
+              data[_uec] = keys
+              values = lodash.map(values, (v) => { return normalize(v) })
+              triggers[langCode].push({
+                i: intention._id,
                 p: regrexMatch(normalize(phrase), _ue, values),
                 d: data
-              });
-            });
+              })
+            })
 
-          });
+          })
         }
 
-      });
+      })
 
-    });
-  } );
-
-  console.log('Intelligence ~ > built');
-  console.log('Intelligence ~ > size:', roughSizeOfObject(intelligence));
+    })
+  } )
 
 }

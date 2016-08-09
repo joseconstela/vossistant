@@ -2,12 +2,11 @@ Template.applicationLayout.onCreated(function() {
   var self = this
 
   self.autorun(() => {
-    self.subscribe('cards', Meteor.userId(), 1)
+    self.subscribe('intentsHash', Meteor.userId())
     self.subscribe('jobs', Meteor.userId())
   })
-
 })
 
-Template.currentUserNavBar.rendered = function() {
+Template.applicationLayout.rendered = function() {
   //$('.dropdown-toggle').dropdown()
 }
