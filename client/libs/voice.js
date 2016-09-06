@@ -6,7 +6,7 @@ recognizing = false;
 ignore_onend = null;
 start_timestamp = null;
 
-if (!('SpeechSynthesisUtterance_' in window)) {
+if (!('SpeechSynthesisUtterance' in window)) {
   speech_enabled = false;
 }
 

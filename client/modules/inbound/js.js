@@ -61,23 +61,50 @@ Template.inboundBox.events({
       let req = textRequest(txt, 'es', true);
 
       if (req) {
-        // Do all the stuff
 
         let trigger = lodash.find(triggersRaw, {_id: req.i})
 
         if (!!trigger.ac) {
-          eval(trigger.ac)
+
+          let w = new Worker('worker.js');
+
+          w.onmessage = function (oEvent) {
+            console.log('worker result', oEvent.data)
+
+            w.terminate()
+            w = undefined
+
+            if(!!trigger.sr) {
+              let hb = new Handlebars()
+              let tpl = hb.compile(
+                lodash.sample(trigger.sr)
+              );
+
+              speechSay({
+                t: tpl(oEvent.data)
+              })
+            }
+
+            recognitionToggle('restart')
+
+          }
+
+          w.postMessage(trigger) // start the worker.
+
+        } else {
+
+          if(!!trigger.sr) {
+            speechSay({
+              t: lodash.sample(trigger.sr)
+            })
+          }
+
+          recognitionToggle('restart')
+
         }
 
-        if(!!trigger.sr) {
-          speechSay({
-            t: lodash.sample(trigger.sr)
-          })
-        }
-
-        recognitionToggle('restart')
       } else {
-        return recognitionToggle('restart')
+        recognitionToggle('restart')
       }
 
     } catch (ex) {

@@ -20,6 +20,9 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 twbs:bootstrap
 accounts-base
 accounts-password
+aldeed:autoform
+iron:router
+monbro:iron-router-breadcrumb
 ian:accounts-ui-bootstrap-3
 alethes:lodash
 juliancwirko:s-alert
@@ -34,7 +37,9 @@ dispatch:mocha-phantomjs
 meteortoys:allthings
 tap:i18n
 u2622:persistent-session
-ostrio:meteor-root
 session
-arboleya:electrify
 vsivsi:job-collection
+service-configuration
+accounts-twitter
+accounts-github
+accounts-google

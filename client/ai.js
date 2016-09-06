@@ -121,9 +121,7 @@ buildIntelligence = function(input, entities) {
   entitiesRaw = entities
 
   // When running meteor tests, TAPi18n's method returns null.
-  var langs = Meteor.isTest ? ['es', 'en'] : lodash.keys(TAPi18n.getLanguages())
-
-  langs = ['es']
+  let langs = Meteor.isTest ? ['es', 'en'] : lodash.keys(TAPi18n.getLanguages())
 
   langs.forEach( function(langCode) {
 
