@@ -23,7 +23,7 @@ Meteor.startup(() => {
       let agg = [
         {
           $match: {
-            i: 'jose-constela-job-positions'
+            t: text
           }
         },
         {
@@ -39,7 +39,10 @@ Meteor.startup(() => {
         },
         {
           $project: {
-            i: 1
+            _id: 1,
+            t: 1,
+            'user.profile': 1,
+            'user._id': 1
           }
         }
       ]

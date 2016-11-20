@@ -37,6 +37,13 @@ inbound = (error, text) => {
 
 }
 
+replacer = (template, obj) => {
+  var keys = Object.keys(obj);
+  var func = Function(...keys, "return `" + template + "`;");
+
+  return func(...keys.map(k => obj[k]));
+}
+
 Template.inboundBox.events({
 
   'submit #inbound-form': (evt, tpl) => {
@@ -58,7 +65,7 @@ Template.inboundBox.events({
     final_transcript = interim_transcript = ''
 
     try {
-      let req = textRequest(txt, 'es', true);
+      let req = textRequest(txt, 'es');
 
       if (req) {
 
@@ -69,19 +76,12 @@ Template.inboundBox.events({
           let w = new Worker('worker.js');
 
           w.onmessage = function (oEvent) {
-            console.log('worker result', oEvent.data)
-
             w.terminate()
             w = undefined
 
-            if(!!trigger.sr) {
-              let hb = new Handlebars()
-              let tpl = hb.compile(
-                lodash.sample(trigger.sr)
-              );
-
+            if(!!oEvent.data && !!trigger.sr) {
               speechSay({
-                t: tpl(oEvent.data)
+                t: replacer(_.sample(trigger.sr), oEvent.data)
               })
             }
 

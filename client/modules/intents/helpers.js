@@ -29,11 +29,12 @@ Template.afArrayField_simpleArray.rendered = () => {
     search: (term, callback) => {
       Meteor.call('entitiesSearch', term, (error, results) => {
         callback($.map(results, (result) => {
-          return result.i
+          return `${result.t}-${result.user.profile.name}_${result._id}`
         }))
       })
     },
-    replace: (word) => {
+    replace: (word, worda, wordb) => {
+      console.log([word, worda, wordb])
       return ` %${word}% `
     }
   }])
